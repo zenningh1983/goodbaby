@@ -206,6 +206,16 @@
   ],
   "requests": [
     {
+      "id": "1764857613220",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t3",
+      "itemName": "準時睡覺 (22:00)",
+      "points": 8000,
+      "status": "pending",
+      "timestamp": "2025-12-04T14:13:33.220Z"
+    },
+    {
       "id": "1764857604489",
       "type": "earn",
       "kidId": "k1",

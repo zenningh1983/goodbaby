@@ -1,0 +1,760 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Camera, Volume2, BookOpen, Brain, CheckCircle, XCircle, Settings, Trash2, Edit3, RotateCcw, Save, Plus, ChevronDown, ArrowLeft, AlertCircle } from 'lucide-react';
+
+// -----------------------------------------------------------------------------
+// 模擬字典資料
+// -----------------------------------------------------------------------------
+const MOCK_DICTIONARY = {
+  apple: { syllable: 'ap-ple', kk: '[ˈæpəl]', translation: '蘋果', sentence: 'I eat an apple every day.' },
+  banana: { syllable: 'ba-na-na', kk: '[bəˈnænə]', translation: '香蕉', sentence: 'Monkeys love bananas.' },
+  cat: { syllable: 'cat', kk: '[kæt]', translation: '貓', sentence: 'The cat is sleeping on the sofa.' },
+  dog: { syllable: 'dog', kk: '[dɔg]', translation: '狗', sentence: 'My dog likes to run in the park.' },
+  elephant: { syllable: 'el-e-phant', kk: '[ˈɛləfənt]', translation: '大象', sentence: 'The elephant has a long nose.' },
+  book: { syllable: 'book', kk: '[bʊk]', translation: '書', sentence: 'She is reading a book.' },
+  school: { syllable: 'school', kk: '[skul]', translation: '學校', sentence: 'I go to school by bus.' },
+  teacher: { syllable: 'teach-er', kk: '[ˈtitʃər]', translation: '老師', sentence: 'The teacher writes on the board.' },
+  student: { syllable: 'stu-dent', kk: '[ˈstudənt]', translation: '學生', sentence: 'The student is doing homework.' },
+  happy: { syllable: 'hap-py', kk: '[ˈhæpi]', translation: '快樂的', sentence: 'I am very happy today.' },
+  red: { syllable: 'red', kk: '[rɛd]', translation: '紅色', sentence: 'Her dress is red.' },
+  blue: { syllable: 'blue', kk: '[blu]', translation: '藍色', sentence: 'The sky is blue.' },
+};
+
+// 預設等級列表
+const DEFAULT_LEVELS = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Hard'];
+
+// 簡單的音節猜測邏輯
+const guessSyllables = (word) => {
+  return word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '')
+             .replace(/^y/, '')
+             .match(/[aeiouy]{1,2}/g)?.join('-') || word;
+};
+
+// -----------------------------------------------------------------------------
+// 主應用程式元件
+// -----------------------------------------------------------------------------
+export default function App() {
+  // --- State ---
+  const [view, setView] = useState('home'); // home, scan, practice, results, wordbank, settings
+  const [words, setWords] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  // Level 管理 State
+  const [levels, setLevels] = useState(DEFAULT_LEVELS);
+  
+  // 單字庫篩選 State
+  const [filterLevel, setFilterLevel] = useState('All');
+
+  // 練習模式 State
+  const [quizConfig, setQuizConfig] = useState({ level: 'All', count: 10, source: 'all' });
+  const [currentQuiz, setCurrentQuiz] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userAnswer, setUserAnswer] = useState('');
+  const [quizResults, setQuizResults] = useState(null);
+
+  // --- 自製 Modal State (取代 window.confirm/alert) ---
+  const [modal, setModal] = useState({ 
+    show: false, 
+    type: 'info', // 'info' (alert) or 'confirm'
+    title: '', 
+    message: '', 
+    onConfirm: null 
+  });
+
+  // Tesseract Worker Ref
+  const workerRef = useRef(null);
+
+  // 初始化讀取 LocalStorage
+  useEffect(() => {
+    const savedWords = localStorage.getItem('english_kids_words');
+    if (savedWords) {
+      setWords(JSON.parse(savedWords));
+    } else {
+      const initialWords = [
+        { id: 1, text: 'apple', level: 'Level 1', ...MOCK_DICTIONARY.apple },
+        { id: 2, text: 'cat', level: 'Level 1', ...MOCK_DICTIONARY.cat },
+        { id: 3, text: 'banana', level: 'Level 2', ...MOCK_DICTIONARY.banana },
+      ];
+      setWords(initialWords);
+      localStorage.setItem('english_kids_words', JSON.stringify(initialWords));
+    }
+
+    const savedLevels = localStorage.getItem('english_kids_levels');
+    if (savedLevels) {
+      setLevels(JSON.parse(savedLevels));
+    }
+
+    const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  // 存檔
+  useEffect(() => {
+    localStorage.setItem('english_kids_words', JSON.stringify(words));
+  }, [words]);
+
+  useEffect(() => {
+    localStorage.setItem('english_kids_levels', JSON.stringify(levels));
+  }, [levels]);
+
+  // --- Helper Functions: Modal ---
+  const showAlert = (title, message) => {
+    setModal({ show: true, type: 'info', title, message, onConfirm: null });
+  };
+
+  const showConfirm = (title, message, onConfirmAction) => {
+    setModal({ show: true, type: 'confirm', title, message, onConfirm: onConfirmAction });
+  };
+
+  const closeModal = () => {
+    setModal(prev => ({ ...prev, show: false }));
+  };
+
+  const handleModalConfirm = () => {
+    if (modal.onConfirm) {
+      modal.onConfirm();
+    }
+    closeModal();
+  };
+
+  // --- 核心功能 ---
+
+  const speak = (text) => {
+    if (!text) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.8;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Level 管理功能
+  const handleAddLevel = () => {
+    const newName = `New Level ${levels.length + 1}`;
+    setLevels([...levels, newName]);
+  };
+
+  const handleRenameLevel = (index, newName) => {
+    const oldName = levels[index];
+    if (oldName === newName) return;
+
+    const newLevels = [...levels];
+    newLevels[index] = newName;
+    setLevels(newLevels);
+
+    const updatedWords = words.map(w => {
+      if (w.level === oldName) {
+        return { ...w, level: newName };
+      }
+      return w;
+    });
+    setWords(updatedWords);
+
+    if (filterLevel === oldName) setFilterLevel(newName);
+    if (quizConfig.level === oldName) setQuizConfig(prev => ({ ...prev, level: newName }));
+  };
+
+  const handleDeleteLevel = (index) => {
+    const levelName = levels[index];
+    const wordsInLevel = words.filter(w => w.level === levelName);
+    
+    if (wordsInLevel.length > 0) {
+      // 使用自製 Modal 進行確認
+      showConfirm(
+        "刪除等級確認",
+        `「${levelName || '未命名'}」裡面還有 ${wordsInLevel.length} 個單字。\n\n刪除此等級後，這些單字將會變更為「Uncategorized」(未分類)。\n\n確定要刪除嗎？`,
+        () => {
+           // 確認後執行的動作
+           const updatedWords = words.map(w => {
+             if (w.level === levelName) return { ...w, level: 'Uncategorized' };
+             return w;
+           });
+           setWords(updatedWords);
+
+           const newLevels = levels.filter((_, i) => i !== index);
+           setLevels(newLevels);
+           
+           if (filterLevel === levelName) setFilterLevel('All');
+        }
+      );
+    } else {
+      // 沒有單字，直接刪除
+      const newLevels = levels.filter((_, i) => i !== index);
+      setLevels(newLevels);
+      if (filterLevel === levelName) setFilterLevel('All');
+    }
+  };
+
+  const handleImageScan = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!window.Tesseract) {
+      showAlert("系統提示", "OCR 引擎載入中，請稍後再試...");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data: { text } } = await window.Tesseract.recognize(file, 'eng');
+      
+      const rawWords = text.match(/\b[a-zA-Z]{3,}\b/g) || [];
+      const uniqueWords = [...new Set(rawWords.map(w => w.toLowerCase()))];
+
+      const newWords = uniqueWords.map(w => {
+        const dictEntry = MOCK_DICTIONARY[w] || {};
+        return {
+          id: Date.now() + Math.random(),
+          text: w,
+          level: levels[0] || 'Uncategorized',
+          syllable: dictEntry.syllable || guessSyllables(w),
+          kk: dictEntry.kk || '[?]',
+          translation: dictEntry.translation || '自訂',
+          sentence: dictEntry.sentence || `This is a ${w}.`,
+        };
+      });
+
+      const currentWordsText = words.map(w => w.text);
+      const filteredNewWords = newWords.filter(w => !currentWordsText.includes(w.text));
+
+      if (filteredNewWords.length === 0) {
+        showAlert("掃描結果", "沒有偵測到新單字，或單字已存在庫中。");
+      } else {
+        setWords(prev => [...prev, ...filteredNewWords]);
+        showAlert("掃描成功", `成功新增 ${filteredNewWords.length} 個單字！請至單字庫確認並設定 Level。`);
+        setView('wordbank');
+      }
+    } catch (err) {
+      console.error(err);
+      showAlert("錯誤", "辨識失敗，請重試");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteWord = (id) => {
+    showConfirm("刪除單字", "確定要將這個單字從單字庫中刪除嗎？", () => {
+      setWords(prev => prev.filter(w => w.id !== id));
+    });
+  };
+
+  const updateWord = (id, field, value) => {
+    setWords(prev => prev.map(w => w.id === id ? { ...w, [field]: value } : w));
+  };
+
+  // --- 練習模式邏輯 ---
+
+  const startPractice = (mistakesToRetry = null) => {
+    let pool = [];
+
+    if (mistakesToRetry) {
+      pool = mistakesToRetry;
+    } else {
+      if (quizConfig.level === 'All') {
+        pool = [...words];
+      } else {
+        pool = words.filter(w => w.level === quizConfig.level);
+      }
+
+      pool.sort(() => Math.random() - 0.5);
+
+      const count = parseInt(quizConfig.count);
+      if (!isNaN(count) && count > 0) {
+        pool = pool.slice(0, count);
+      }
+    }
+
+    if (pool.length === 0) {
+      showAlert("提示", "該等級沒有單字可供練習！");
+      return;
+    }
+
+    setCurrentQuiz(pool);
+    setCurrentIndex(0);
+    setUserAnswer('');
+    setQuizResults(null);
+    setView('practice');
+    
+    setTimeout(() => speak(pool[0].text), 500);
+  };
+
+  const submitAnswer = () => {
+    const currentWord = currentQuiz[currentIndex];
+    const isCorrect = userAnswer.trim().toLowerCase() === currentWord.text.toLowerCase();
+    
+    const resultEntry = {
+      ...currentWord,
+      userAnswer: userAnswer,
+      isCorrect
+    };
+
+    const newResults = quizResults ? { ...quizResults } : { score: 0, mistakes: [], history: [] };
+    if (!newResults.history) newResults.history = [];
+    newResults.history.push(resultEntry);
+    
+    if (isCorrect) newResults.score = (newResults.score || 0) + 1;
+    else newResults.mistakes = [...(newResults.mistakes || []), resultEntry];
+
+    setQuizResults(newResults);
+
+    if (currentIndex < currentQuiz.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+      setUserAnswer('');
+      setTimeout(() => speak(currentQuiz[currentIndex + 1].text), 300);
+    } else {
+      setView('results');
+    }
+  };
+
+  // --- 渲染畫面區塊 ---
+
+  const renderHome = () => (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6 relative">
+      <h1 className="text-4xl font-bold text-blue-600 mb-4 text-center">🦁 英文單字小學堂</h1>
+      
+      <button 
+        onClick={() => setView('settings')}
+        className="absolute top-0 right-4 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition"
+        title="設定"
+      >
+        <Settings size={28} />
+      </button>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-md">
+        <button onClick={() => setView('scan')} className="p-6 bg-yellow-400 rounded-2xl shadow-lg hover:bg-yellow-300 transition flex flex-col items-center">
+          <Camera size={48} className="text-white mb-2" />
+          <span className="text-xl font-bold text-white">拍照加單字</span>
+        </button>
+        <button onClick={() => setView('wordbank')} className="p-6 bg-green-500 rounded-2xl shadow-lg hover:bg-green-400 transition flex flex-col items-center">
+          <BookOpen size={48} className="text-white mb-2" />
+          <span className="text-xl font-bold text-white">單字庫</span>
+        </button>
+        <button onClick={() => setView('setup')} className="p-6 bg-blue-500 rounded-2xl shadow-lg hover:bg-blue-400 transition flex flex-col items-center col-span-1 md:col-span-2">
+          <Brain size={48} className="text-white mb-2" />
+          <span className="text-xl font-bold text-white">聽寫練習</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderSettings = () => (
+    <div className="p-4 max-w-md mx-auto min-h-screen">
+      <div className="flex items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 flex-1">⚙️ 等級設定</h2>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-lg p-4 space-y-4">
+        <p className="text-sm text-gray-500 bg-blue-50 p-3 rounded-lg mb-4">
+          提示：修改名稱後，單字庫中的單字會自動更新。刪除時如果還有單字，會被移到「Uncategorized」。
+        </p>
+        
+        {levels.map((level, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <input 
+              className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              value={level}
+              onChange={(e) => handleRenameLevel(index, e.target.value)}
+              placeholder="輸入等級名稱"
+            />
+            <button 
+              onClick={() => handleDeleteLevel(index)}
+              className="p-3 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"
+              title="刪除"
+            >
+              <Trash2 size={20} />
+            </button>
+          </div>
+        ))}
+
+        <button 
+          onClick={handleAddLevel}
+          className="w-full py-3 mt-4 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-blue-400 hover:text-blue-500 hover:bg-blue-50 transition flex items-center justify-center gap-2 font-bold"
+        >
+          <Plus size={20} /> 新增等級
+        </button>
+      </div>
+
+      <button onClick={() => setView('home')} className="mt-8 w-full py-3 bg-gray-200 text-gray-700 rounded-xl font-bold">返回首頁</button>
+    </div>
+  );
+
+  const renderScan = () => (
+    <div className="flex flex-col items-center p-4">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">📸 拍課本加單字</h2>
+      
+      {loading ? (
+        <div className="flex flex-col items-center space-y-4 py-10">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500"></div>
+          <p className="text-lg text-gray-600">正在努力辨識單字並分析音標...</p>
+        </div>
+      ) : (
+        <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-md space-y-4">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center bg-gray-50 hover:bg-gray-100 transition relative">
+            <input 
+              type="file" 
+              accept="image/*" 
+              capture="environment"
+              onChange={handleImageScan}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <Camera className="mx-auto text-gray-400 mb-2" size={32} />
+            <p className="text-gray-500 font-medium">點擊開啟相機或上傳圖片</p>
+            <p className="text-xs text-gray-400 mt-2">支援英文課本頁面</p>
+          </div>
+          
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h3 className="font-bold text-blue-800 mb-2">💡 提示</h3>
+            <ul className="list-disc list-inside text-sm text-blue-700 space-y-1">
+              <li>請確保光線充足，文字清晰。</li>
+              <li>系統會自動生成音節、KK音標和例句。</li>
+              <li>完成後，請到「單字庫」檢查並設定 Level。</li>
+            </ul>
+          </div>
+        </div>
+      )}
+      <button onClick={() => setView('home')} className="mt-6 text-gray-500 underline">返回首頁</button>
+    </div>
+  );
+
+  const renderWordBank = () => {
+    const uniqueWordLevels = new Set(words.map(w => w.level));
+    const extraLevels = [...uniqueWordLevels].filter(l => !levels.includes(l) && l !== 'All');
+    const allLevels = ['All', ...levels, ...extraLevels];
+
+    const filteredWords = filterLevel === 'All' 
+      ? words 
+      : words.filter(w => w.level === filterLevel);
+
+    return (
+      <div className="p-4 max-w-4xl mx-auto pb-20">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">📚 單字庫 ({words.length})</h2>
+          <button onClick={() => setView('scan')} className="bg-blue-500 text-white p-2 rounded-full shadow hover:bg-blue-600">
+            <Plus size={24} />
+          </button>
+        </div>
+
+        {/* Filter */}
+        <div className="flex space-x-2 overflow-x-auto pb-4 mb-2">
+          {allLevels.map(lvl => (
+            <button
+              key={lvl}
+              onClick={() => setFilterLevel(lvl)}
+              className={`px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition ${
+                filterLevel === lvl ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {lvl}
+            </button>
+          ))}
+        </div>
+
+        {/* List */}
+        <div className="space-y-4">
+          {filteredWords.length === 0 ? (
+            <div className="text-center py-10 text-gray-500">
+              {filterLevel === 'All' ? '這裡還沒有單字喔！快去拍照吧！' : `這個等級 (${filterLevel}) 還沒有單字。`}
+            </div>
+          ) : (
+            filteredWords.map(word => (
+              <div key={word.id} className="bg-white p-4 rounded-xl shadow border-l-4 border-blue-400 flex flex-col md:flex-row gap-4 relative">
+                {/* 內容區 */}
+                <div className="flex-1">
+                  <div className="flex items-baseline space-x-2 mb-1">
+                    <h3 className="text-2xl font-bold text-gray-800">{word.text}</h3>
+                    <span className="text-sm text-gray-500 font-mono bg-gray-100 px-2 rounded">{word.kk}</span>
+                    <span className="text-xs text-blue-500 border border-blue-200 px-1 rounded">{word.syllable}</span>
+                  </div>
+                  
+                  {/* 修改 Level 與 翻譯 區塊 */}
+                  <div className="flex items-center space-x-2 mb-2 bg-gray-50 p-2 rounded-lg">
+                    <div className="flex items-center space-x-1 border-r border-gray-300 pr-2">
+                      <span className="text-xs font-bold text-gray-500">Lv:</span>
+                      {/* 下拉選單修改 Level */}
+                      <div className="relative">
+                        <select 
+                          className="appearance-none text-sm font-semibold bg-white border border-gray-200 text-blue-600 pl-2 pr-6 py-1 rounded focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                          value={word.level} 
+                          onChange={(e) => updateWord(word.id, 'level', e.target.value)}
+                        >
+                          {allLevels.filter(l => l !== 'All').map(level => (
+                            <option key={level} value={level}>{level}</option>
+                          ))}
+                        </select>
+                        <ChevronDown size={14} className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"/>
+                      </div>
+                    </div>
+                    
+                    <input 
+                      className="flex-1 text-sm text-gray-700 font-medium bg-transparent border-b border-dashed border-gray-300 focus:border-blue-500 focus:outline-none px-1"
+                      placeholder="輸入中文翻譯..."
+                      value={word.translation}
+                      onChange={(e) => updateWord(word.id, 'translation', e.target.value)}
+                    />
+                  </div>
+
+                  <p className="text-gray-600 italic text-sm bg-gray-50 p-2 rounded border border-gray-100 flex items-center justify-between">
+                     <span>Example: {word.sentence}</span>
+                     <button onClick={() => speak(word.sentence)} className="ml-2 text-blue-400 hover:text-blue-600">
+                       <Volume2 size={16} />
+                     </button>
+                  </p>
+                </div>
+
+                {/* 動作區 */}
+                <div className="flex md:flex-col justify-between items-end gap-2 pl-2 md:border-l md:border-gray-100 mt-2 md:mt-0">
+                  <button 
+                    onClick={() => speak(word.text)} 
+                    className="p-3 bg-yellow-100 text-yellow-600 rounded-full hover:bg-yellow-200 transition"
+                    title="發音"
+                  >
+                    <Volume2 size={24} />
+                  </button>
+                  <button 
+                    onClick={() => deleteWord(word.id)}
+                    className="p-2 text-red-400 bg-red-50 rounded-full hover:bg-red-500 hover:text-white transition"
+                    title="刪除單字"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        <div className="h-16"></div>
+      </div>
+    );
+  };
+
+  const renderSetup = () => {
+    const uniqueWordLevels = new Set(words.map(w => w.level));
+    const extraLevels = [...uniqueWordLevels].filter(l => !levels.includes(l));
+    const availableLevels = ['All', ...levels, ...extraLevels];
+    
+    return (
+      <div className="p-6 max-w-md mx-auto flex flex-col h-[80vh] justify-center">
+        <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">🎧 聽寫挑戰設定</h2>
+        
+        <div className="space-y-6 bg-white p-6 rounded-2xl shadow-lg">
+          <div>
+            <label className="block text-gray-700 font-bold mb-2">選擇等級 (Level)</label>
+            <select 
+              className="w-full p-3 bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={quizConfig.level}
+              onChange={(e) => setQuizConfig({...quizConfig, level: e.target.value})}
+            >
+              {availableLevels.map(l => <option key={l} value={l}>{l}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-bold mb-2">題目數量</label>
+            <div className="flex items-center space-x-4">
+              <input 
+                type="number" 
+                min="1" 
+                max="50"
+                className="w-full p-3 bg-gray-50 rounded-lg border border-gray-200 text-center text-lg font-bold"
+                value={quizConfig.count}
+                onChange={(e) => setQuizConfig({...quizConfig, count: e.target.value})}
+              />
+              <span className="text-gray-500 whitespace-nowrap">題</span>
+            </div>
+            <p className="text-xs text-gray-400 mt-1">*如果單字不夠，會出全部</p>
+          </div>
+
+          <button 
+            onClick={() => startPractice()}
+            className="w-full py-4 bg-blue-600 text-white rounded-xl text-xl font-bold shadow-lg hover:bg-blue-700 transform active:scale-95 transition mt-4"
+          >
+            開始挑戰！🚀
+          </button>
+        </div>
+        <button onClick={() => setView('home')} className="mt-8 text-center text-gray-500">放棄並返回</button>
+      </div>
+    );
+  };
+
+  const renderPractice = () => {
+    const progress = ((currentIndex + 1) / currentQuiz.length) * 100;
+
+    return (
+      <div className="flex flex-col h-screen max-w-md mx-auto bg-gray-50">
+        <div className="w-full h-2 bg-gray-200">
+          <div className="h-full bg-blue-500 transition-all duration-300" style={{ width: `${progress}%` }}></div>
+        </div>
+
+        <div className="flex-1 flex flex-col items-center justify-center p-6 space-y-8">
+          <div className="text-gray-500 font-bold">Question {currentIndex + 1} / {currentQuiz.length}</div>
+          
+          <button 
+            onClick={() => speak(currentQuiz[currentIndex].text)}
+            className="w-32 h-32 bg-yellow-400 rounded-full shadow-xl flex items-center justify-center transform active:scale-95 transition hover:bg-yellow-300"
+          >
+            <Volume2 size={64} className="text-white" />
+          </button>
+          <p className="text-sm text-gray-400">點擊喇叭聽單字</p>
+
+          <div className="w-full space-y-2">
+            <input 
+              type="text" 
+              autoFocus
+              placeholder="輸入聽到的單字..."
+              className="w-full p-4 text-center text-2xl font-bold rounded-xl border-2 border-blue-200 focus:border-blue-500 focus:outline-none bg-white shadow-inner lowercase"
+              value={userAnswer}
+              onChange={(e) => setUserAnswer(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && submitAnswer()}
+            />
+          </div>
+        </div>
+
+        <div className="p-6 bg-white shadow-inner-top">
+          <button 
+            onClick={submitAnswer}
+            disabled={!userAnswer}
+            className={`w-full py-4 rounded-xl text-xl font-bold shadow-lg transition ${
+              userAnswer ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            {currentIndex === currentQuiz.length - 1 ? '交卷 🏁' : '下一題 ➔'}
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const renderResults = () => {
+    const score = quizResults?.score || 0;
+    const total = currentQuiz.length;
+    const mistakes = quizResults?.mistakes || [];
+    const percentage = Math.round((score / total) * 100);
+
+    return (
+      <div className="p-4 max-w-md mx-auto min-h-screen pb-20">
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 text-center">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">測驗結果</h2>
+          <div className={`text-6xl font-black mb-2 ${percentage === 100 ? 'text-green-500' : percentage >= 60 ? 'text-blue-500' : 'text-red-500'}`}>
+            {score} <span className="text-2xl text-gray-400">/ {total}</span>
+          </div>
+          <p className="text-gray-600 mb-4">
+            {percentage === 100 ? '太厲害了！全對！🎉' : percentage >= 60 ? '做得不錯！繼續加油！💪' : '別灰心，再練習一下！🔥'}
+          </p>
+          
+          <div className="flex gap-2 justify-center">
+            <button onClick={() => setView('home')} className="px-4 py-2 bg-gray-100 rounded-lg text-gray-600 font-bold">回首頁</button>
+            {mistakes.length > 0 && (
+              <button 
+                onClick={() => startPractice(mistakes)}
+                className="px-4 py-2 bg-red-100 text-red-600 rounded-lg font-bold flex items-center gap-1"
+              >
+                <RotateCcw size={16} /> 重練錯題
+              </button>
+            )}
+          </div>
+        </div>
+
+        {mistakes.length > 0 ? (
+          <div className="space-y-4">
+            <h3 className="font-bold text-gray-700 pl-2">錯題檢討 ({mistakes.length})</h3>
+            {mistakes.map((m, idx) => (
+              <div key={idx} className="bg-white p-4 rounded-xl shadow border-l-4 border-red-400">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="text-xl font-bold text-gray-800">{m.text}</h4>
+                  <button onClick={() => speak(m.text)} className="text-blue-500"><Volume2 size={20}/></button>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="bg-red-50 p-2 rounded">
+                    <span className="block text-xs text-red-400">你的答案</span>
+                    <span className="font-mono text-red-700 font-bold line-through">{m.userAnswer || '(未作答)'}</span>
+                  </div>
+                  <div className="bg-green-50 p-2 rounded">
+                    <span className="block text-xs text-green-400">正確答案</span>
+                    <span className="font-mono text-green-700 font-bold">{m.text}</span>
+                  </div>
+                </div>
+                <p className="mt-2 text-xs text-gray-500 bg-gray-100 p-2 rounded">例句: {m.sentence}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center p-10 bg-green-50 rounded-xl border border-green-200 text-green-700 font-bold">
+            完美！沒有任何錯題！✨
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-sky-100 font-sans">
+      <header className="bg-white shadow p-4 sticky top-0 z-10 flex items-center justify-between">
+         {view !== 'home' && (
+           <button onClick={() => setView('home')} className="text-gray-500 hover:text-blue-600">
+             &larr; Home
+           </button>
+         )}
+         <span className="font-bold text-blue-600 text-lg mx-auto">English Kids</span>
+         {view !== 'home' && <div className="w-10"></div>}
+      </header>
+
+      <main>
+        {view === 'home' && renderHome()}
+        {view === 'settings' && renderSettings()}
+        {view === 'scan' && renderScan()}
+        {view === 'wordbank' && renderWordBank()}
+        {view === 'setup' && renderSetup()}
+        {view === 'practice' && renderPractice()}
+        {view === 'results' && renderResults()}
+      </main>
+
+      {/* --- 全域自製 Modal (取代 window.confirm) --- */}
+      {modal.show && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden transform transition-all scale-100">
+            <div className={`p-4 flex items-center gap-3 ${modal.type === 'confirm' ? 'bg-red-50' : 'bg-blue-50'}`}>
+              {modal.type === 'confirm' ? (
+                <AlertCircle className="text-red-500" size={24} />
+              ) : (
+                <CheckCircle className="text-blue-500" size={24} />
+              )}
+              <h3 className={`font-bold text-lg ${modal.type === 'confirm' ? 'text-red-700' : 'text-blue-700'}`}>
+                {modal.title}
+              </h3>
+            </div>
+            
+            <div className="p-6">
+              <p className="text-gray-600 whitespace-pre-wrap leading-relaxed">{modal.message}</p>
+            </div>
+
+            <div className="p-4 bg-gray-50 flex justify-end gap-3">
+              {modal.type === 'confirm' && (
+                <button 
+                  onClick={closeModal}
+                  className="px-4 py-2 rounded-lg text-gray-600 font-bold hover:bg-gray-200 transition"
+                >
+                  取消
+                </button>
+              )}
+              <button 
+                onClick={handleModalConfirm}
+                className={`px-6 py-2 rounded-lg text-white font-bold shadow-md transition transform active:scale-95 ${
+                  modal.type === 'confirm' 
+                    ? 'bg-red-500 hover:bg-red-600' 
+                    : 'bg-blue-500 hover:bg-blue-600'
+                }`}
+              >
+                {modal.type === 'confirm' ? '確定刪除' : '我知道了'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

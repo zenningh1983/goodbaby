@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>好寶寶集點卡 (雲端版)</title>
-    <!-- React Core -->
+    <!-- React Core (修正連結) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
     <!-- Babel -->
@@ -28,12 +28,6 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes pop { 0% { transform: scale(0.95); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
         .animate-pop { animation: pop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
-        @keyframes blob { 0% { transform: translate(0px, 0px) scale(1); } 33% { transform: translate(30px, -50px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } 100% { transform: translate(0px, 0px) scale(1); } }
-        .animate-blob { animation: blob 7s infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
         .spin-slow { animation: spin 2s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
@@ -42,29 +36,27 @@
     <div id="root" class="w-full h-full"></div>
 
     <script type="text/babel" data-presets="env,react">
-        const { useState, useEffect, useRef, useCallback } = React;
+        const { useState, useEffect, useRef } = React;
 
         // =============== ☁️ GitHub 設定區 (請在此填入您的資訊) ===============
-        // 重要：請將下方的空字串 "" 替換成您的真實資訊
-        // Token 必須是全英文數字，不能包含中文
+        // ⚠️ 注意：Token 請重新產生，舊的可能已失效
         const GITHUB_CONFIG = {
-            // 1. 您的 GitHub Personal Access Token (例如: "ghp_12345...")
-            TOKEN: "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", 
+            // 1. 您的 GitHub Personal Access Token
+            TOKEN: "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", 
             
-            // 2. 您的 GitHub 帳號/儲存庫名稱 (例如: "wang-mama/reward-app")
+            // 2. 您的 GitHub 帳號/儲存庫名稱 (例如: "yourname/goodbaby")
             REPO: "zenningh1983/goodbaby", 
             
-            // 3. 儲存的檔案名稱 (例如: "data.json")
+            // 3. 儲存的檔案名稱
             PATH: "data.json" 
         };
         // ===================================================================
 
-        // 檢查 GitHub 設定是否有效 (防呆機制)
+        // 檢查 GitHub 設定是否有效
         const isGithubConfigValid = () => {
             const { TOKEN, REPO } = GITHUB_CONFIG;
-            // 檢查是否為空，或是否包含非 ASCII 字元 (例如中文)
             if (!TOKEN || !REPO) return false;
-            // 簡單檢查 Token 是否包含中文 (避免 fetch 報錯)
+            // 檢查 Token 是否包含中文 (避免 401 錯誤)
             if (/[^\x00-\x7F]/.test(TOKEN)) {
                 console.warn("GitHub Token 包含非英文符號，請檢查設定");
                 return false;
@@ -104,7 +96,8 @@
             Github: (p) => <IconBase {...p}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></IconBase>
         };
 
-        const { Trophy, Gift, Settings, User, Users, Check, X, Plus, Trash, Upload, Clock, ShieldCheck, LogOut, Star, Edit, Heart, Lock, AlertTriangle, Cloud, CloudCheck, RefreshCw, Github } = Icons;
+        // 確保這裡解構了所有使用的圖示
+        const { Trophy, Gift, Settings, User, Users, Check, X, Plus, Trash, Upload, FileDown, FileUp, Clock, ShieldCheck, LogOut, Star, Edit, Heart, Lock, AlertTriangle, Cloud, CloudCheck, RefreshCw, Github } = Icons;
 
         const DEFAULT_PASSWORD = "0000";
         const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E";
@@ -251,11 +244,18 @@
             // GitHub Config State
             const [ghConfig, setGhConfig] = useState(() => {
                 try {
-                    // 優先使用 localStorage 設定，若無則使用代碼中的預設
                     const saved = JSON.parse(localStorage.getItem('kids_reward_gh_config'));
+                    // 檢查 GITHUB_CONFIG 是否包含中文提示 (即使用者未修改)
+                    // 如果有中文，就不用預設值
+                    const isDefaultToken = /[^\x00-\x7F]/.test(GITHUB_CONFIG.TOKEN);
+                    // 如果 localStorage 有設定，使用它
                     if (saved && saved.token) return saved;
-                    return { token: GITHUB_CONFIG.TOKEN, repo: GITHUB_CONFIG.REPO, path: GITHUB_CONFIG.PATH };
-                } catch { return { token: GITHUB_CONFIG.TOKEN, repo: GITHUB_CONFIG.REPO, path: GITHUB_CONFIG.PATH }; }
+                    // 如果使用者有正確修改程式碼中的 GITHUB_CONFIG，則使用它
+                    if (!isDefaultToken && GITHUB_CONFIG.TOKEN) {
+                        return { token: GITHUB_CONFIG.TOKEN, repo: GITHUB_CONFIG.REPO, path: GITHUB_CONFIG.PATH };
+                    }
+                    return { token: '', repo: '', path: 'data.json' };
+                } catch { return { token: '', repo: '', path: 'data.json' }; }
             });
             const [showGhConfig, setShowGhConfig] = useState(false);
             const [isSyncing, setIsSyncing] = useState(false);
@@ -279,7 +279,7 @@
             // GitHub Sync Functions
             const handleSaveToGitHub = async () => {
                 if (!isGithubConfigValid()) {
-                    alert('請先在程式碼或設定中填入正確的 GitHub Token 和 Repository (不能包含中文)');
+                    alert('請先設定 GitHub 資料');
                     setShowGhConfig(true);
                     return;
                 }
@@ -311,7 +311,7 @@
 
             const handleLoadFromGitHub = async () => {
                 if (!isGithubConfigValid()) {
-                    alert('請先在程式碼或設定中填入正確的 GitHub Token 和 Repository (不能包含中文)');
+                    alert('請先設定 GitHub 資料');
                     setShowGhConfig(true);
                     return;
                 }
@@ -417,10 +417,12 @@
             const [ghConfig, setGhConfig] = useState(() => {
                 try {
                     const saved = JSON.parse(localStorage.getItem('kids_reward_gh_config'));
-                    // 如果 localStorage 有設定，使用它；否則使用代碼中的常數 (如果常數不是預設值)
-                    if (saved && saved.token) return saved;
                     // 檢查 GITHUB_CONFIG 是否包含中文提示 (即使用者未修改)
+                    // 如果有中文，就不用預設值
                     const isDefaultToken = /[^\x00-\x7F]/.test(GITHUB_CONFIG.TOKEN);
+                    // 如果 localStorage 有設定，使用它
+                    if (saved && saved.token) return saved;
+                    // 如果使用者有正確修改程式碼中的 GITHUB_CONFIG，則使用它
                     if (!isDefaultToken && GITHUB_CONFIG.TOKEN) {
                         return { token: GITHUB_CONFIG.TOKEN, repo: GITHUB_CONFIG.REPO, path: GITHUB_CONFIG.PATH };
                     }

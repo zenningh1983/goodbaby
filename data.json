@@ -206,6 +206,16 @@
   ],
   "requests": [
     {
+      "id": "1764857655789",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764842844312",
+      "itemName": "準時起床 (06:30)",
+      "points": 8000,
+      "status": "pending",
+      "timestamp": "2025-12-04T14:14:15.789Z"
+    },
+    {
       "id": "1764857613220",
       "type": "earn",
       "kidId": "k1",

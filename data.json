@@ -1,0 +1,202 @@
+{
+  "kids": [
+    {
+      "id": "k1",
+      "name": "蕃茄",
+      "balance": 0,
+      "avatar": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E"
+    },
+    {
+      "id": "k1764842571109",
+      "name": "茹茹",
+      "balance": 0,
+      "avatar": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "title": "整理書桌",
+      "points": 3000,
+      "assignedTo": [
+        "k1"
+      ]
+    },
+    {
+      "id": "t2",
+      "title": "洗便當洗水壺",
+      "points": 3000,
+      "assignedTo": [
+        "k1"
+      ]
+    },
+    {
+      "id": "t3",
+      "title": "準時睡覺 (22:00)",
+      "points": 8000,
+      "assignedTo": [
+        "k1"
+      ]
+    },
+    {
+      "id": "t1764842844312",
+      "title": "準時起床 (06:30)",
+      "points": 8000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764842872007",
+      "title": "做家事（收+倒垃圾、收+折衣服、洗全家碗、澆花）",
+      "points": 5000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764842930203",
+      "title": "打掃（刷廁所、拖全家地）",
+      "points": 10000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764842976525",
+      "title": "主動拿出聯絡簿",
+      "points": 2500,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764843506878",
+      "title": "大考 100 分",
+      "points": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764843524965",
+      "title": "大考 90 分以上",
+      "points": 30000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764843549090",
+      "title": "大考 80 分以上",
+      "points": 10000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764843702178",
+      "title": "大考平均 90 以上",
+      "points": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764843718325",
+      "title": "大考平均 80 以上",
+      "points": 30000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "t1764843871614",
+      "title": "看完一本文字書（有心得）",
+      "points": 30000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "id": "r1",
+      "title": "看電視 30 分鐘",
+      "cost": 20000
+    },
+    {
+      "id": "r3",
+      "title": "久大文具 $100",
+      "cost": 25000
+    },
+    {
+      "id": "r1764842755781",
+      "title": "玩 3C 15 分鐘",
+      "cost": 20000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "r1764842788062",
+      "title": "住婆婆家",
+      "cost": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "r1764842804595",
+      "title": "同學住我們家",
+      "cost": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "r1764843590291",
+      "title": "小時候彈珠 $100",
+      "cost": 25000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "r1764843641021",
+      "title": "零用錢 $200",
+      "cost": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    },
+    {
+      "id": "r1764843744900",
+      "title": "喝手搖飲",
+      "cost": 20000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ]
+    }
+  ],
+  "requests": [],
+  "settings": {
+    "password": "1007"
+  }
+}

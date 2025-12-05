@@ -197,6 +197,86 @@
   ],
   "requests": [
     {
+      "id": "1764912464343",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764843524965",
+      "itemName": "大考 90 分以上",
+      "points": 30000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:44.343Z"
+    },
+    {
+      "id": "1764912463759",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764842930203",
+      "itemName": "打掃（刷廁所、拖全家地）",
+      "points": 10000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:43.759Z"
+    },
+    {
+      "id": "1764912463227",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t3",
+      "itemName": "準時睡覺 (22:00)",
+      "points": 8000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:43.227Z"
+    },
+    {
+      "id": "1764912462678",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t2",
+      "itemName": "洗便當洗水壺",
+      "points": 3000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:42.678Z"
+    },
+    {
+      "id": "1764912462061",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764842976525",
+      "itemName": "主動拿出聯絡簿",
+      "points": 2500,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:42.061Z"
+    },
+    {
+      "id": "1764912461459",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764843506878",
+      "itemName": "大考 100 分",
+      "points": 50000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:41.459Z"
+    },
+    {
+      "id": "1764912460759",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764842872007",
+      "itemName": "做家事（收+倒垃圾、收+折衣服、洗全家碗、澆花）",
+      "points": 5000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:40.759Z"
+    },
+    {
+      "id": "1764912460077",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1",
+      "itemName": "整理書桌",
+      "points": 3000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:27:40.077Z"
+    },
+    {
       "id": "1764857848637",
       "type": "earn",
       "kidId": "k1",

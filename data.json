@@ -197,6 +197,16 @@
   ],
   "requests": [
     {
+      "id": "1764934670506",
+      "type": "earn",
+      "kidId": "k1764913266613",
+      "itemId": "t1764843524965",
+      "itemName": "大考 90 分以上",
+      "points": 30000,
+      "status": "pending",
+      "timestamp": "2025-12-05T11:37:50.506Z"
+    },
+    {
       "id": "1764913021856",
       "type": "spend",
       "kidId": "k1",

@@ -273,7 +273,7 @@
       "itemId": "r1764843641021",
       "itemName": "零用錢 $200",
       "points": 50000,
-      "status": "pending",
+      "status": "rejected",
       "timestamp": "2025-12-05T05:28:33.791Z"
     },
     {
@@ -283,7 +283,7 @@
       "itemId": "r1764842788062",
       "itemName": "住婆婆家",
       "points": 50000,
-      "status": "pending",
+      "status": "rejected",
       "timestamp": "2025-12-05T05:28:33.325Z"
     },
     {
@@ -293,7 +293,7 @@
       "itemId": "r1764842804595",
       "itemName": "同學住我們家",
       "points": 50000,
-      "status": "pending",
+      "status": "rejected",
       "timestamp": "2025-12-05T05:28:32.908Z"
     },
     {

@@ -15,16 +15,16 @@
   ],
   "tasks": [
     {
-      "id": "t1",
-      "title": "整理書桌",
+      "id": "t2",
+      "title": "洗便當洗水壺",
       "points": 3000,
       "assignedTo": [
         "k1"
       ]
     },
     {
-      "id": "t2",
-      "title": "洗便當洗水壺",
+      "id": "t1",
+      "title": "整理書桌",
       "points": 3000,
       "assignedTo": [
         "k1"

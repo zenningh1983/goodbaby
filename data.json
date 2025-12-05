@@ -197,6 +197,86 @@
   ],
   "requests": [
     {
+      "id": "1764912516942",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r1764843744900",
+      "itemName": "喝手搖飲",
+      "points": 20000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:36.942Z"
+    },
+    {
+      "id": "1764912516374",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r1764843590291",
+      "itemName": "小時候彈珠 $100",
+      "points": 25000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:36.374Z"
+    },
+    {
+      "id": "1764912515825",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r1764842755781",
+      "itemName": "玩 3C 15 分鐘",
+      "points": 20000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:35.825Z"
+    },
+    {
+      "id": "1764912515025",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r1",
+      "itemName": "看電視 30 分鐘",
+      "points": 20000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:35.025Z"
+    },
+    {
+      "id": "1764912513791",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r1764843641021",
+      "itemName": "零用錢 $200",
+      "points": 50000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:33.791Z"
+    },
+    {
+      "id": "1764912513325",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r1764842788062",
+      "itemName": "住婆婆家",
+      "points": 50000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:33.325Z"
+    },
+    {
+      "id": "1764912512908",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r1764842804595",
+      "itemName": "同學住我們家",
+      "points": 50000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:32.908Z"
+    },
+    {
+      "id": "1764912512476",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r3",
+      "itemName": "久大文具 $100",
+      "points": 25000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:28:32.476Z"
+    },
+    {
       "id": "1764912488958",
       "type": "earn",
       "kidId": "k1",

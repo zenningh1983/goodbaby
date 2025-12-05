@@ -197,6 +197,66 @@
   ],
   "requests": [
     {
+      "id": "1764913021856",
+      "type": "spend",
+      "kidId": "k1",
+      "itemId": "r3",
+      "itemName": "久大文具 $100",
+      "points": 25000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:37:01.856Z"
+    },
+    {
+      "id": "1764913020290",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t2",
+      "itemName": "洗便當洗水壺",
+      "points": 3000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:37:00.290Z"
+    },
+    {
+      "id": "1764913019906",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t2",
+      "itemName": "洗便當洗水壺",
+      "points": 3000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:36:59.906Z"
+    },
+    {
+      "id": "1764913019539",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1",
+      "itemName": "整理書桌",
+      "points": 3000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:36:59.539Z"
+    },
+    {
+      "id": "1764913019139",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764842844312",
+      "itemName": "準時起床 (06:30)",
+      "points": 8000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:36:59.139Z"
+    },
+    {
+      "id": "1764913018773",
+      "type": "earn",
+      "kidId": "k1",
+      "itemId": "t1764842872007",
+      "itemName": "做家事（收+倒垃圾、收+折衣服、洗全家碗、澆花）",
+      "points": 5000,
+      "status": "pending",
+      "timestamp": "2025-12-05T05:36:58.773Z"
+    },
+    {
       "id": "1764912773830",
       "type": "earn",
       "kidId": "k1",

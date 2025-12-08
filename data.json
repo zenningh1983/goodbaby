@@ -64,6 +64,15 @@
       "categoryId": "tc1765201986185"
     },
     {
+      "id": "t2",
+      "title": "洗便當洗水壺",
+      "points": 1000,
+      "assignedTo": [
+        "k1"
+      ],
+      "categoryId": "tc1765201995001"
+    },
+    {
       "id": "t1764843718325",
       "title": "大考平均80分以上",
       "points": 30000,
@@ -120,15 +129,6 @@
       "assignedTo": [
         "k1",
         "k1764842571109"
-      ],
-      "categoryId": "tc1765201995001"
-    },
-    {
-      "id": "t2",
-      "title": "洗便當洗水壺",
-      "points": 1000,
-      "assignedTo": [
-        "k1"
       ],
       "categoryId": "tc1765201995001"
     },

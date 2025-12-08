@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- SortableJS (用於拖曳排序) -->
+    <!-- SortableJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap');
@@ -27,10 +27,9 @@
         .glass-card { background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: transform 0.1s ease, box-shadow 0.2s ease; }
         .glass-card:active { transform: scale(0.95); }
         
-        /* 拖曳時的樣式 */
         .sortable-ghost { opacity: 0.4; background: #e0e7ff; border: 2px dashed #6366f1; }
         .sortable-drag { cursor: grabbing; }
-        .drag-handle { cursor: grab; touch-action: none; } /* touch-action none 重要，防止拖曳時觸發滾動 */
+        .drag-handle { cursor: grab; touch-action: none; }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -41,7 +40,6 @@
         .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
         @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* 安全區域設定 */
         .pt-safe { padding-top: env(safe-area-inset-top); }
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
         .mb-safe { margin-bottom: env(safe-area-inset-bottom); }
@@ -105,10 +103,11 @@
             Github: (p) => <IconBase {...p}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></IconBase>,
             ThumbsUp: (p) => <IconBase {...p}><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></IconBase>,
             ThumbsDown: (p) => <IconBase {...p}><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></IconBase>,
-            GripVertical: (p) => <IconBase {...p}><circle cx="9" cy="12" r="1" /><circle cx="9" cy="5" r="1" /><circle cx="9" cy="19" r="1" /><circle cx="15" cy="12" r="1" /><circle cx="15" cy="5" r="1" /><circle cx="15" cy="19" r="1" /></IconBase>
+            GripVertical: (p) => <IconBase {...p}><circle cx="9" cy="12" r="1" /><circle cx="9" cy="5" r="1" /><circle cx="9" cy="19" r="1" /><circle cx="15" cy="12" r="1" /><circle cx="15" cy="5" r="1" /><circle cx="15" cy="19" r="1" /></IconBase>,
+            Tag: (p) => <IconBase {...p}><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></IconBase>
         };
 
-        const { Trophy, Gift, Settings, User, Users, Check, X, Plus, Trash, Upload, FileDown, FileUp, Clock, ShieldCheck, LogOut, Star, Edit, Heart, Lock, AlertTriangle, Cloud, CloudCheck, RefreshCw, Github, ThumbsUp, ThumbsDown, GripVertical } = Icons;
+        const { Trophy, Gift, Settings, User, Users, Check, X, Plus, Trash, Upload, FileDown, FileUp, Clock, ShieldCheck, LogOut, Star, Edit, Heart, Lock, AlertTriangle, Cloud, CloudCheck, RefreshCw, Github, ThumbsUp, ThumbsDown, GripVertical, Tag } = Icons;
 
         const DEFAULT_PASSWORD = "0000";
         const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E";
@@ -118,31 +117,27 @@
                 { id: "k1", name: "蕃茄", balance: 0, avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E" },
                 { id: "k1764842571109", name: "茹茹", balance: 0, avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E" }
             ],
+            taskCategories: [
+                { id: 'tc1', name: '生活習慣' },
+                { id: 'tc2', name: '家事打掃' },
+                { id: 'tc3', name: '學科' }
+            ],
             tasks: [
-                { id: "t1", title: "整理書桌", points: 3000, assignedTo: ["k1"] },
-                { id: "t2", title: "洗便當洗水壺", points: 3000, assignedTo: ["k1"] },
-                { id: "t3", title: "準時睡覺 (22:00)", points: 8000, assignedTo: ["k1"] },
-                { id: "t1764842844312", title: "準時起床 (06:30)", points: 8000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764842872007", title: "做家事（收+倒垃圾、收+折衣服、洗全家碗、澆花）", points: 5000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764842930203", title: "打掃（刷廁所、拖全家地）", points: 10000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764842976525", title: "主動拿出聯絡簿", points: 2500, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764843506878", title: "大考 100 分", points: 50000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764843524965", title: "大考 90 分以上", points: 30000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764843549090", title: "大考 80 分以上", points: 10000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764843702178", title: "大考平均 90 以上", points: 50000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764843718325", title: "大考平均 80 以上", points: 30000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764843871614", title: "看完一本文字書（有心得）", points: 30000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "t1764844777928", title: "test", points: 1, assignedTo: ["k1", "k1764842571109"] }
+                { id: "t1", title: "整理書桌", points: 3000, categoryId: 'tc1', assignedTo: ["k1"] },
+                { id: "t2", title: "洗便當洗水壺", points: 3000, categoryId: 'tc2', assignedTo: ["k1"] },
+                { id: "t3", title: "準時睡覺 (22:00)", points: 8000, categoryId: 'tc1', assignedTo: ["k1"] },
+                { id: "t1764842844312", title: "準時起床 (06:30)", points: 8000, categoryId: 'tc1', assignedTo: ["k1", "k1764842571109"] },
+                { id: "t1764842872007", title: "做家事", points: 5000, categoryId: 'tc2', assignedTo: ["k1", "k1764842571109"] },
+                { id: "t1764842930203", title: "打掃", points: 10000, categoryId: 'tc2', assignedTo: ["k1", "k1764842571109"] },
+                { id: "t1764842976525", title: "主動拿出聯絡簿", points: 2500, categoryId: 'tc1', assignedTo: ["k1", "k1764842571109"] },
+                { id: "t1764843506878", title: "大考 100 分", points: 50000, categoryId: 'tc3', assignedTo: ["k1", "k1764842571109"] },
+                { id: "t1764843524965", title: "大考 90 分以上", points: 30000, categoryId: 'tc3', assignedTo: ["k1", "k1764842571109"] }
             ],
             rewards: [
                 { id: "r1", title: "看電視 30 分鐘", cost: 20000 },
                 { id: "r3", title: "久大文具 $100", cost: 25000 },
                 { id: "r1764842755781", title: "玩 3C 15 分鐘", cost: 20000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "r1764842788062", title: "住婆婆家", cost: 50000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "r1764842804595", title: "同學住我們家", cost: 50000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "r1764843590291", title: "小時候彈珠 $100", cost: 25000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "r1764843641021", title: "零用錢 $200", cost: 50000, assignedTo: ["k1", "k1764842571109"] },
-                { id: "r1764843744900", title: "喝手搖飲", cost: 20000, assignedTo: ["k1", "k1764842571109"] }
+                { id: "r1764842788062", title: "住婆婆家", cost: 50000, assignedTo: ["k1", "k1764842571109"] }
             ],
             requests: [],
             settings: {
@@ -191,13 +186,16 @@
         };
 
         // Views
-        const KidView = ({ kid, tasks, rewards, requests, onRequest }) => {
+        const KidView = ({ kid, tasks, rewards, requests, taskCategories, onRequest }) => {
             const [tab, setTab] = useState('earn');
             const [hType, setHType] = useState('earn');
             const [hStatus, setHStatus] = useState('all');
+            const [selectedCategory, setSelectedCategory] = useState('all');
 
             const pendingCount = requests.filter(r => r.kidId === kid.id && r.status === 'pending').length;
             const STATUS_LABELS = { 'all': '全部', 'approved': '已通過', 'pending': '審核中', 'rejected': '已拒絕' };
+
+            const filteredTasks = tasks.filter(t => selectedCategory === 'all' || t.categoryId === selectedCategory);
 
             return (
                 <div className="space-y-6">
@@ -210,15 +208,21 @@
                     <div className="pb-24 px-2">
                         {tab === 'earn' && (
                             <>
-                                <h2 className="text-lg font-bold text-slate-700 px-2 flex items-center gap-2 mb-3"><Star className="text-yellow-500" /> 選擇任務</h2>
-                                {tasks.length === 0 ? <p className="text-center text-slate-400 py-10">目前沒有任務喔！</p> : 
+                                <div className="flex items-center gap-2 mb-3 overflow-x-auto no-scrollbar pb-1">
+                                    <button onClick={() => setSelectedCategory('all')} className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${selectedCategory === 'all' ? 'bg-slate-700 text-white' : 'bg-white text-slate-500'}`}>全部</button>
+                                    {taskCategories.map(c => (
+                                        <button key={c.id} onClick={() => setSelectedCategory(c.id)} className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${selectedCategory === c.id ? 'bg-blue-500 text-white' : 'bg-white text-slate-500'}`}>{c.name}</button>
+                                    ))}
+                                </div>
+                                {filteredTasks.length === 0 ? <p className="text-center text-slate-400 py-10">此分類沒有任務喔！</p> : 
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                    {tasks.map(task => (
-                                        <button key={task.id} onClick={() => onRequest('earn', task, task.points)} className="glass-card p-4 rounded-3xl flex flex-col items-center justify-center gap-3 transition-all active:scale-95 hover:bg-white/60 group">
+                                    {filteredTasks.map(task => (
+                                        <button key={task.id} onClick={() => onRequest('earn', task, task.points)} className="glass-card p-4 rounded-3xl flex flex-col items-center justify-center gap-3 transition-all active:scale-95 hover:bg-white/60 group relative overflow-hidden">
+                                            {task.categoryId && <div className="absolute top-0 right-0 bg-blue-100 text-blue-600 text-[10px] px-2 py-0.5 rounded-bl-xl font-bold">{taskCategories.find(c=>c.id===task.categoryId)?.name}</div>}
                                             <div className="w-14 h-14 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                                 <Trophy size={28} />
                                             </div>
-                                            <div className="text-center">
+                                            <div className="text-center mt-1">
                                                 <div className="font-bold text-slate-800 leading-tight mb-1">{task.title}</div>
                                                 <div className="text-sm font-extrabold text-blue-500">+{task.points}</div>
                                             </div>
@@ -315,7 +319,7 @@
             const [error, setError] = useState(false);
             const handleNum = (num) => { if (input.length < 4) { const next = input + num; setInput(next); setError(false); if (next.length === 4) { if (next === password) onLogin(); else { setTimeout(() => { setError(true); setInput(""); }, 200); } } } };
             return (
-                <div className="flex flex-col items-center justify-center min-h-full py-12 animate-slide-up">
+                <div className="flex flex-col items-center justify-center h-full pb-20 animate-slide-up">
                     <div className="mb-8 text-center"><div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4"><ShieldCheck size={32} /></div><h2 className="text-2xl font-bold text-slate-800">家長驗證</h2><p className="text-slate-500">請輸入 4 位數密碼 (預設 0000)</p></div>
                     <div className="flex gap-4 mb-8">{[0, 1, 2, 3].map(i => (<div key={i} className={`w-4 h-4 rounded-full transition-all ${input.length > i ? 'bg-indigo-500' : 'bg-slate-200'} ${error ? 'bg-red-500 animate-pulse' : ''}`}></div>))}</div>
                     <div className="grid grid-cols-3 gap-4 w-64">{[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => (<button key={n} onClick={() => handleNum(n.toString())} className="h-16 rounded-full glass font-bold text-xl active:bg-indigo-100 transition-colors">{n}</button>))}<div className="col-start-2"><button onClick={() => handleNum("0")} className="w-full h-16 rounded-full glass font-bold text-xl active:bg-indigo-100 transition-colors">0</button></div><div className="col-start-3 flex justify-center items-center"><button onClick={() => setInput(input.slice(0, -1))} className="p-4 text-slate-500 active:text-slate-800"><X size={24} /></button></div></div>
@@ -327,7 +331,7 @@
             const [view, setView] = useState('requests');
             const [itemTab, setItemTab] = useState('tasks');
             const [requestType, setRequestType] = useState('earn'); 
-            const [newItem, setNewItem] = useState({ title: '', value: '' });
+            const [newItem, setNewItem] = useState({ title: '', value: '', categoryId: '' });
             const [editingType, setEditingType] = useState(null);
             const [editingItemId, setEditingItemId] = useState(null);
             const [newKidName, setNewKidName] = useState('');
@@ -339,6 +343,8 @@
             const [showResetModal, setShowResetModal] = useState(false);
             const [showDangerZone, setShowDangerZone] = useState(false);
             const [itemToDelete, setItemToDelete] = useState(null);
+            const [showCatManager, setShowCatManager] = useState(false);
+            const [newCatName, setNewCatName] = useState('');
             const gridRef = useRef(null);
             const sortableInstance = useRef(null);
             
@@ -357,88 +363,49 @@
             const [showGhConfig, setShowGhConfig] = useState(false);
             const [isSyncing, setIsSyncing] = useState(false);
 
-            useEffect(() => {
-                localStorage.setItem('kids_reward_gh_config', JSON.stringify(ghConfig));
-            }, [ghConfig]);
+            useEffect(() => { localStorage.setItem('kids_reward_gh_config', JSON.stringify(ghConfig)); }, [ghConfig]);
 
-            // SortableJS Integration with safety checks
             useEffect(() => {
                 const el = gridRef.current;
-
                 if (el && (view === 'items' || view === 'members')) {
-                    if (sortableInstance.current) {
-                        try { sortableInstance.current.destroy(); } catch(e) { console.warn("Sortable destroy error", e); }
-                        sortableInstance.current = null;
-                    }
-
-                    sortableInstance.current = new Sortable(el, {
-                        animation: 150,
-                        handle: '.drag-handle', 
-                        delay: 100, 
-                        delayOnTouchOnly: true,
-                        onEnd: (evt) => {
-                            if (evt.oldIndex === evt.newIndex) return;
-                            
-                            let listKey = '';
-                            if (view === 'members') listKey = 'kids';
-                            else if (view === 'items') listKey = itemTab;
-                            
-                            if (listKey) {
-                                setData(prev => {
-                                    const newList = [...prev[listKey]];
-                                    if (evt.oldIndex < newList.length && evt.newIndex < newList.length) {
-                                        const [moved] = newList.splice(evt.oldIndex, 1);
-                                        newList.splice(evt.newIndex, 0, moved);
-                                        return { ...prev, [listKey]: newList };
-                                    }
-                                    return prev;
-                                });
-                            }
-                        }
-                    });
+                    if (sortableInstance.current) { try { sortableInstance.current.destroy(); } catch(e) {} sortableInstance.current = null; }
+                    sortableInstance.current = new Sortable(el, { animation: 150, handle: '.drag-handle', delay: 100, delayOnTouchOnly: true, onEnd: (evt) => {
+                        if (evt.oldIndex === evt.newIndex) return;
+                        let listKey = view === 'members' ? 'kids' : itemTab;
+                        setData(prev => { const newList = [...prev[listKey]]; const [moved] = newList.splice(evt.oldIndex, 1); newList.splice(evt.newIndex, 0, moved); return { ...prev, [listKey]: newList }; });
+                    }});
                 }
-                
-                return () => {
-                    if (sortableInstance.current) {
-                         try { sortableInstance.current.destroy(); } catch (e) { console.warn("Sortable cleanup error", e); }
-                         sortableInstance.current = null;
-                    }
-                };
+                return () => { if (sortableInstance.current) { try { sortableInstance.current.destroy(); } catch (e) {} sortableInstance.current = null; } };
             }, [view, itemTab]);
 
             const pendingRequests = data.requests.filter(r => r.status === 'pending' && r.type === requestType);
             const totalPendingCount = data.requests.filter(r => r.status === 'pending').length;
 
-            const saveItem = (type) => { if (!newItem.title || !newItem.value) return; if (editingItemId) { setData(prev => ({ ...prev, [type]: prev[type].map(item => item.id === editingItemId ? { ...item, title: newItem.title, [type === 'tasks' ? 'points' : 'cost']: parseInt(newItem.value) } : item) })); setEditingItemId(null); } else { const item = { id: type === 'tasks' ? `t${Date.now()}` : `r${Date.now()}`, title: newItem.title, [type === 'tasks' ? 'points' : 'cost']: parseInt(newItem.value), assignedTo: data.kids.map(k => k.id) }; setData(prev => ({ ...prev, [type]: [...prev[type], item] })); } setNewItem({ title: '', value: '' }); setEditingType(null); };
-            const startEditItem = (type, item) => { setNewItem({ title: item.title, value: item.points || item.cost }); setEditingType(type); setEditingItemId(item.id); };
-            const cancelEditItem = () => { setNewItem({ title: '', value: '' }); setEditingType(null); setEditingItemId(null); };
-            
+            const saveItem = (type) => { 
+                if (!newItem.title || !newItem.value) return; 
+                if (editingItemId) { 
+                    setData(prev => ({ ...prev, [type]: prev[type].map(item => item.id === editingItemId ? { ...item, title: newItem.title, [type === 'tasks' ? 'points' : 'cost']: parseInt(newItem.value), categoryId: newItem.categoryId } : item) })); 
+                    setEditingItemId(null); 
+                } else { 
+                    const item = { id: type === 'tasks' ? `t${Date.now()}` : `r${Date.now()}`, title: newItem.title, [type === 'tasks' ? 'points' : 'cost']: parseInt(newItem.value), categoryId: newItem.categoryId, assignedTo: data.kids.map(k => k.id) }; 
+                    setData(prev => ({ ...prev, [type]: [...prev[type], item] })); 
+                } 
+                setNewItem({ title: '', value: '', categoryId: '' }); 
+                setEditingType(null); 
+            };
+            const startEditItem = (type, item) => { setNewItem({ title: item.title, value: item.points || item.cost, categoryId: item.categoryId || '' }); setEditingType(type); setEditingItemId(item.id); };
             const confirmDelete = (type, id) => { setItemToDelete({ type, id }); };
-            const executeDelete = () => {
-                if (!itemToDelete) return;
-                const { type, id } = itemToDelete;
-                setData(prev => {
-                    const newState = { ...prev };
-                    if (type === 'kids') {
-                        newState.kids = prev.kids.filter(k => k.id !== id);
-                        newState.requests = prev.requests.filter(r => r.kidId !== id); // Also delete history
-                    } else {
-                        newState[type] = prev[type].filter(i => i.id !== id);
-                    }
-                    return newState;
-                });
-                setItemToDelete(null);
-                showToast('刪除成功', 'success');
-            };
-
+            const executeDelete = () => { if (!itemToDelete) return; const { type, id } = itemToDelete; setData(prev => { const newState = { ...prev }; if (type === 'kids') { newState.kids = prev.kids.filter(k => k.id !== id); newState.requests = prev.requests.filter(r => r.kidId !== id); } else { newState[type] = prev[type].filter(i => i.id !== id); } return newState; }); setItemToDelete(null); showToast('刪除成功', 'success'); };
             const addKid = () => { if(!newKidName.trim()) return; const newKid = { id: 'k' + Date.now(), name: newKidName, balance: 0, avatar: DEFAULT_AVATAR }; setData(prev => ({ ...prev, kids: [...prev.kids, newKid] })); setNewKidName(''); };
-            const confirmDeleteKid = (id) => {
-                if(data.kids.length <= 1) { alert('至少要保留一位小孩喔！'); return; }
-                setItemToDelete({ type: 'kids', id });
-            };
+            const confirmDeleteKid = (id) => { if(data.kids.length <= 1) { alert('至少要保留一位小孩喔！'); return; } setItemToDelete({ type: 'kids', id }); };
             const handleDirectGive = (e) => { e.preventDefault(); const points = parseInt(giftPoints); if (!giftReason || isNaN(points)) return; setData(prev => { const newKids = prev.kids.map(k => k.id === givingPointsTo.id ? { ...k, balance: k.balance + points } : k); const newRequest = { id: Date.now().toString(), type: points >= 0 ? 'earn' : 'spend', kidId: givingPointsTo.id, itemId: 'manual', itemName: giftReason, points: Math.abs(points), status: 'approved', timestamp: new Date().toISOString() }; return { ...prev, kids: newKids, requests: [newRequest, ...prev.requests] }; }); setGivingPointsTo(null); setGiftPoints(''); setGiftReason(''); showToast('發送成功！', 'success'); };
-            
+            const handleSaveToGitHub = async () => { if (!isGithubConfigValid()) { alert('請先設定 GitHub 資料'); setShowGhConfig(true); return; } setIsSyncing(true); try { const url = `https://api.github.com/repos/${ghConfig.repo}/contents/${ghConfig.path}`; const getRes = await fetch(url, { headers: { 'Authorization': `token ${ghConfig.token}`, 'Accept': 'application/vnd.github.v3+json' } }); let sha = null; if (getRes.status === 200) { const json = await getRes.json(); sha = json.sha; } const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))); const putRes = await fetch(url, { method: 'PUT', headers: { 'Authorization': `token ${ghConfig.token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Update from App ${new Date().toISOString()}`, content: content, sha: sha }) }); if (putRes.ok) { showToast('備份至 GitHub 成功！', 'success'); } else { const err = await putRes.json(); alert('上傳失敗: ' + (err.message || 'Unknown error')); } } catch (e) { alert('連線錯誤: ' + e.message); } finally { setIsSyncing(false); } };
+            const handleLoadFromGitHub = async () => { if (!isGithubConfigValid()) { alert('請先設定 GitHub 資料'); setShowGhConfig(true); return; } if (!confirm('確定要從 GitHub 下載並覆蓋目前資料嗎？')) return; setIsSyncing(true); try { const getUrl = `https://api.github.com/repos/${ghConfig.repo}/contents/${ghConfig.path}`; const res = await fetch(url, { headers: { 'Authorization': `token ${ghConfig.token}`, 'Accept': 'application/vnd.github.v3+json' } }); if (res.ok) { const json = await res.json(); const content = decodeURIComponent(escape(window.atob(json.content))); const newData = JSON.parse(content); if (newData.kids) { setData(newData); showToast('從 GitHub 還原成功！', 'success'); } else { alert('GitHub 上的檔案格式不正確'); } } else { alert('下載失敗 (404 或權限不足)'); } } catch (e) { alert('連線錯誤: ' + e.message); } finally { setIsSyncing(false); } };
             const handlePasswordChange = (e) => { const val = e.target.value; if (/^\d*$/.test(val)) setNewPassword(val.slice(0, 4)); };
+            
+            // Category Management
+            const addCategory = () => { if(!newCatName.trim()) return; const newCat = { id: `tc${Date.now()}`, name: newCatName }; setData(prev => ({ ...prev, taskCategories: [...(prev.taskCategories || []), newCat] })); setNewCatName(''); };
+            const deleteCategory = (id) => { if(!confirm('確定刪除此分類？')) return; setData(prev => ({ ...prev, taskCategories: prev.taskCategories.filter(c => c.id !== id) })); };
 
             return (
                 <div className="space-y-6 pb-20 pt-safe">
@@ -454,49 +421,20 @@
                                 <button onClick={() => setRequestType('earn')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${requestType === 'earn' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500'}`}>加點申請</button>
                                 <button onClick={() => setRequestType('spend')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${requestType === 'spend' ? 'bg-white shadow-sm text-pink-500' : 'text-slate-500'}`}>兌換申請</button>
                             </div>
-
                             {pendingRequests.length > 0 && (
                                 <div className="flex gap-3 mb-2">
-                                    <button onClick={() => onProcessAll('approve', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-green-100 text-green-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-green-200 transition-colors border border-green-200">
-                                        <ThumbsUp size={20} /> 全部同意
-                                    </button>
-                                    <button onClick={() => onProcessAll('reject', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-red-100 text-red-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-red-200 transition-colors border border-red-200">
-                                        <ThumbsDown size={20} /> 全部拒絕
-                                    </button>
+                                    <button onClick={() => onProcessAll('approve', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-green-100 text-green-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-green-200 transition-colors border border-green-200"><ThumbsUp size={20} /> 全部同意</button>
+                                    <button onClick={() => onProcessAll('reject', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-red-100 text-red-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-red-200 transition-colors border border-red-200"><ThumbsDown size={20} /> 全部拒絕</button>
                                 </div>
                             )}
-
                             {pendingRequests.length === 0 ? <div className="text-center py-12 text-slate-400"><div className="bg-white/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3"><Check size={32} /></div><p>目前沒有{requestType==='earn'?'加點':'兌換'}申請</p></div> : 
                                 <div className="space-y-3">
-                                    {pendingRequests.map(req => { 
-                                        const kid = data.kids.find(k => k.id === req.kidId); 
-                                        return (
+                                    {pendingRequests.map(req => { const kid = data.kids.find(k => k.id === req.kidId); return (
                                             <div key={req.id} className="glass-card p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-2 border-white/40 shadow-sm">
-                                                <div className="flex items-center gap-4">
-                                                    <img src={kid?.avatar} className="w-12 h-12 rounded-full bg-slate-200 object-cover border-2 border-white" />
-                                                    <div>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="font-bold text-slate-800 text-lg">{kid?.name}</span>
-                                                            <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${req.type === 'earn' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-600'}`}>
-                                                                {req.type === 'earn' ? '申請獲得' : '申請兌換'}
-                                                            </span>
-                                                        </div>
-                                                        <div className="text-sm text-slate-600 font-medium">{req.itemName}</div>
-                                                        <div className="text-xs text-slate-400 mt-1">{new Date(req.timestamp).toLocaleString()}</div>
-                                                    </div>
-                                                </div>
-                                                <div className="flex flex-col sm:items-end gap-3 w-full sm:w-auto">
-                                                    <div className={`font-extrabold text-xl text-right ${req.type==='earn'?'text-blue-500':'text-pink-500'}`}>
-                                                        {req.type==='earn'?'+':'-'}{req.points}
-                                                    </div>
-                                                    <div className="flex gap-2 w-full sm:w-auto">
-                                                        <Button variant="danger" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'reject')}>拒絕</Button>
-                                                        <Button variant="success" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'approve')}>批准</Button>
-                                                    </div>
-                                                </div>
+                                                <div className="flex items-center gap-4"><img src={kid?.avatar} className="w-12 h-12 rounded-full bg-slate-200 object-cover border-2 border-white" /><div><div className="flex items-center gap-2"><span className="font-bold text-slate-800 text-lg">{kid?.name}</span><span className={`text-xs px-2 py-0.5 rounded-full font-bold ${req.type === 'earn' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-600'}`}>{req.type === 'earn' ? '申請獲得' : '申請兌換'}</span></div><div className="text-sm text-slate-600 font-medium">{req.itemName}</div><div className="text-xs text-slate-400 mt-1">{new Date(req.timestamp).toLocaleString()}</div></div></div>
+                                                <div className="flex flex-col sm:items-end gap-3 w-full sm:w-auto"><div className={`font-extrabold text-xl text-right ${req.type==='earn'?'text-blue-500':'text-pink-500'}`}>{req.type==='earn'?'+':'-'}{req.points}</div><div className="flex gap-2 w-full sm:w-auto"><Button variant="danger" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'reject')}>拒絕</Button><Button variant="success" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'approve')}>批准</Button></div></div>
                                             </div>
-                                        ); 
-                                    })}
+                                    );})}
                                 </div>
                             }
                         </div>
@@ -508,44 +446,52 @@
                                 <button onClick={() => setItemTab('tasks')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${itemTab === 'tasks' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500'}`}>任務管理</button>
                                 <button onClick={() => setItemTab('rewards')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${itemTab === 'rewards' ? 'bg-white shadow-sm text-pink-500' : 'text-slate-500'}`}>獎勵管理</button>
                             </div>
-                            <button onClick={() => setEditingType(itemTab)} className="w-full py-3 rounded-2xl bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center gap-2 mb-4 border-2 border-dashed border-indigo-200 hover:bg-indigo-200 transition-colors">
-                                <Plus size={20} /> 新增{itemTab === 'tasks' ? '任務' : '獎勵'}
-                            </button>
+                            <div className="flex gap-2">
+                                <button onClick={() => setEditingType(itemTab)} className="flex-1 py-3 rounded-2xl bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center gap-2 border-2 border-dashed border-indigo-200 hover:bg-indigo-200 transition-colors"><Plus size={20} /> 新增{itemTab === 'tasks' ? '任務' : '獎勵'}</button>
+                                {itemTab === 'tasks' && <button onClick={() => setShowCatManager(true)} className="px-4 rounded-2xl bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 font-bold text-sm flex items-center gap-1"><Tag size={16}/> 管理分類</button>}
+                            </div>
                             <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 {data[itemTab].map(item => (
                                     <div key={item.id} className="glass-card p-4 rounded-3xl flex flex-col items-center justify-between gap-3 relative group">
                                         <div className="absolute top-2 right-2 text-slate-300 hover:text-slate-600 cursor-grab drag-handle"><GripVertical size={20}/></div>
-                                        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${itemTab === 'tasks' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-500'}`}>
-                                            {itemTab === 'tasks' ? <Trophy size={24} /> : <Gift size={24} />}
-                                        </div>
-                                        <div className="text-center w-full mt-2">
-                                            <div className="font-bold text-slate-800 leading-tight mb-1 text-sm line-clamp-2 h-10 flex items-center justify-center">{item.title}</div>
-                                            <div className={`text-sm font-extrabold ${itemTab === 'tasks' ? 'text-blue-500' : 'text-pink-500'}`}>
-                                                {itemTab === 'tasks' ? '+' : '-'}{item.points || item.cost}
-                                            </div>
-                                        </div>
-                                        <div className="flex gap-2 w-full pt-2 border-t border-slate-100 mt-1">
-                                            <button onClick={() => startEditItem(itemTab, item)} className="flex-1 py-1 rounded-lg bg-slate-100 text-slate-500 hover:bg-blue-100 hover:text-blue-600 flex justify-center"><Edit size={16}/></button>
-                                            <button onClick={(e) => { e.stopPropagation(); confirmDelete(itemTab, item.id); }} className="flex-1 py-1 rounded-lg bg-slate-100 text-slate-500 hover:bg-red-100 hover:text-red-600 flex justify-center"><Trash size={16}/></button>
-                                        </div>
+                                        {item.categoryId && <div className="absolute top-2 left-2 bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded-full font-bold">{data.taskCategories?.find(c=>c.id===item.categoryId)?.name}</div>}
+                                        <div className={`w-12 h-12 rounded-full flex items-center justify-center mt-4 ${itemTab === 'tasks' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-500'}`}>{itemTab === 'tasks' ? <Trophy size={24} /> : <Gift size={24} />}</div>
+                                        <div className="text-center w-full mt-2"><div className="font-bold text-slate-800 leading-tight mb-1 text-sm line-clamp-2 h-10 flex items-center justify-center">{item.title}</div><div className={`text-sm font-extrabold ${itemTab === 'tasks' ? 'text-blue-500' : 'text-pink-500'}`}>{itemTab === 'tasks' ? '+' : '-'}{item.points || item.cost}</div></div>
+                                        <div className="flex gap-2 w-full pt-2 border-t border-slate-100 mt-1"><button onClick={() => startEditItem(itemTab, item)} className="flex-1 py-1 rounded-lg bg-slate-100 text-slate-500 hover:bg-blue-100 hover:text-blue-600 flex justify-center"><Edit size={16}/></button><button onClick={(e) => { e.stopPropagation(); confirmDelete(itemTab, item.id); }} className="flex-1 py-1 rounded-lg bg-slate-100 text-slate-500 hover:bg-red-100 hover:text-red-600 flex justify-center"><Trash size={16}/></button></div>
                                     </div>
                                 ))}
                             </div>
                             {editingType && (
-                                <Modal isOpen={true} onClose={() => {setEditingType(null); setEditingItemId(null); setNewItem({title:'', value:''});}} title={`${editingItemId ? '編輯' : '新增'}${editingType === 'tasks' ? '任務' : '獎勵'}`}>
+                                <Modal isOpen={true} onClose={() => {setEditingType(null); setEditingItemId(null); setNewItem({title:'', value:'', categoryId: ''});}} title={`${editingItemId ? '編輯' : '新增'}${editingType === 'tasks' ? '任務' : '獎勵'}`}>
                                     <div className="space-y-4">
-                                        <div>
-                                            <label className="block text-slate-500 text-sm font-bold mb-2">名稱</label>
-                                            <input className="w-full p-3 rounded-xl bg-slate-50 border focus:ring-2 ring-indigo-300 outline-none" placeholder="例如: 幫忙洗碗" value={newItem.title} onChange={e => setNewItem({...newItem, title: e.target.value})} autoFocus />
-                                        </div>
-                                        <div>
-                                            <label className="block text-slate-500 text-sm font-bold mb-2">點數</label>
-                                            <input type="number" className="w-full p-3 rounded-xl bg-slate-50 border focus:ring-2 ring-indigo-300 outline-none font-mono text-lg" placeholder="100" value={newItem.value} onChange={e => setNewItem({...newItem, value: e.target.value})} />
-                                        </div>
+                                        <div><label className="block text-slate-500 text-sm font-bold mb-2">名稱</label><input className="w-full p-3 rounded-xl bg-slate-50 border focus:ring-2 ring-indigo-300 outline-none" placeholder="例如: 幫忙洗碗" value={newItem.title} onChange={e => setNewItem({...newItem, title: e.target.value})} autoFocus /></div>
+                                        <div><label className="block text-slate-500 text-sm font-bold mb-2">點數</label><input type="number" className="w-full p-3 rounded-xl bg-slate-50 border focus:ring-2 ring-indigo-300 outline-none font-mono text-lg" placeholder="100" value={newItem.value} onChange={e => setNewItem({...newItem, value: e.target.value})} /></div>
+                                        {editingType === 'tasks' && (
+                                            <div>
+                                                <label className="block text-slate-500 text-sm font-bold mb-2">分類</label>
+                                                <select className="w-full p-3 rounded-xl bg-slate-50 border focus:ring-2 ring-indigo-300 outline-none" value={newItem.categoryId} onChange={e => setNewItem({...newItem, categoryId: e.target.value})}>
+                                                    <option value="">無分類</option>
+                                                    {data.taskCategories?.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                                                </select>
+                                            </div>
+                                        )}
                                         <Button className="w-full" onClick={() => saveItem(editingType)}>儲存</Button>
                                     </div>
                                 </Modal>
                             )}
+                            <Modal isOpen={showCatManager} onClose={() => setShowCatManager(false)} title="管理任務分類">
+                                <div className="space-y-4">
+                                    <div className="flex gap-2"><input value={newCatName} onChange={e => setNewCatName(e.target.value)} placeholder="輸入新分類名稱" className="flex-1 p-2 rounded-xl bg-slate-50 border" /><Button size="sm" onClick={addCategory}>新增</Button></div>
+                                    <div className="space-y-2">
+                                        {data.taskCategories?.map(c => (
+                                            <div key={c.id} className="flex justify-between items-center p-3 bg-white border rounded-xl">
+                                                <span>{c.name}</span>
+                                                <button onClick={() => deleteCategory(c.id)} className="text-red-400 hover:text-red-600"><Trash size={16}/></button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     )}
 
@@ -847,7 +793,7 @@
                     </Modal>
 
                     <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 z-0">
-                        {currentTab === 'kid' ? (activeKid ? (<KidView kid={activeKid} tasks={data.tasks} rewards={data.rewards} requests={data.requests} onRequest={addRequest} />) : <div className="text-center pt-20 text-slate-500">請家長新增使用者</div>) : (isAuthenticated ? (<ParentView data={data} setData={setData} onProcessRequest={processRequest} onProcessAll={processAllRequests} showToast={showToast} />) : (<ParentLogin password={data.settings.password} onLogin={() => setIsAuthenticated(true)} />))}
+                        {currentTab === 'kid' ? (activeKid ? (<KidView kid={activeKid} tasks={data.tasks} rewards={data.rewards} requests={data.requests} taskCategories={data.taskCategories || []} onRequest={addRequest} />) : <div className="text-center pt-20 text-slate-500">請家長新增使用者</div>) : (isAuthenticated ? (<ParentView data={data} setData={setData} onProcessRequest={processRequest} onProcessAll={processAllRequests} showToast={showToast} />) : (<ParentLogin password={data.settings.password} onLogin={() => setIsAuthenticated(true)} />))}
                     </main>
 
                     <nav className="absolute bottom-6 mb-safe left-6 right-6 h-16 glass-dark rounded-full flex justify-around items-center shadow-2xl z-20 px-2">

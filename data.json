@@ -15,6 +15,16 @@
   ],
   "tasks": [
     {
+      "id": "t1764842872007",
+      "title": "倒垃圾",
+      "points": 1500,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "categoryId": "tc1765201995001"
+    },
+    {
       "id": "t1",
       "title": "整理書桌",
       "points": 1000,
@@ -89,16 +99,6 @@
       "points": 1000,
       "assignedTo": [
         "k1"
-      ],
-      "categoryId": "tc1765201995001"
-    },
-    {
-      "id": "t1764842872007",
-      "title": "倒垃圾",
-      "points": 1500,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
       ],
       "categoryId": "tc1765201995001"
     },

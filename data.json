@@ -279,6 +279,26 @@
   ],
   "requests": [
     {
+      "id": "1765202077370",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765200050768",
+      "itemName": "大考單科進步10分",
+      "points": 10000,
+      "status": "pending",
+      "timestamp": "2025-12-08T13:54:37.370Z"
+    },
+    {
+      "id": "1765202076532",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765200050768",
+      "itemName": "大考單科進步10分",
+      "points": 10000,
+      "status": "pending",
+      "timestamp": "2025-12-08T13:54:36.532Z"
+    },
+    {
       "id": "1765202073703",
       "type": "earn",
       "kidId": "k1765179459362",

@@ -15,21 +15,21 @@
   ],
   "tasks": [
     {
-      "id": "t3",
-      "title": "準時睡覺 (22:00)",
-      "points": 8000,
-      "assignedTo": [
-        "k1"
-      ],
-      "categoryId": "tc1765201986185"
-    },
-    {
       "id": "t1764842844312",
       "title": "準時起床 (06:30)",
       "points": 8000,
       "assignedTo": [
         "k1",
         "k1764842571109"
+      ],
+      "categoryId": "tc1765201986185"
+    },
+    {
+      "id": "t3",
+      "title": "準時睡覺 (22:00)",
+      "points": 8000,
+      "assignedTo": [
+        "k1"
       ],
       "categoryId": "tc1765201986185"
     },

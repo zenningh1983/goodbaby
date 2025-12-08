@@ -913,10 +913,5 @@
       "name": "學校課業"
     }
   ],
-  "rewardCategories": [
-    {
-      "id": "c1765204825162",
-      "name": "3C電視"
-    }
-  ]
+  "rewardCategories": []
 }

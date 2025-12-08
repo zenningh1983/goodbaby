@@ -15,6 +15,15 @@
   ],
   "tasks": [
     {
+      "id": "t1",
+      "title": "整理書桌",
+      "points": 1000,
+      "assignedTo": [
+        "k1"
+      ],
+      "categoryId": "tc1765201995001"
+    },
+    {
       "id": "t1764842844312",
       "title": "準時起床 (06:30)",
       "points": 8000,
@@ -70,15 +79,6 @@
       "assignedTo": [
         "k1",
         "k1764842571109"
-      ],
-      "categoryId": "tc1765201995001"
-    },
-    {
-      "id": "t1",
-      "title": "整理書桌",
-      "points": 1000,
-      "assignedTo": [
-        "k1"
       ],
       "categoryId": "tc1765201995001"
     },

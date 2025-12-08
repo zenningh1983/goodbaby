@@ -278,16 +278,6 @@
   ],
   "requests": [
     {
-      "id": "1765200859316",
-      "type": "earn",
-      "kidId": "k1765179459362",
-      "itemId": "t1764842976525",
-      "itemName": "主動拿出聯絡簿",
-      "points": 2000,
-      "status": "pending",
-      "timestamp": "2025-12-08T13:34:19.316Z"
-    },
-    {
       "id": "1765200682018",
       "type": "earn",
       "kidId": "k1765179459362",
@@ -740,5 +730,11 @@
   ],
   "settings": {
     "password": "1007"
-  }
+  },
+  "taskCategories": [
+    {
+      "id": "tc1765201068441",
+      "name": "生活作息"
+    }
+  ]
 }

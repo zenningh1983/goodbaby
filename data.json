@@ -913,5 +913,10 @@
       "name": "學校課業"
     }
   ],
-  "rewardCategories": []
+  "rewardCategories": [
+    {
+      "id": "c1765204834353",
+      "name": "休閒娛樂"
+    }
+  ]
 }

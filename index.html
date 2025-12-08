@@ -43,6 +43,12 @@
         .pt-safe { padding-top: env(safe-area-inset-top); }
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
         .mb-safe { margin-bottom: env(safe-area-inset-bottom); }
+        
+        /* Date Input Styling */
+        input[type="date"] {
+            -webkit-appearance: none;
+            position: relative;
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-screen overflow-hidden text-slate-800 selection:bg-pink-200">
@@ -106,10 +112,11 @@
             GripVertical: (p) => <IconBase {...p}><circle cx="9" cy="12" r="1" /><circle cx="9" cy="5" r="1" /><circle cx="9" cy="19" r="1" /><circle cx="15" cy="12" r="1" /><circle cx="15" cy="5" r="1" /><circle cx="15" cy="19" r="1" /></IconBase>,
             Tag: (p) => <IconBase {...p}><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></IconBase>,
             Folder: (p) => <IconBase {...p}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></IconBase>,
-            FolderOpen: (p) => <IconBase {...p}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></IconBase>
+            FolderOpen: (p) => <IconBase {...p}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></IconBase>,
+            Calendar: (p) => <IconBase {...p}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></IconBase>
         };
 
-        const { Trophy, Gift, Settings, User, Users, Check, X, Plus, Trash, Upload, FileDown, FileUp, Clock, ShieldCheck, LogOut, Star, Edit, Heart, Lock, AlertTriangle, Cloud, CloudCheck, RefreshCw, Github, ThumbsUp, ThumbsDown, GripVertical, Tag, Folder, FolderOpen } = Icons;
+        const { Trophy, Gift, Settings, User, Users, Check, X, Plus, Trash, Upload, FileDown, FileUp, Clock, ShieldCheck, LogOut, Star, Edit, Heart, Lock, AlertTriangle, Cloud, CloudCheck, RefreshCw, Github, ThumbsUp, ThumbsDown, GripVertical, Tag, Folder, FolderOpen, Calendar } = Icons;
 
         const DEFAULT_PASSWORD = "0000";
         const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E";
@@ -205,22 +212,18 @@
             const [tab, setTab] = useState('earn');
             const [hType, setHType] = useState('earn');
             const [hStatus, setHStatus] = useState('all');
+            const [historyDate, setHistoryDate] = useState('');
             const [selectedTaskCategory, setSelectedTaskCategory] = useState('all');
-            const [selectedRewardCategory, setSelectedRewardCategory] = useState(null); // null means showing categories, otherwise catId
+            const [selectedRewardCategory, setSelectedRewardCategory] = useState(null);
 
             const pendingCount = requests.filter(r => r.kidId === kid.id && r.status === 'pending').length;
             const STATUS_LABELS = { 'all': '全部', 'approved': '已通過', 'pending': '審核中', 'rejected': '已拒絕' };
 
             const filteredTasks = tasks.filter(t => selectedTaskCategory === 'all' || t.categoryId === selectedTaskCategory);
-            
-            // Rewards filtering
-            // If selectedRewardCategory is 'uncategorized', filter items with no categoryId
             const filteredRewards = rewards.filter(r => {
                 if (selectedRewardCategory === 'uncategorized') return !r.categoryId;
                 return r.categoryId === selectedRewardCategory;
             });
-
-            // Get categories that have rewards
             const availableRewardCats = (rewardCategories || []).filter(c => rewards.some(r => r.categoryId === c.id));
             const hasUncategorizedRewards = rewards.some(r => !r.categoryId);
 
@@ -262,24 +265,18 @@
                         {tab === 'spend' && (
                             <>
                                 <h2 className="text-lg font-bold text-slate-700 px-2 flex items-center gap-2 mb-3"><Gift className="text-pink-500" /> 選擇獎勵</h2>
-                                
-                                {/* Category Level */}
                                 {!selectedRewardCategory && (
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                         {availableRewardCats.map(c => (
                                             <button key={c.id} onClick={() => setSelectedRewardCategory(c.id)} className="glass-card p-4 rounded-3xl flex flex-col items-center justify-center gap-3 transition-all active:scale-95 hover:bg-white/60 group">
-                                                <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                                                    <Folder size={32} />
-                                                </div>
+                                                <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><Folder size={32} /></div>
                                                 <div className="font-bold text-slate-800 text-lg">{c.name}</div>
                                                 <div className="text-xs text-slate-400 font-bold">{rewards.filter(r => r.categoryId === c.id).length} 個項目</div>
                                             </button>
                                         ))}
                                         {hasUncategorizedRewards && (
                                             <button onClick={() => setSelectedRewardCategory('uncategorized')} className="glass-card p-4 rounded-3xl flex flex-col items-center justify-center gap-3 transition-all active:scale-95 hover:bg-white/60 group">
-                                                <div className="w-16 h-16 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                                                    <FolderOpen size={32} />
-                                                </div>
+                                                <div className="w-16 h-16 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><FolderOpen size={32} /></div>
                                                 <div className="font-bold text-slate-800 text-lg">未分類</div>
                                                 <div className="text-xs text-slate-400 font-bold">{rewards.filter(r => !r.categoryId).length} 個項目</div>
                                             </button>
@@ -287,32 +284,16 @@
                                         {availableRewardCats.length === 0 && !hasUncategorizedRewards && <p className="text-center text-slate-400 w-full col-span-full py-10">目前沒有獎勵喔！</p>}
                                     </div>
                                 )}
-
-                                {/* Items Level */}
                                 {selectedRewardCategory && (
                                     <div>
-                                        <button onClick={() => setSelectedRewardCategory(null)} className="mb-4 flex items-center gap-1 text-slate-500 hover:text-slate-800 font-bold text-sm px-2">
-                                            <ArrowLeft size={16}/> 返回分類
-                                        </button>
+                                        <button onClick={() => setSelectedRewardCategory(null)} className="mb-4 flex items-center gap-1 text-slate-500 hover:text-slate-800 font-bold text-sm px-2"><ArrowLeft size={16}/> 返回分類</button>
                                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                             {filteredRewards.map(reward => {
                                                 const canAfford = kid.balance >= reward.cost;
                                                 return (
-                                                    <button 
-                                                        key={reward.id} 
-                                                        onClick={() => canAfford ? onRequest('spend', reward, reward.cost) : null} 
-                                                        disabled={!canAfford}
-                                                        className={`glass-card p-4 rounded-3xl flex flex-col items-center justify-center gap-3 transition-all ${!canAfford ? 'opacity-50 grayscale cursor-not-allowed' : 'active:scale-95 hover:bg-white/60 group'}`}
-                                                    >
-                                                        <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform ${canAfford ? 'bg-pink-100 text-pink-500' : 'bg-slate-200 text-slate-400'}`}>
-                                                            <Gift size={28} />
-                                                        </div>
-                                                        <div className="text-center">
-                                                            <div className="font-bold text-slate-800 leading-tight mb-1">{reward.title}</div>
-                                                            <div className={`text-sm font-extrabold ${canAfford ? 'text-pink-500' : 'text-slate-400'}`}>
-                                                                -{reward.cost}
-                                                            </div>
-                                                        </div>
+                                                    <button key={reward.id} onClick={() => canAfford ? onRequest('spend', reward, reward.cost) : null} disabled={!canAfford} className={`glass-card p-4 rounded-3xl flex flex-col items-center justify-center gap-3 transition-all ${!canAfford ? 'opacity-50 grayscale cursor-not-allowed' : 'active:scale-95 hover:bg-white/60 group'}`}>
+                                                        <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform ${canAfford ? 'bg-pink-100 text-pink-500' : 'bg-slate-200 text-slate-400'}`}><Gift size={28} /></div>
+                                                        <div className="text-center"><div className="font-bold text-slate-800 leading-tight mb-1">{reward.title}</div><div className={`text-sm font-extrabold ${canAfford ? 'text-pink-500' : 'text-slate-400'}`}>-{reward.cost}</div></div>
                                                     </button>
                                                 );
                                             })}
@@ -321,50 +302,58 @@
                                 )}
                             </>
                         )}
-                        {/* History tab remains unchanged */}
                         {tab === 'history' && (
                             <>
                                 <h2 className="text-lg font-bold text-slate-700 px-2 flex items-center gap-2 mb-3"><Clock className="text-indigo-500" /> 申請紀錄</h2>
-                                
                                 <div className="flex p-1 bg-white/40 rounded-xl mb-3">
                                     <button onClick={() => setHType('earn')} className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${hType==='earn' ? 'bg-white shadow text-blue-600' : 'text-slate-500 hover:bg-white/50'}`}>加點紀錄</button>
                                     <button onClick={() => setHType('spend')} className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${hType==='spend' ? 'bg-white shadow text-pink-500' : 'text-slate-500 hover:bg-white/50'}`}>兌換紀錄</button>
                                 </div>
-
+                                <div className="flex items-center gap-2 mb-4 bg-white/40 p-2 rounded-xl">
+                                    <div className="flex items-center gap-2 text-slate-500 text-sm font-bold"><Calendar size={16}/> 日期：</div>
+                                    <input type="date" value={historyDate} onChange={e => setHistoryDate(e.target.value)} className="bg-transparent border-b border-slate-300 focus:border-indigo-500 outline-none text-slate-700 text-sm font-bold" />
+                                    {historyDate && <button onClick={() => setHistoryDate('')} className="text-slate-400 hover:text-slate-600"><X size={16}/></button>}
+                                </div>
                                 <div className="flex gap-2 mb-4 overflow-x-auto no-scrollbar pb-1">
                                     {['all', 'approved', 'pending', 'rejected'].map(s => (
-                                        <button 
-                                            key={s} 
-                                            onClick={() => setHStatus(s)} 
-                                            className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap border transition-all 
-                                                ${hStatus === s 
-                                                    ? (s==='all'?'bg-slate-600 text-white border-slate-600' : s==='approved'?'bg-green-500 text-white border-green-500' : s==='pending'?'bg-yellow-500 text-white border-yellow-500' : 'bg-red-500 text-white border-red-500')
-                                                    : 'bg-white border-slate-200 text-slate-500'
-                                                }`}
-                                        >
-                                            {STATUS_LABELS[s]}
-                                        </button>
+                                        <button key={s} onClick={() => setHStatus(s)} className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap border transition-all ${hStatus === s ? (s==='all'?'bg-slate-600 text-white border-slate-600' : s==='approved'?'bg-green-500 text-white border-green-500' : s==='pending'?'bg-yellow-500 text-white border-yellow-500' : 'bg-red-500 text-white border-red-500') : 'bg-white border-slate-200 text-slate-500'}`}>{STATUS_LABELS[s]}</button>
                                     ))}
                                 </div>
-
-                                <div className="space-y-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {requests
                                     .filter(r => r.kidId === kid.id)
                                     .filter(r => r.type === hType)
                                     .filter(r => hStatus === 'all' ? true : r.status === hStatus)
+                                    .filter(r => !historyDate || r.timestamp.startsWith(historyDate))
                                     .length === 0 ? 
-                                    <p className="text-center text-slate-400 py-10">沒有符合的紀錄喔！</p> : 
+                                    <p className="text-center text-slate-400 py-10 col-span-full">沒有符合的紀錄喔！</p> : 
                                     requests
                                     .filter(r => r.kidId === kid.id)
                                     .filter(r => r.type === hType)
                                     .filter(r => hStatus === 'all' ? true : r.status === hStatus)
+                                    .filter(r => !historyDate || r.timestamp.startsWith(historyDate))
                                     .slice(0, 20)
-                                    .map(req => (
-                                        <div key={req.id} className="bg-white/40 p-3 rounded-xl flex items-center justify-between">
-                                            <div className="flex items-center gap-3"><div className={`p-2 rounded-full ${req.type === 'earn' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-500'}`}>{req.type === 'earn' ? <Trophy size={16}/> : <Gift size={16}/>}</div><div><div className="font-bold text-sm text-slate-700">{req.itemName}</div><div className="text-xs text-slate-500">{new Date(req.timestamp).toLocaleDateString()}</div></div></div>
-                                            <div className="text-right"><div className={`font-bold ${req.type === 'earn' ? 'text-blue-600' : 'text-pink-500'}`}>{req.type === 'earn' ? '+' : '-'}{req.points}</div><div className={`text-xs font-bold px-2 py-0.5 rounded-full inline-block mt-1 ${req.status === 'pending' ? 'bg-yellow-100 text-yellow-600' : req.status === 'approved' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>{req.status === 'pending' ? '審核中' : req.status === 'approved' ? '已通過' : '已拒絕'}</div></div>
-                                        </div>
-                                    ))
+                                    .map(req => {
+                                        const catName = hType === 'earn' 
+                                            ? (taskCategories || []).find(c => tasks.find(t => t.title === req.itemName)?.categoryId === c.id)?.name
+                                            : (rewardCategories || []).find(c => rewards.find(r => r.title === req.itemName)?.categoryId === c.id)?.name;
+
+                                        return (
+                                            <div key={req.id} className="bg-white/60 p-4 rounded-2xl flex flex-col justify-between gap-2 shadow-sm border border-white">
+                                                <div className="flex justify-between items-start">
+                                                    <div>
+                                                        <div className="font-bold text-slate-800 line-clamp-1">{req.itemName}</div>
+                                                        {catName && <div className="text-[10px] text-slate-400 font-bold bg-slate-100 px-2 py-0.5 rounded-full inline-block mt-1">{catName}</div>}
+                                                    </div>
+                                                    <div className={`font-extrabold text-lg ${req.type === 'earn' ? 'text-blue-500' : 'text-pink-500'}`}>{req.type === 'earn' ? '+' : '-'}{req.points}</div>
+                                                </div>
+                                                <div className="flex justify-between items-end mt-1">
+                                                    <div className="text-xs text-slate-400">{new Date(req.timestamp).toLocaleDateString()}</div>
+                                                    <div className={`text-xs font-bold px-2 py-0.5 rounded-full ${req.status === 'pending' ? 'bg-yellow-100 text-yellow-600' : req.status === 'approved' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>{STATUS_LABELS[req.status]}</div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
                                 }
                                 </div>
                             </>
@@ -422,8 +411,13 @@
             });
             const [showGhConfig, setShowGhConfig] = useState(false);
             const [isSyncing, setIsSyncing] = useState(false);
+            const [selectedParentCategory, setSelectedParentCategory] = useState('all');
 
-            useEffect(() => { localStorage.setItem('kids_reward_gh_config', JSON.stringify(ghConfig)); }, [ghConfig]);
+            useEffect(() => {
+                localStorage.setItem('kids_reward_gh_config', JSON.stringify(ghConfig));
+            }, [ghConfig]);
+            
+            useEffect(() => setSelectedParentCategory('all'), [itemTab]);
 
             useEffect(() => {
                 const el = gridRef.current;
@@ -436,7 +430,7 @@
                     }});
                 }
                 return () => { if (sortableInstance.current) { try { sortableInstance.current.destroy(); } catch (e) {} sortableInstance.current = null; } };
-            }, [view, itemTab]);
+            }, [view, itemTab, selectedParentCategory]); // Add selectedParentCategory to dep to re-init sortable
 
             const pendingRequests = data.requests.filter(r => r.status === 'pending' && r.type === requestType);
             const totalPendingCount = data.requests.filter(r => r.status === 'pending').length;
@@ -454,7 +448,6 @@
                 setEditingType(null); 
             };
             const startEditItem = (type, item) => { setNewItem({ title: item.title, value: item.points || item.cost, categoryId: item.categoryId || '' }); setEditingType(type); setEditingItemId(item.id); };
-            const cancelEditItem = () => { setNewItem({ title: '', value: '' }); setEditingType(null); setEditingItemId(null); };
             
             const confirmDelete = (type, id) => { setItemToDelete({ type, id }); };
             const executeDelete = () => {
@@ -485,7 +478,7 @@
             const handlePasswordChange = (e) => { const val = e.target.value; if (/^\d*$/.test(val)) setNewPassword(val.slice(0, 4)); };
             
             // Category Management
-            const addCategory = () => { if(!newCatName.trim()) return; const newCat = { id: `rc${Date.now()}`, name: newCatName }; 
+            const addCategory = () => { if(!newCatName.trim()) return; const newCat = { id: `c${Date.now()}`, name: newCatName }; 
                 const catKey = itemTab === 'tasks' ? 'taskCategories' : 'rewardCategories';
                 setData(prev => ({ ...prev, [catKey]: [...(prev[catKey] || []), newCat] })); setNewCatName(''); 
             };
@@ -494,6 +487,8 @@
                 const catKey = itemTab === 'tasks' ? 'taskCategories' : 'rewardCategories';
                 setData(prev => ({ ...prev, [catKey]: prev[catKey].filter(c => c.id !== id) })); 
             };
+            
+            const filteredParentItems = data[itemTab].filter(item => selectedParentCategory === 'all' || item.categoryId === selectedParentCategory);
 
             return (
                 <div className="space-y-6 pb-20 pt-safe">
@@ -509,20 +504,49 @@
                                 <button onClick={() => setRequestType('earn')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${requestType === 'earn' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500'}`}>加點申請</button>
                                 <button onClick={() => setRequestType('spend')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${requestType === 'spend' ? 'bg-white shadow-sm text-pink-500' : 'text-slate-500'}`}>兌換申請</button>
                             </div>
+
                             {pendingRequests.length > 0 && (
                                 <div className="flex gap-3 mb-2">
-                                    <button onClick={() => onProcessAll('approve', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-green-100 text-green-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-green-200 transition-colors border border-green-200"><ThumbsUp size={20} /> 全部同意</button>
-                                    <button onClick={() => onProcessAll('reject', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-red-100 text-red-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-red-200 transition-colors border border-red-200"><ThumbsDown size={20} /> 全部拒絕</button>
+                                    <button onClick={() => onProcessAll('approve', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-green-100 text-green-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-green-200 transition-colors border border-green-200">
+                                        <ThumbsUp size={20} /> 全部同意
+                                    </button>
+                                    <button onClick={() => onProcessAll('reject', pendingRequests.map(r => r.id))} className="flex-1 py-3 rounded-xl bg-red-100 text-red-700 font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-red-200 transition-colors border border-red-200">
+                                        <ThumbsDown size={20} /> 全部拒絕
+                                    </button>
                                 </div>
                             )}
+
                             {pendingRequests.length === 0 ? <div className="text-center py-12 text-slate-400"><div className="bg-white/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3"><Check size={32} /></div><p>目前沒有{requestType==='earn'?'加點':'兌換'}申請</p></div> : 
                                 <div className="space-y-3">
-                                    {pendingRequests.map(req => { const kid = data.kids.find(k => k.id === req.kidId); return (
+                                    {pendingRequests.map(req => { 
+                                        const kid = data.kids.find(k => k.id === req.kidId); 
+                                        return (
                                             <div key={req.id} className="glass-card p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-2 border-white/40 shadow-sm">
-                                                <div className="flex items-center gap-4"><img src={kid?.avatar} className="w-12 h-12 rounded-full bg-slate-200 object-cover border-2 border-white" /><div><div className="flex items-center gap-2"><span className="font-bold text-slate-800 text-lg">{kid?.name}</span><span className={`text-xs px-2 py-0.5 rounded-full font-bold ${req.type === 'earn' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-600'}`}>{req.type === 'earn' ? '申請獲得' : '申請兌換'}</span></div><div className="text-sm text-slate-600 font-medium">{req.itemName}</div><div className="text-xs text-slate-400 mt-1">{new Date(req.timestamp).toLocaleString()}</div></div></div>
-                                                <div className="flex flex-col sm:items-end gap-3 w-full sm:w-auto"><div className={`font-extrabold text-xl text-right ${req.type==='earn'?'text-blue-500':'text-pink-500'}`}>{req.type==='earn'?'+':'-'}{req.points}</div><div className="flex gap-2 w-full sm:w-auto"><Button variant="danger" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'reject')}>拒絕</Button><Button variant="success" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'approve')}>批准</Button></div></div>
+                                                <div className="flex items-center gap-4">
+                                                    <img src={kid?.avatar} className="w-12 h-12 rounded-full bg-slate-200 object-cover border-2 border-white" />
+                                                    <div>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="font-bold text-slate-800 text-lg">{kid?.name}</span>
+                                                            <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${req.type === 'earn' ? 'bg-blue-100 text-blue-600' : 'bg-pink-100 text-pink-600'}`}>
+                                                                {req.type === 'earn' ? '申請獲得' : '申請兌換'}
+                                                            </span>
+                                                        </div>
+                                                        <div className="text-sm text-slate-600 font-medium">{req.itemName}</div>
+                                                        <div className="text-xs text-slate-400 mt-1">{new Date(req.timestamp).toLocaleString()}</div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col sm:items-end gap-3 w-full sm:w-auto">
+                                                    <div className={`font-extrabold text-xl text-right ${req.type==='earn'?'text-blue-500':'text-pink-500'}`}>
+                                                        {req.type==='earn'?'+':'-'}{req.points}
+                                                    </div>
+                                                    <div className="flex gap-2 w-full sm:w-auto">
+                                                        <Button variant="danger" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'reject')}>拒絕</Button>
+                                                        <Button variant="success" className="flex-1 sm:flex-none py-2 px-4 text-sm rounded-xl" onClick={() => onProcessRequest(req.id, 'approve')}>批准</Button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                    );})}
+                                        ); 
+                                    })}
                                 </div>
                             }
                         </div>
@@ -534,12 +558,20 @@
                                 <button onClick={() => setItemTab('tasks')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${itemTab === 'tasks' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500'}`}>任務管理</button>
                                 <button onClick={() => setItemTab('rewards')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${itemTab === 'rewards' ? 'bg-white shadow-sm text-pink-500' : 'text-slate-500'}`}>獎勵管理</button>
                             </div>
+                            
+                            <div className="flex gap-2 mb-3 overflow-x-auto no-scrollbar pb-1">
+                                <button onClick={() => setSelectedParentCategory('all')} className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${selectedParentCategory === 'all' ? 'bg-slate-700 text-white' : 'bg-white text-slate-500'}`}>全部</button>
+                                {(itemTab === 'tasks' ? data.taskCategories : data.rewardCategories)?.map(c => (
+                                    <button key={c.id} onClick={() => setSelectedParentCategory(c.id)} className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${selectedParentCategory === c.id ? 'bg-blue-500 text-white' : 'bg-white text-slate-500'}`}>{c.name}</button>
+                                ))}
+                            </div>
+
                             <div className="flex gap-2">
-                                <button onClick={() => setEditingType(itemTab)} className="flex-1 py-3 rounded-2xl bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center gap-2 border-2 border-dashed border-indigo-200 hover:bg-indigo-200 transition-colors"><Plus size={20} /> 新增{itemTab === 'tasks' ? '任務' : '獎勵'}</button>
-                                <button onClick={() => setShowCatManager(true)} className="px-4 rounded-2xl bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 font-bold text-sm flex items-center gap-1"><Tag size={16}/> 管理分類</button>
+                                <button onClick={() => setEditingType(itemTab)} className="w-full py-3 rounded-2xl bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center gap-2 mb-4 border-2 border-dashed border-indigo-200 hover:bg-indigo-200 transition-colors"><Plus size={20} /> 新增{itemTab === 'tasks' ? '任務' : '獎勵'}</button>
+                                <button onClick={() => setShowCatManager(true)} className="px-4 py-3 rounded-2xl bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 font-bold text-sm flex items-center gap-1 mb-4"><Tag size={16}/> 管理分類</button>
                             </div>
                             <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {data[itemTab].map(item => (
+                                {filteredParentItems.map(item => (
                                     <div key={item.id} className="glass-card p-4 rounded-3xl flex flex-col items-center justify-between gap-3 relative group">
                                         <div className="absolute top-2 right-2 text-slate-300 hover:text-slate-600 cursor-grab drag-handle"><GripVertical size={20}/></div>
                                         {item.categoryId && <div className="absolute top-2 left-2 bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded-full font-bold">{(itemTab === 'tasks' ? data.taskCategories : data.rewardCategories)?.find(c=>c.id===item.categoryId)?.name}</div>}
@@ -879,7 +911,7 @@
                     </Modal>
 
                     <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 z-0">
-                        {currentTab === 'kid' ? (activeKid ? (<KidView kid={activeKid} tasks={data.tasks} rewards={data.rewards} requests={data.requests} taskCategories={data.taskCategories || []} onRequest={addRequest} />) : <div className="text-center pt-20 text-slate-500">請家長新增使用者</div>) : (isAuthenticated ? (<ParentView data={data} setData={setData} onProcessRequest={processRequest} onProcessAll={processAllRequests} showToast={showToast} />) : (<ParentLogin password={data.settings.password} onLogin={() => setIsAuthenticated(true)} />))}
+                        {currentTab === 'kid' ? (activeKid ? (<KidView kid={activeKid} tasks={data.tasks} rewards={data.rewards} requests={data.requests} taskCategories={data.taskCategories || []} rewardCategories={data.rewardCategories || []} onRequest={addRequest} />) : <div className="text-center pt-20 text-slate-500">請家長新增使用者</div>) : (isAuthenticated ? (<ParentView data={data} setData={setData} onProcessRequest={processRequest} onProcessAll={processAllRequests} showToast={showToast} />) : (<ParentLogin password={data.settings.password} onLogin={() => setIsAuthenticated(true)} />))}
                     </main>
 
                     <nav className="absolute bottom-6 mb-safe left-6 right-6 h-16 glass-dark rounded-full flex justify-around items-center shadow-2xl z-20 px-2">

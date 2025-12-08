@@ -293,6 +293,16 @@
   ],
   "requests": [
     {
+      "id": "1765234987735",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765179538096",
+      "itemName": "摺被子",
+      "points": 2000,
+      "status": "pending",
+      "timestamp": "2025-12-08T23:03:07.735Z"
+    },
+    {
       "id": "1765234966273",
       "type": "earn",
       "kidId": "k1765179459362",

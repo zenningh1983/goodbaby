@@ -700,5 +700,11 @@
   ],
   "settings": {
     "password": "1007"
-  }
+  },
+  "taskCategories": [
+    {
+      "id": "tc1765201986185",
+      "name": "生活作息"
+    }
+  ]
 }

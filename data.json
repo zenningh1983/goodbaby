@@ -466,6 +466,46 @@
   ],
   "requests": [
     {
+      "id": "1765280057709",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765193497307",
+      "itemName": "書包便當外套掛好",
+      "points": 2000,
+      "status": "pending",
+      "timestamp": "2025-12-09T11:34:17.709Z"
+    },
+    {
+      "id": "1765280055998",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765192308004",
+      "itemName": "洗澡+吹頭30分鐘內",
+      "points": 5000,
+      "status": "pending",
+      "timestamp": "2025-12-09T11:34:15.998Z"
+    },
+    {
+      "id": "1765280054825",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765179704445",
+      "itemName": "小考90分",
+      "points": 8000,
+      "status": "pending",
+      "timestamp": "2025-12-09T11:34:14.825Z"
+    },
+    {
+      "id": "1765280052826",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1764843718325",
+      "itemName": "大考平均80分以上",
+      "points": 30000,
+      "status": "pending",
+      "timestamp": "2025-12-09T11:34:12.826Z"
+    },
+    {
       "id": "1765280044840",
       "type": "earn",
       "kidId": "k1765179459362",

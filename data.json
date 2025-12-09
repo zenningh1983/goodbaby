@@ -69,7 +69,8 @@
       "assignedTo": [
         "k1"
       ],
-      "categoryId": "tc1765201995001"
+      "categoryId": "tc1765201995001",
+      "assignee": "all"
     },
     {
       "id": "t1764842976525",

@@ -466,6 +466,26 @@
   ],
   "requests": [
     {
+      "id": "1765280041901",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765235848385",
+      "itemName": "大考單科80分以上",
+      "points": 10000,
+      "status": "pending",
+      "timestamp": "2025-12-09T11:34:01.901Z"
+    },
+    {
+      "id": "1765280040009",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765235766935",
+      "itemName": "複習單科",
+      "points": 3000,
+      "status": "pending",
+      "timestamp": "2025-12-09T11:34:00.009Z"
+    },
+    {
       "id": "1765280037834",
       "type": "earn",
       "kidId": "k1765179459362",

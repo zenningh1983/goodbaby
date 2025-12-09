@@ -466,6 +466,16 @@
   ],
   "requests": [
     {
+      "id": "1765290800114",
+      "type": "earn",
+      "kidId": "k1765179459362",
+      "itemId": "t1765235650386",
+      "itemName": "拿出聯絡本",
+      "points": 1000,
+      "status": "pending",
+      "timestamp": "2025-12-09T14:33:20.114Z"
+    },
+    {
       "id": "1765290788317",
       "type": "earn",
       "kidId": "k1765179459362",

@@ -546,6 +546,26 @@
   ],
   "history": [
     {
+      "id": 1765359165384,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": "t1765235798733",
+      "itemName": "小考 90 分以上",
+      "points": 10000,
+      "timestamp": 1765359165384,
+      "status": "pending"
+    },
+    {
+      "id": 1765359164560,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": "t1765235899468",
+      "itemName": "大考 100 分",
+      "points": 50000,
+      "timestamp": 1765359164560,
+      "status": "pending"
+    },
+    {
       "id": 1765359163719,
       "type": "task_pending",
       "childId": 1765356139382,

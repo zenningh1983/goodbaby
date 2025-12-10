@@ -15,12 +15,6 @@
   ],
   "categories": [
     {
-      "id": "cat_default_task",
-      "name": "日常",
-      "type": "task",
-      "color": "blue"
-    },
-    {
       "id": "cat_1765348170564",
       "name": "購物血拼",
       "type": "reward",

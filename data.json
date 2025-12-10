@@ -304,6 +304,12 @@
       "points": 1500,
       "assignee": "1765301052959",
       "categoryId": "cat_1765348430662"
+    },
+    {
+      "title": "整天不吵架",
+      "points": 10000,
+      "assignee": "all",
+      "categoryId": "cat_1765348453493"
     }
   ],
   "rewards": [

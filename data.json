@@ -191,6 +191,17 @@
       "categoryId": "cat_1765348442376"
     },
     {
+      "id": "t1765235899468",
+      "title": "大考單科100分",
+      "points": 50000,
+      "categoryId": "cat_1765348442376",
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
       "id": "t1764843871614",
       "title": "看完一本 500 字文字書（有心得）",
       "points": 5000,
@@ -211,6 +222,78 @@
       ],
       "assignee": "all",
       "categoryId": "cat_1765348453493"
+    },
+    {
+      "title": "包垃圾",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "倒垃圾",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "收衣服",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "晾衣服",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "折衣服",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "洗便當水壺",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "洗自己碗筷",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "收書桌",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "折被子",
+      "points": 1500,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "洗全家碗筷",
+      "points": 3000,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "拖全家地",
+      "points": 5000,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "刷廁所",
+      "points": 5000,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
     },
     {
       "id": "t1765179538096",
@@ -483,89 +566,6 @@
         "k1764842571109"
       ],
       "assignee": "all"
-    },
-    {
-      "id": "t1765235899468",
-      "title": "大考單科100分",
-      "points": 50000,
-      "categoryId": "tc1765202001028",
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "title": "包垃圾",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "倒垃圾",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "收衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "晾衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "折衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "洗便當水壺",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "洗自己碗筷",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "洗全家碗筷",
-      "points": 3000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "收書桌",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "折被子",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "拖全家地",
-      "points": 5000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "刷廁所",
-      "points": 5000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
     }
   ],
   "rewards": [

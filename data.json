@@ -15,7 +15,7 @@
     {
       "id": 1765356139382,
       "name": "test",
-      "points": 85000,
+      "points": 90000,
       "avatar": "🦊"
     }
   ],
@@ -553,7 +553,7 @@
       "itemName": "07:00 前完成出門準備",
       "points": 5000,
       "timestamp": 1765359209003,
-      "status": "pending"
+      "status": "approved"
     },
     {
       "id": 1765359170065,

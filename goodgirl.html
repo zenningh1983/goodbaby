@@ -91,6 +91,16 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
+        
+        /* Sticky Tabs & Filter */
+        .sticky-tabs {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background-color: #FFF9F2; /* Match body bg */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -393,6 +403,12 @@
             );
         };
 
+        const SyncIcon = ({ className = "" }) => (
+            <div className={`w-8 h-8 rounded-full glass flex items-center justify-center shadow-sm transition-all ${className} text-ios-blue`}>
+                <i className={Icons.Sync}></i>
+            </div>
+        );
+
         // --- Main App ---
         const App = () => {
             const [mode, setMode] = useState('landing');
@@ -498,169 +514,43 @@
                     showToast("修改成功");
                 }
                 // ... (rest of handleAction remains the same)
-                else if (actionType === 'ADD_CATEGORY') {
-                    newData.categories.push({ id: `cat_${timestamp}`, ...payload });
-                    showToast("分類新增成功");
-                }
-                else if (actionType === 'EDIT_CATEGORY') {
-                    const idx = newData.categories.findIndex(c => c.id === payload.id);
-                    if (idx !== -1) newData.categories[idx] = { ...newData.categories[idx], ...payload };
-                    showToast("分類修改成功");
-                }
-                else if (actionType === 'DELETE_CATEGORY') {
-                    newData.categories = newData.categories.filter(c => c.id !== payload.id);
-                    newData.tasks.forEach(t => { if(t.categoryId === payload.id) t.categoryId = ''; });
-                    newData.rewards.forEach(r => { if(r.categoryId === payload.id) r.categoryId = ''; });
-                    showToast("分類刪除成功");
-                }
-                else if (actionType === 'ADD_TASK' || actionType === 'ADD_REWARD') {
-                    const collection = actionType === 'ADD_TASK' ? 'tasks' : 'rewards';
-                    const { id, ...itemData } = payload;
-                    newData[collection].push({ id: timestamp, ...itemData });
-                    showToast("新增成功");
-                }
-                else if (actionType === 'EDIT_TASK' || actionType === 'EDIT_REWARD') {
-                    const collection = actionType === 'EDIT_TASK' ? 'tasks' : 'rewards';
-                    const idx = newData[collection].findIndex(i => i.id === payload.id);
-                    if (idx !== -1) newData[collection][idx] = { ...newData[collection][idx], ...payload };
-                    showToast("修改成功");
-                }
-                else if (actionType === 'DELETE_ITEM') {
-                    if(newData[payload.collection]) {
-                        newData[payload.collection] = newData[payload.collection].filter(i => i.id !== payload.id);
-                        showToast("刪除成功");
-                    }
-                }
-                else if (actionType === 'REQUEST_TASK') {
-                    newData.history.unshift({
-                        id: timestamp,
-                        type: 'task_pending',
-                        childId: currentChild.id,
-                        itemId: payload.id,
-                        itemName: payload.title,
-                        points: payload.points,
-                        timestamp: timestamp,
-                        status: 'pending'
-                    });
-                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-                    showToast("申請已送出");
-                }
+                else if (actionType === 'ADD_CATEGORY') { newData.categories.push({ id: `cat_${timestamp}`, ...payload }); showToast("分類新增成功"); }
+                else if (actionType === 'EDIT_CATEGORY') { const idx = newData.categories.findIndex(c => c.id === payload.id); if (idx !== -1) newData.categories[idx] = { ...newData.categories[idx], ...payload }; showToast("分類修改成功"); }
+                else if (actionType === 'DELETE_CATEGORY') { newData.categories = newData.categories.filter(c => c.id !== payload.id); newData.tasks.forEach(t => { if(t.categoryId === payload.id) t.categoryId = ''; }); newData.rewards.forEach(r => { if(r.categoryId === payload.id) r.categoryId = ''; }); showToast("分類刪除成功"); }
+                else if (actionType === 'ADD_TASK' || actionType === 'ADD_REWARD') { const collection = actionType === 'ADD_TASK' ? 'tasks' : 'rewards'; const { id, ...itemData } = payload; newData[collection].push({ id: timestamp, ...itemData }); showToast("新增成功"); }
+                else if (actionType === 'EDIT_TASK' || actionType === 'EDIT_REWARD') { const collection = actionType === 'EDIT_TASK' ? 'tasks' : 'rewards'; const idx = newData[collection].findIndex(i => i.id === payload.id); if (idx !== -1) newData[collection][idx] = { ...newData[collection][idx], ...payload }; showToast("修改成功"); }
+                else if (actionType === 'DELETE_ITEM') { if(newData[payload.collection]) { newData[payload.collection] = newData[payload.collection].filter(i => i.id !== payload.id); showToast("刪除成功"); } }
+                else if (actionType === 'REQUEST_TASK') { newData.history.unshift({ id: timestamp, type: 'task_pending', childId: currentChild.id, itemId: payload.id, itemName: payload.title, points: payload.points, timestamp: timestamp, status: 'pending' }); confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); showToast("申請已送出"); }
                 else if (actionType === 'REQUEST_REDEEM') {
-                    if (currentChild.points < payload.totalPoints) {
-                        showToast("點數不夠喔", 'error');
-                        setProcessingItems(prev => { const n = new Set(prev); n.delete(payload.id); return n; });
-                        return;
-                    }
+                    if (currentChild.points < payload.totalPoints) { showToast("點數不夠喔", 'error'); setProcessingItems(prev => { const n = new Set(prev); n.delete(payload.id); return n; }); return; }
                     const itemName = payload.quantity > 1 ? `${payload.title} x${payload.quantity}` : payload.title;
-                    newData.history.unshift({
-                        id: timestamp,
-                        type: 'redeem_pending',
-                        childId: currentChild.id,
-                        itemId: payload.id,
-                        itemName: itemName,
-                        points: payload.totalPoints,
-                        timestamp: timestamp,
-                        status: 'pending'
-                    });
-                    showToast("申請已送出");
+                    newData.history.unshift({ id: timestamp, type: 'redeem_pending', childId: currentChild.id, itemId: payload.id, itemName: itemName, points: payload.totalPoints, timestamp: timestamp, status: 'pending' }); showToast("申請已送出");
                 }
                 else if (actionType === 'APPROVE') {
-                    const historyIdx = newData.history.findIndex(h => h.id === payload.id);
-                    const item = newData.history[historyIdx];
-                    const childIdx = newData.children.findIndex(c => c.id === item.childId);
-                    
-                    if (item.type === 'task_pending') {
-                        // Approve Task: Add Points
-                        newData.children[childIdx].points += parseInt(item.points);
-                        item.status = 'approved';
-                        showToast("已核准 (加點)");
-                    } else {
-                        // Approve Reward: Deduct Points
-                        if (newData.children[childIdx].points >= parseInt(item.points)) {
-                            newData.children[childIdx].points -= parseInt(item.points);
-                            item.status = 'approved';
-                            showToast("已核准 (扣點)");
-                        } else {
-                            showToast("點數不足，無法核准", 'error');
-                            return;
-                        }
-                    }
+                    const historyIdx = newData.history.findIndex(h => h.id === payload.id); const item = newData.history[historyIdx]; const childIdx = newData.children.findIndex(c => c.id === item.childId);
+                    if (item.type === 'task_pending') { newData.children[childIdx].points += parseInt(item.points); item.status = 'approved'; showToast("已核准 (加點)"); }
+                    else { if (newData.children[childIdx].points >= parseInt(item.points)) { newData.children[childIdx].points -= parseInt(item.points); item.status = 'approved'; showToast("已核准 (扣點)"); } else { showToast("點數不足，無法核准", 'error'); return; } }
                 }
                 else if (actionType === 'APPROVE_ALL') {
-                    const itemsToApprove = payload.items;
-                    let successCount = 0;
-                    
+                    const itemsToApprove = payload.items; let successCount = 0;
                     itemsToApprove.forEach(item => {
-                        const historyIdx = newData.history.findIndex(h => h.id === item.id);
-                        if (historyIdx === -1 || newData.history[historyIdx].status !== 'pending') return;
-                        
-                        const historyItem = newData.history[historyIdx];
-                        const childIdx = newData.children.findIndex(c => c.id === historyItem.childId);
-                        if (childIdx === -1) return;
-                        
-                        if (historyItem.type === 'task_pending') {
-                             newData.children[childIdx].points += parseInt(historyItem.points);
-                             newData.history[historyIdx].status = 'approved';
-                             successCount++;
-                        } else if (historyItem.type === 'redeem_pending') {
-                             if (newData.children[childIdx].points >= parseInt(historyItem.points)) {
-                                 newData.children[childIdx].points -= parseInt(historyItem.points);
-                                 newData.history[historyIdx].status = 'approved';
-                                 successCount++;
-                             }
-                        }
+                        const historyIdx = newData.history.findIndex(h => h.id === item.id); if (historyIdx === -1 || newData.history[historyIdx].status !== 'pending') return;
+                        const historyItem = newData.history[historyIdx]; const childIdx = newData.children.findIndex(c => c.id === historyItem.childId); if (childIdx === -1) return;
+                        if (historyItem.type === 'task_pending') { newData.children[childIdx].points += parseInt(historyItem.points); newData.history[historyIdx].status = 'approved'; successCount++; }
+                        else if (historyItem.type === 'redeem_pending') { if (newData.children[childIdx].points >= parseInt(historyItem.points)) { newData.children[childIdx].points -= parseInt(historyItem.points); newData.history[historyIdx].status = 'approved'; successCount++; } }
                     });
                     showToast(`已批准 ${successCount} 項目`);
                 }
-                else if (actionType === 'REJECT') {
-                    const idx = newData.history.findIndex(h => h.id === payload.id);
-                    newData.history[idx].status = 'rejected';
-                    showToast("已駁回");
-                }
-                else if (actionType === 'REJECT_ALL') {
-                    const itemsToReject = payload.items;
-                    itemsToReject.forEach(item => {
-                        const historyIdx = newData.history.findIndex(h => h.id === item.id);
-                        if (historyIdx !== -1) newData.history[historyIdx].status = 'rejected';
-                    });
-                    showToast(`已駁回 ${itemsToReject.length} 項目`);
-                }
-                else if (actionType === 'MANUAL_ADJUST') {
-                    const childIdx = newData.children.findIndex(c => c.id === parseInt(payload.childId));
-                    const pts = parseInt(payload.points);
-                    newData.children[childIdx].points += pts;
-                    newData.history.unshift({
-                        id: timestamp,
-                        type: 'manual',
-                        childId: parseInt(payload.childId),
-                        itemName: payload.reason,
-                        points: pts,
-                        timestamp: timestamp,
-                        status: 'approved'
-                    });
-                    showToast("調整成功");
-                }
+                else if (actionType === 'REJECT') { const idx = newData.history.findIndex(h => h.id === payload.id); newData.history[idx].status = 'rejected'; showToast("已駁回"); }
+                else if (actionType === 'REJECT_ALL') { const itemsToReject = payload.items; itemsToReject.forEach(item => { const historyIdx = newData.history.findIndex(h => h.id === item.id); if (historyIdx !== -1) newData.history[historyIdx].status = 'rejected'; }); showToast(`已駁回 ${itemsToReject.length} 項目`); }
+                else if (actionType === 'MANUAL_ADJUST') { const childIdx = newData.children.findIndex(c => c.id === parseInt(payload.childId)); const pts = parseInt(payload.points); newData.children[childIdx].points += pts; newData.history.unshift({ id: timestamp, type: 'manual', childId: parseInt(payload.childId), itemName: payload.reason, points: pts, timestamp: timestamp, status: 'approved' }); showToast("調整成功"); }
 
                 await saveData(newData);
                 
-                if (actionType.includes('REQUEST')) {
-                    setTimeout(() => {
-                        setProcessingItems(prev => {
-                            const n = new Set(prev);
-                            n.delete(payload.id);
-                            return n;
-                        });
-                    }, 1000); 
-                }
+                if (actionType.includes('REQUEST')) { setTimeout(() => { setProcessingItems(prev => { const n = new Set(prev); n.delete(payload.id); return n; }); }, 1000); }
             };
 
-            const sortItems = (items) => {
-                return items.sort((a, b) => {
-                    const diff = b.points - a.points;
-                    if (diff !== 0) return diff;
-                    return (a.categoryId || '').localeCompare(b.categoryId || '');
-                });
-            };
+            const sortItems = (items) => { return items.sort((a, b) => { const diff = b.points - a.points; if (diff !== 0) return diff; return (a.categoryId || '').localeCompare(b.categoryId || ''); }); };
 
             const SyncIcon = () => (
                 <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
@@ -674,6 +564,7 @@
             if (mode === 'landing') {
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden bg-ios-bg">
+                        <div className="absolute top-4 right-4"><SyncIcon /></div>
                         <div className="absolute top-20 right-10 text-6xl opacity-80 animate-float" style={{ animationDuration: '4s' }}>☁️</div>
                         <div className="absolute bottom-20 left-10 text-5xl opacity-60 animate-float" style={{ animationDuration: '6s', animationDelay: '1s' }}>🎈</div>
                         <div className="absolute top-40 left-20 text-4xl opacity-50 animate-bounce">✨</div>
@@ -685,13 +576,7 @@
                         </div>
                         {modalConfig.type === 'parent_login' && (
                             <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="家長登入">
-                                <PinLoginView 
-                                    correctPassword={parentPass}
-                                    onSuccess={() => {
-                                        setModalConfig({ ...modalConfig, open: false });
-                                        handleModeChange('parent');
-                                    }}
-                                />
+                                <PinLoginView correctPassword={parentPass} onSuccess={() => { setModalConfig({ ...modalConfig, open: false }); handleModeChange('parent'); }} />
                             </Modal>
                         )}
                         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
@@ -703,32 +588,20 @@
             if (mode === 'child_select') {
                 return (
                     <div className="min-h-screen p-6 flex flex-col items-center bg-ios-bg">
+                         <div className="absolute top-4 right-4"><SyncIcon /></div>
                         <button onClick={() => setMode('landing')} className="self-start mb-8 text-gray-500 hover:text-ios-blue transition"><i className={Icons.ChevronLeft}></i> 返回</button>
                         <div className="flex flex-wrap justify-center gap-6 w-full max-w-2xl px-4">
                             {data.children.map(child => (
-                                <button 
-                                    key={child.id} 
-                                    onClick={() => setModalConfig({ open: true, type: 'child_login', data: child })} 
-                                    className="bg-white p-6 rounded-3xl shadow-ios flex flex-col items-center gap-4 hover:-translate-y-2 transition w-full sm:w-40 border border-white"
-                                >
+                                <button key={child.id} onClick={() => setModalConfig({ open: true, type: 'child_login', data: child })} className="bg-white p-6 rounded-3xl shadow-ios flex flex-col items-center gap-4 hover:-translate-y-2 transition w-full sm:w-40 border border-white">
                                     <Avatar avatar={child.avatar} size="lg" />
                                     <span className="text-xl font-bold text-gray-700">{child.name}</span>
                                     <span className="bg-ios-yellow/30 text-ios-orange px-4 py-1 rounded-full text-sm font-bold shadow-sm">{child.points.toLocaleString()} 點</span>
                                 </button>
                             ))}
                         </div>
-                        {/* Child Login Modal */}
                         {modalConfig.type === 'child_login' && (
                             <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={`哈囉 ${modalConfig.data.name}`}>
-                                <PinLoginView 
-                                    avatar={modalConfig.data.avatar}
-                                    correctPassword={modalConfig.data.password || '0000'}
-                                    onSuccess={() => {
-                                        setCurrentChild(modalConfig.data);
-                                        setMode('child_dashboard');
-                                        setModalConfig({ ...modalConfig, open: false });
-                                    }}
-                                />
+                                <PinLoginView avatar={modalConfig.data.avatar} correctPassword={modalConfig.data.password || '0000'} onSuccess={() => { setCurrentChild(modalConfig.data); setMode('child_dashboard'); setModalConfig({ ...modalConfig, open: false }); }} />
                             </Modal>
                         )}
                     </div>
@@ -745,89 +618,66 @@
                 if (childFilterCat !== 'all') items = items.filter(i => i.categoryId === childFilterCat);
                 const filteredItems = sortItems(items);
                 
-                const now = new Date();
-                const oneDay = 24*60*60*1000;
+                const now = new Date(); const oneDay = 24*60*60*1000;
                 let filteredHistory = data.history.filter(h => h.childId === liveChild.id);
-                
                 if (childTab === 'history_task') filteredHistory = filteredHistory.filter(h => h.type === 'task_pending');
                 else if (childTab === 'history_reward') filteredHistory = filteredHistory.filter(h => h.type === 'redeem_pending');
                 else if (childTab === 'history_other') filteredHistory = filteredHistory.filter(h => h.type === 'manual');
-
                 if (historyFilter === 'week') filteredHistory = filteredHistory.filter(h => (now - h.timestamp) < 7 * oneDay);
                 else if (historyFilter === 'prev_week') filteredHistory = filteredHistory.filter(h => (now - h.timestamp) >= 7 * oneDay && (now - h.timestamp) < 14 * oneDay);
                 else if (historyFilter === 'month') filteredHistory = filteredHistory.filter(h => (now - h.timestamp) < 30 * oneDay);
-
                 const availableCats = data.categories.filter(c => c.type === typeFilter);
-
-                // Notifications
                 const canRedeemAny = data.rewards.some(r => (r.assignee === 'all' || parseInt(r.assignee) === liveChild.id) && liveChild.points >= r.points);
                 const hasUnreadHistory = data.history.some(h => h.childId === liveChild.id && h.status !== 'pending' && h.timestamp > childLastViewedHistory);
 
-                const renderHistoryTab = (subTab, label) => (
-                    <button key={subTab} onClick={() => setChildTab(subTab)} className={`flex-1 py-2 text-xs rounded-lg font-bold transition ${childTab === subTab ? 'bg-ios-indigo text-white' : 'bg-gray-100 text-gray-500'}`}>{label}</button>
-                );
+                const renderHistoryTab = (subTab, label) => ( <button key={subTab} onClick={() => setChildTab(subTab)} className={`flex-1 py-2 text-xs rounded-lg font-bold transition ${childTab === subTab ? 'bg-ios-indigo text-white' : 'bg-gray-100 text-gray-500'}`}>{label}</button> );
 
                 return (
                     <div className="min-h-screen bg-ios-bg pb-24">
-                        <SyncIcon />
                         {/* Header */}
                         <div className="bg-white px-6 pt-8 pb-6 rounded-b-[40px] shadow-ios sticky top-0 z-20 sticky-header">
                             <div className="flex justify-between items-center mb-4">
                                 <button onClick={() => setMode('child_select')} className="w-10 h-10 bg-ios-bg rounded-full text-gray-500 hover:text-ios-blue transition"><i className={Icons.ChevronLeft}></i></button>
                                 <span className="font-bold text-lg text-gray-600">Hello~ {liveChild.name}</span>
-                                <div onClick={() => setModalConfig({open: true, type: 'edit_child', data: liveChild})} className="cursor-pointer">
-                                    <Avatar avatar={liveChild.avatar} size="md" />
+                                <div className="flex items-center gap-2">
+                                    <SyncIcon className="w-8 h-8" />
+                                    <div onClick={() => setModalConfig({open: true, type: 'edit_child', data: liveChild})} className="cursor-pointer"><Avatar avatar={liveChild.avatar} size="md" /></div>
                                 </div>
                             </div>
                             <div className="flex flex-col items-center mb-6">
                                 <div className="flex items-center justify-center gap-4 mb-3">
                                      <div className="flex flex-col items-center">
-                                         <div className="text-4xl xs:text-5xl md:text-6xl font-black text-ios-blue tracking-tighter flex items-center gap-1">
+                                         <div className="text-4xl xs:text-5xl md:text-6xl font-black text-ios-blue tracking-tighter flex items-center gap-3 leading-none">
                                             <i className={`${Icons.Coins} text-2xl xs:text-3xl text-yellow-400`}></i>
                                             {liveChild.points.toLocaleString()}
                                          </div>
                                          <div className="text-xs text-gray-400 font-bold mt-1">累積點數</div>
                                      </div>
                                 </div>
-                                <div className="bg-white/50 px-6 py-2 rounded-full text-ios-indigo font-bold text-xs xs:text-sm shadow-sm animate-fade-in text-center max-w-[90%]">
-                                    {dailyQuote}
-                                </div>
+                                <div className="bg-white/50 px-6 py-2 rounded-full text-ios-indigo font-bold text-xs xs:text-sm shadow-sm animate-fade-in text-center max-w-[90%]">{dailyQuote}</div>
                             </div>
-                            {/* Main Tabs */}
-                            <div className="flex mt-6 bg-ios-bg p-1.5 rounded-2xl shadow-inner relative">
-                                <button onClick={() => {setChildTab('tasks'); setChildFilterCat('all');}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition ${childTab === 'tasks' ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}>
-                                    <i className={Icons.Task}></i> 賺點數
-                                </button>
-                                <button onClick={() => {setChildTab('rewards'); setChildFilterCat('all');}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition relative ${childTab === 'rewards' ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}>
-                                    <i className={Icons.Reward}></i> 換獎品
-                                    {canRedeemAny && <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-ios-red rounded-full animate-pulse"></span>}
-                                </button>
-                                <button onClick={() => {setChildTab('history'); updateChildHistoryView();}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition relative ${childTab.includes('history') ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}>
-                                    <i className={Icons.History}></i> 紀錄
-                                    {hasUnreadHistory && !childTab.includes('history') && <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-ios-red rounded-full"></span>}
-                                </button>
-                            </div>
-                            
-                            {/* Sticky Filters (Inside Header) */}
-                            {['tasks', 'rewards'].includes(childTab) && (
-                                <div className="flex gap-2 overflow-x-auto hide-scrollbar mt-4 pb-2">
-                                    <button onClick={() => setChildFilterCat('all')} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === 'all' ? 'bg-ios-indigo text-white' : 'bg-white text-gray-500 hover:bg-white/80'}`}>全部</button>
-                                    {availableCats.map(c => (
-                                        <button key={c.id} onClick={() => setChildFilterCat(c.id)} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === c.id ? `bg-${c.color}-500 text-white` : 'bg-white text-gray-500 hover:bg-white/80'}`}>
-                                            {c.name}
-                                        </button>
-                                    ))}
+                            {/* Main Tabs - Sticky Container */}
+                            <div className="sticky-tabs">
+                                <div className="flex bg-ios-bg p-1.5 rounded-2xl shadow-inner relative">
+                                    <button onClick={() => {setChildTab('tasks'); setChildFilterCat('all');}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition ${childTab === 'tasks' ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}><i className={Icons.Task}></i> 賺點數</button>
+                                    <button onClick={() => {setChildTab('rewards'); setChildFilterCat('all');}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition relative ${childTab === 'rewards' ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}><i className={Icons.Reward}></i> 換獎品{canRedeemAny && <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-ios-red rounded-full animate-pulse"></span>}</button>
+                                    <button onClick={() => {setChildTab('history'); updateChildHistoryView();}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition relative ${childTab.includes('history') ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}><i className={Icons.History}></i> 紀錄{hasUnreadHistory && !childTab.includes('history') && <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-ios-red rounded-full"></span>}</button>
                                 </div>
-                            )}
-                            {childTab.includes('history') && (
-                                <div className="flex justify-end mt-4 overflow-x-auto hide-scrollbar">
-                                    <div className="bg-white rounded-xl shadow-sm p-1.5 flex gap-1">
-                                        {[{id:'week', l:'本週'}, {id:'prev_week', l:'上週'}, {id:'month', l:'近30天'}, {id:'all', l:'全部'}].map(f => (
-                                            <button key={f.id} onClick={() => setHistoryFilter(f.id)} className={`px-3 py-1.5 text-xs rounded-lg whitespace-nowrap transition ${historyFilter === f.id ? 'bg-ios-bg font-bold text-ios-indigo' : 'text-gray-400 hover:text-gray-600'}`}>{f.l}</button>
-                                        ))}
+                                
+                                {['tasks', 'rewards'].includes(childTab) && (
+                                    <div className="flex gap-2 overflow-x-auto hide-scrollbar mt-4 pb-2">
+                                        <button onClick={() => setChildFilterCat('all')} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === 'all' ? 'bg-ios-indigo text-white' : 'bg-white text-gray-500 hover:bg-white/80'}`}>全部</button>
+                                        {availableCats.map(c => (<button key={c.id} onClick={() => setChildFilterCat(c.id)} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === c.id ? `bg-${c.color}-500 text-white` : 'bg-white text-gray-500 hover:bg-white/80'}`}>{c.name}</button>))}
                                     </div>
-                                </div>
-                            )}
+                                )}
+                                {childTab.includes('history') && (
+                                    <div className="flex justify-end mt-4 overflow-x-auto hide-scrollbar">
+                                        <div className="bg-white rounded-xl shadow-sm p-1.5 flex gap-1">
+                                            {[{id:'week', l:'本週'}, {id:'prev_week', l:'上週'}, {id:'month', l:'近30天'}, {id:'all', l:'全部'}].map(f => (<button key={f.id} onClick={() => setHistoryFilter(f.id)} className={`px-3 py-1.5 text-xs rounded-lg whitespace-nowrap transition ${historyFilter === f.id ? 'bg-ios-bg font-bold text-ios-indigo' : 'text-gray-400 hover:text-gray-600'}`}>{f.l}</button>))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <div className="p-4 md:p-6">
@@ -837,160 +687,53 @@
                                         const cat = data.categories.find(c => c.id === item.categoryId);
                                         const canAfford = childTab === 'rewards' ? liveChild.points >= item.points : true;
                                         const isProcessing = processingItems.has(item.id);
+                                        const isTask = childTab === 'tasks';
+                                        const borderColor = isTask ? 'border-ios-blue' : 'border-ios-pink';
+                                        const pointColor = isTask ? 'bg-ios-blue/10 text-ios-blue' : 'bg-ios-pink/10 text-ios-pink';
+                                        const sign = isTask ? '+' : '-';
 
                                         return (
-                                            <div 
-                                                key={item.id} 
-                                                onClick={() => {
-                                                    if (isProcessing) return;
-                                                    if (childTab === 'tasks') {
-                                                        handleAction('REQUEST_TASK', item);
-                                                    } else {
-                                                        if (canAfford) {
-                                                            if (item.isRepeatable) {
-                                                                setModalConfig({ open: true, type: 'redeem_repeatable', data: item });
-                                                            } else {
-                                                                handleAction('REQUEST_REDEEM', { ...item, quantity: 1, totalPoints: item.points });
-                                                            }
-                                                        }
-                                                    }
-                                                }} 
-                                                className={`bg-white p-4 rounded-3xl shadow-ios active:scale-95 transition cursor-pointer relative overflow-hidden ${childTab === 'tasks' ? 'flex justify-between items-center border-l-4 border-ios-blue' : 'flex flex-col items-center text-center gap-2 border-2 border-white hover:border-ios-blue/30'} ${!canAfford ? 'opacity-60 grayscale' : ''} ${isProcessing ? 'pointer-events-none' : ''}`}
-                                            >
-                                                {childTab === 'rewards' && cat && <div className={`absolute top-0 right-0 w-4 h-4 rounded-bl-xl bg-${cat.color}-500 shadow-sm`}></div>}
-                                                
-                                                {/* Layout differences for Task vs Reward */}
-                                                {childTab === 'tasks' ? (
-                                                    <>
-                                                        <div className="flex items-center gap-2">
-                                                            {cat && <div className={`w-2 h-2 rounded-full bg-${cat.color}-500`}></div>}
-                                                            <span className="font-bold text-gray-700 text-lg leading-tight">{item.title}</span>
-                                                        </div>
-                                                        <span className="bg-ios-blue/10 text-ios-blue px-4 py-1 rounded-full font-bold text-sm shadow-sm">
-                                                            +{item.points.toLocaleString()}
-                                                        </span>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <span className="font-bold text-gray-700 text-lg leading-tight mt-2">{item.title}</span>
-                                                        <span className="bg-ios-pink/10 text-ios-pink px-4 py-1 rounded-full font-bold text-sm shadow-sm">
-                                                            -{item.points.toLocaleString()}
-                                                        </span>
-                                                        {item.isRepeatable && childTab === 'rewards' && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full absolute top-2 right-2 border border-gray-200">可累計</span>}
-                                                    </>
-                                                )}
+                                            <div key={item.id} onClick={() => { if (isProcessing) return; if (childTab === 'tasks') { handleAction('REQUEST_TASK', item); } else { if (canAfford) { if (item.isRepeatable) { setModalConfig({ open: true, type: 'redeem_repeatable', data: item }); } else { handleAction('REQUEST_REDEEM', { ...item, quantity: 1, totalPoints: item.points }); } } } }} className={`bg-white p-4 rounded-3xl shadow-ios active:scale-95 transition cursor-pointer relative overflow-hidden flex justify-between items-center border-l-4 ${borderColor} ${!canAfford ? 'opacity-60 grayscale' : ''} ${isProcessing ? 'pointer-events-none' : ''}`}>
+                                                <div className="flex items-center gap-3 overflow-hidden">
+                                                    {cat && <div className={`w-2 h-2 rounded-full bg-${cat.color}-500 flex-shrink-0`}></div>}
+                                                    <div className="flex flex-wrap items-baseline gap-2">
+                                                        <span className="font-bold text-gray-700 text-lg leading-tight truncate">{item.title}</span>
+                                                        {!isTask && item.isRepeatable && (<span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-0.5 rounded-md border border-gray-100 flex-shrink-0">可累計</span>)}
+                                                    </div>
+                                                </div>
+                                                <span className={`${pointColor} px-4 py-1 rounded-full font-bold text-sm shadow-sm whitespace-nowrap ml-2`}>{sign}{item.points.toLocaleString()}</span>
                                             </div>
                                         )
                                     })}
-                                    {filteredItems.length === 0 && (
-                                        <div className="col-span-full text-center py-16 text-gray-400 flex flex-col items-center gap-2">
-                                            <i className="fa-regular fa-folder-open text-4xl opacity-50"></i>
-                                            <p>這裡空空的喔！</p>
-                                        </div>
-                                    )}
+                                    {filteredItems.length === 0 && <div className="col-span-full text-center py-16 text-gray-400 flex flex-col items-center gap-2"><i className="fa-regular fa-folder-open text-4xl opacity-50"></i><p>這裡空空的喔！</p></div>}
                                 </div>
                             )}
 
                             {childTab.includes('history') && (
                                 <div>
-                                    {/* History Sub Tabs */}
-                                    <div className="flex gap-2 mb-4 bg-white p-2 rounded-xl shadow-sm overflow-x-auto hide-scrollbar">
-                                        {renderHistoryTab('history', '全部')}
-                                        {renderHistoryTab('history_task', '任務')}
-                                        {renderHistoryTab('history_reward', '兌換')}
-                                        {renderHistoryTab('history_other', '其他')}
+                                    <div className="flex gap-2 mb-4 bg-white p-2 rounded-xl shadow-sm overflow-x-auto hide-scrollbar sticky top-[130px] z-20">
+                                        {renderHistoryTab('history', '全部')} {renderHistoryTab('history_task', '任務')} {renderHistoryTab('history_reward', '兌換')} {renderHistoryTab('history_other', '其他')}
                                     </div>
-
                                     <div className="bg-white rounded-3xl shadow-ios overflow-hidden border border-white">
                                         {filteredHistory.map((h, i) => (
                                             <div key={i} className="p-4 border-b border-gray-50 last:border-0 flex justify-between items-center hover:bg-gray-50 transition">
-                                                <div>
-                                                    <div className="font-bold text-gray-700 text-lg">{h.itemName}</div>
-                                                    <div className="text-xs text-gray-400 mt-0.5">
-                                                        {new Date(h.timestamp).toLocaleDateString()}
-                                                    </div>
-                                                </div>
-                                                
+                                                <div><div className="font-bold text-gray-700 text-lg">{h.itemName}</div><div className="text-xs text-gray-400 mt-0.5">{new Date(h.timestamp).toLocaleDateString()}</div></div>
                                                 <div className="flex items-center gap-2">
-                                                    {/* Status Badge */}
-                                                    <span className={`font-bold px-2 py-0.5 rounded text-[10px] ${h.status === 'pending' ? 'bg-ios-orange/10 text-ios-orange' : h.status === 'approved' ? 'bg-ios-green/10 text-ios-green' : 'bg-ios-red/10 text-ios-red'}`}>
-                                                        {h.status === 'pending' ? '審核中' : h.status === 'approved' ? '核准' : '退回'}
-                                                    </span>
-
-                                                    {/* Points - Hide if rejected */}
-                                                    {h.status !== 'rejected' && (
-                                                        <div className={`font-bold text-xl ${h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? 'text-ios-blue' : 'text-ios-pink'}`}>
-                                                            {h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? '+' : '-'}{Math.abs(h.points).toLocaleString()}
-                                                        </div>
-                                                    )}
+                                                    <span className={`font-bold px-2 py-0.5 rounded text-[10px] ${h.status === 'pending' ? 'bg-ios-orange/10 text-ios-orange' : h.status === 'approved' ? 'bg-ios-green/10 text-ios-green' : 'bg-ios-red/10 text-ios-red'}`}>{h.status === 'pending' ? '審核中' : h.status === 'approved' ? '核准' : '退回'}</span>
+                                                    {h.status !== 'rejected' && (<div className={`font-bold text-xl ${h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? 'text-ios-blue' : 'text-ios-pink'}`}>{h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? '+' : '-'}{Math.abs(h.points).toLocaleString()}</div>)}
                                                 </div>
                                             </div>
                                         ))}
-                                        {filteredHistory.length === 0 && (
-                                            <div className="p-10 text-center text-gray-400 flex flex-col items-center gap-2">
-                                                <i className="fa-regular fa-clock text-3xl opacity-50"></i>
-                                                <p>沒有紀錄</p>
-                                            </div>
-                                        )}
+                                        {filteredHistory.length === 0 && <div className="p-10 text-center text-gray-400 flex flex-col items-center gap-2"><i className="fa-regular fa-clock text-3xl opacity-50"></i><p>沒有紀錄</p></div>}
                                     </div>
                                 </div>
                             )}
                         </div>
                         
                         {(modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type="edit_child" data={modalConfig.data} onSave={payload => { handleAction('EDIT_CHILD', payload); setModalConfig({ ...modalConfig, open: false }); }} key={modalConfig.open ? 'open' : 'closed'} />}
-                        
-                        {/* Redeem Repeatable Modal */}
-                        {modalConfig.type === 'redeem_repeatable' && (
-                            <RedeemQuantityModal 
-                                isOpen={modalConfig.open}
-                                onClose={() => setModalConfig({ ...modalConfig, open: false })}
-                                data={modalConfig.data}
-                                userPoints={currentChild.points}
-                                onConfirm={(qty, totalPoints) => {
-                                    if (!processingItems.has(modalConfig.data.id)) {
-                                        handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: qty, totalPoints: totalPoints });
-                                        setModalConfig({ ...modalConfig, open: false });
-                                    }
-                                }}
-                                processing={processingItems.has(modalConfig.data.id)}
-                            />
-                        )}
-
-                        {/* Redeem Confirm Modal (Single) */}
-                        {modalConfig.type === 'redeem_confirm' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="確認兌換">
-                                <div className="flex flex-col items-center gap-4 text-center p-2">
-                                    <div className="text-5xl animate-bounce">🎁</div>
-                                    <p className="text-gray-600 text-lg">確定要兌換 <br/><span className="text-xl font-bold text-ios-indigo">{modalConfig.data.title}</span> 嗎？</p>
-                                    <div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points.toLocaleString()} 點</div>
-                                    <div className="flex gap-3 w-full mt-4">
-                                        <button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">再想想</button>
-                                        <button onClick={() => {
-                                            if (!isSubmitting) {
-                                                handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: 1, totalPoints: modalConfig.data.points });
-                                                setModalConfig({ ...modalConfig, open: false });
-                                            }
-                                        }} className="flex-1 py-3 rounded-xl bg-ios-pink text-white font-bold shadow-lg active:scale-95 transition" disabled={isSubmitting}>確定兌換</button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        )}
-                        
-                        {/* Generic Confirmation Modal */}
-                        {modalConfig.type === 'confirm_delete' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={modalConfig.data.title}>
-                                <div className="flex flex-col gap-4">
-                                    <p className="text-gray-600 text-lg">{modalConfig.data.message}</p>
-                                    <div className="flex gap-3">
-                                        <button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">取消</button>
-                                        <button onClick={() => {
-                                            modalConfig.data.onConfirm();
-                                            setModalConfig({ ...modalConfig, open: false });
-                                        }} className="flex-1 py-3 rounded-xl bg-ios-red text-white font-bold shadow-lg active:scale-95 transition">刪除</button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        )}
+                        {modalConfig.type === 'redeem_repeatable' && <RedeemQuantityModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} data={modalConfig.data} userPoints={currentChild.points} onConfirm={(qty, totalPoints) => { if (!processingItems.has(modalConfig.data.id)) { handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: qty, totalPoints: totalPoints }); setModalConfig({ ...modalConfig, open: false }); } }} processing={processingItems.has(modalConfig.data.id)} />}
+                        {modalConfig.type === 'redeem_confirm' && <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="確認兌換"><div className="flex flex-col items-center gap-4 text-center p-2"><div className="text-5xl animate-bounce">🎁</div><p className="text-gray-600 text-lg">確定要兌換 <br/><span className="text-xl font-bold text-ios-indigo">{modalConfig.data.title}</span> 嗎？</p><div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points.toLocaleString()} 點</div><div className="flex gap-3 w-full mt-4"><button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">再想想</button><button onClick={() => { if (!isSubmitting) { handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: 1, totalPoints: modalConfig.data.points }); setModalConfig({ ...modalConfig, open: false }); } }} className="flex-1 py-3 rounded-xl bg-ios-pink text-white font-bold shadow-lg active:scale-95 transition" disabled={isSubmitting}>確定兌換</button></div></div></Modal>}
+                        {modalConfig.type === 'confirm_delete' && <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={modalConfig.data.title}><div className="flex flex-col gap-4"><p className="text-gray-600 text-lg">{modalConfig.data.message}</p><div className="flex gap-3"><button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">取消</button><button onClick={() => { modalConfig.data.onConfirm(); setModalConfig({ ...modalConfig, open: false }); }} className="flex-1 py-3 rounded-xl bg-ios-red text-white font-bold shadow-lg active:scale-95 transition">刪除</button></div></div></Modal>}
 
                         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
                     </div>
@@ -1017,7 +760,7 @@
 
                 return (
                     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row pb-20 md:pb-0">
-                        <SyncIcon />
+                        <div className="hidden md:block fixed top-4 right-4 z-50"><SyncIcon /></div>
                         {/* Sidebar */}
                         <div className={`hidden md:flex sidebar-transition fixed bottom-0 left-0 top-0 z-30 bg-white border-r border-gray-200 flex-col shadow-lg relative ${isSidebarCollapsed ? 'w-20' : 'w-48'}`}>
                             <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className={`w-8 h-8 flex items-center justify-center bg-white text-gray-400 hover:text-gray-600 border border-gray-200 rounded-full shadow-sm transition-all z-50 ${isSidebarCollapsed ? 'mx-auto mt-6 mb-2' : 'absolute top-1/2 -translate-y-1/2 -right-4'}`}><i className={`text-xs ${isSidebarCollapsed ? Icons.ChevronRight : Icons.ChevronLeft}`}></i></button>
@@ -1036,15 +779,15 @@
                         </div>
 
                          {/* Mobile Bottom Floating Nav */}
-                        <div className="md:hidden fixed bottom-6 left-4 right-4 bg-white/90 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl z-40 flex justify-around p-3">
+                        <div className="md:hidden fixed bottom-6 left-4 right-4 bg-white/90 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl z-40 flex justify-between items-center p-2 px-4">
                             {['approvals', 'tasks', 'rewards', 'children', 'settings'].map(tab => (
-                                <button key={tab} onClick={() => {setParentTab(tab); setParentFilterCat('all');}} className={`flex flex-col items-center gap-1 p-2 rounded-xl transition relative ${parentTab === tab ? 'text-ios-indigo' : 'text-gray-400'}`}>
+                                <button key={tab} onClick={() => {setParentTab(tab); setParentFilterCat('all');}} className={`flex flex-col items-center gap-1 p-2 rounded-xl transition relative flex-1 ${parentTab === tab ? 'text-ios-indigo' : 'text-gray-400'}`}>
                                     <i className={`text-xl ${tab === 'approvals' ? Icons.Check : tab === 'tasks' ? Icons.Task : tab === 'rewards' ? Icons.Reward : tab === 'children' ? Icons.Child : Icons.Settings}`}></i>
                                     <span className="text-[10px] font-bold">{tab === 'approvals' ? '待審核' : tab === 'tasks' ? '任務' : tab === 'rewards' ? '獎勵' : tab === 'children' ? '小孩' : '設定'}</span>
                                     {tab === 'approvals' && pendingItems.length > 0 && <span className="absolute top-2 right-1/4 w-2 h-2 bg-ios-red rounded-full"></span>}
                                 </button>
                             ))}
-                            <button onClick={() => setMode('landing')} className="flex flex-col items-center gap-1 p-2 rounded-xl text-gray-400">
+                            <button onClick={() => setMode('landing')} className="flex flex-col items-center gap-1 p-2 rounded-xl text-gray-400 flex-1">
                                 <i className={`text-xl ${Icons.Exit}`}></i>
                                 <span className="text-[10px] font-bold">退出</span>
                             </button>
@@ -1052,7 +795,10 @@
 
                         {/* Content */}
                         <div className="flex-1 p-4 md:p-6 overflow-y-auto h-screen">
-                            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 capitalize">{parentTab === 'approvals' ? '審核申請' : parentTab === 'tasks' ? '任務管理' : parentTab === 'rewards' ? '獎勵管理' : parentTab === 'children' ? '小孩管理' : '系統設定'}</h1>
+                            <div className="flex justify-between items-center mb-4 md:mb-6">
+                                <h1 className="text-2xl md:text-3xl font-bold text-gray-800 capitalize">{parentTab === 'approvals' ? '審核申請' : parentTab === 'tasks' ? '任務管理' : parentTab === 'rewards' ? '獎勵管理' : parentTab === 'children' ? '小孩管理' : '系統設定'}</h1>
+                                <div className="md:hidden"><SyncIcon /></div>
+                            </div>
                             
                             {parentTab === 'approvals' && (
                                 <div className="space-y-4">
@@ -1127,7 +873,9 @@
                                             return (
                                                 <div key={item.id} className="bg-white p-4 md:p-5 rounded-3xl shadow-sm relative group border border-gray-100 hover:shadow-md transition">
                                                     <div className="flex justify-between items-start mb-2">
-                                                        <div className="font-bold text-gray-800 text-lg md:text-xl">{item.title}</div>
+                                                        <div className="font-bold text-gray-800 text-lg md:text-xl flex items-center gap-2 flex-wrap">
+                                                            {item.title}
+                                                        </div>
                                                         {cat && <span className={`text-[10px] px-2 py-0.5 rounded-full text-white font-bold bg-${cat.color}-500`}>{cat.name}</span>}
                                                     </div>
                                                     
@@ -1216,147 +964,12 @@
                         </div>
 
                         {(modalConfig.type === 'add_child' || modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type={modalConfig.type} data={modalConfig.data} onSave={p => { handleAction(modalConfig.type === 'edit_child' ? 'EDIT_CHILD' : 'ADD_CHILD', p); setModalConfig({ ...modalConfig, open: false }); }} key={modalConfig.open ? 'open' : 'closed'} />}
-                        
-                        {(modalConfig.type.includes('task') || modalConfig.type.includes('reward')) && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={modalConfig.type.includes('add') ? '新增' : '編輯'}>
-                                <form onSubmit={(e) => {
-                                    e.preventDefault();
-                                    const payload = {
-                                        id: modalConfig.data?.id,
-                                        title: e.target.title.value,
-                                        points: parseInt(e.target.points.value),
-                                        assignee: e.target.assignee.value,
-                                        categoryId: e.target.categoryId.value,
-                                        isRepeatable: e.target.isRepeatable?.checked
-                                    };
-                                    handleAction(modalConfig.type.includes('add') ? (modalConfig.type.includes('task') ? 'ADD_TASK' : 'ADD_REWARD') : (modalConfig.type.includes('task') ? 'EDIT_TASK' : 'EDIT_REWARD'), payload);
-                                    setModalConfig({ ...modalConfig, open: false });
-                                }} className="flex flex-col gap-4">
-                                    <input name="title" placeholder="名稱" defaultValue={modalConfig.data?.title} required className="bg-ios-bg p-3 rounded-xl outline-none focus:ring-2 focus:ring-ios-blue" />
-                                    <div className="flex gap-2">
-                                        <input type="number" name="points" placeholder="點數" defaultValue={modalConfig.data?.points} required className="bg-ios-bg p-3 rounded-xl flex-1 outline-none focus:ring-2 focus:ring-ios-blue" />
-                                        <div className="relative flex-1">
-                                            <select name="categoryId" defaultValue={modalConfig.data?.categoryId} className="w-full bg-ios-bg p-3 rounded-xl appearance-none custom-select outline-none focus:ring-2 focus:ring-ios-blue">
-                                                <option value="">無分類</option>
-                                                {data.categories.filter(c => c.type === (modalConfig.type.includes('task') ? 'task' : 'reward')).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="relative">
-                                        <select name="assignee" defaultValue={modalConfig.data?.assignee || 'all'} className="w-full bg-ios-bg p-3 rounded-xl appearance-none custom-select outline-none focus:ring-2 focus:ring-ios-blue">
-                                            <option value="all">所有人</option>
-                                            {data.children.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                                        </select>
-                                    </div>
-                                    {modalConfig.type.includes('reward') && (
-                                        <label className="flex items-center gap-3 p-3 bg-ios-bg rounded-xl cursor-pointer">
-                                            <input type="checkbox" name="isRepeatable" defaultChecked={modalConfig.data?.isRepeatable} className="w-5 h-5 accent-ios-green rounded" />
-                                            <span className="text-gray-600 font-bold text-sm">可累計兌換</span>
-                                        </label>
-                                    )}
-                                    <button className="bg-ios-indigo text-white p-3 rounded-xl font-bold mt-2 shadow-lg active:scale-95 transition">儲存</button>
-                                </form>
-                            </Modal>
-                        )}
-
-                        {modalConfig.type === 'manual_adjust' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="手動獎懲">
-                                <form onSubmit={(e) => {
-                                    e.preventDefault();
-                                    const pts = parseInt(e.target.points.value);
-                                    handleAction('MANUAL_ADJUST', {
-                                        childId: e.target.childId.value,
-                                        points: e.target.type.value === 'deduct' ? -pts : pts,
-                                        reason: e.target.reason.value
-                                    });
-                                    setModalConfig({ ...modalConfig, open: false });
-                                }} className="flex flex-col gap-4">
-                                    <select name="childId" className="bg-ios-bg p-3 rounded-xl custom-select outline-none focus:ring-2 focus:ring-ios-blue" required>{data.children.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
-                                    <div className="flex gap-4">
-                                        <label className="flex-1 flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl cursor-pointer has-[:checked]:bg-ios-green/10 has-[:checked]:text-ios-green border border-transparent has-[:checked]:border-ios-green transition font-bold"><input type="radio" name="type" value="add" defaultChecked className="hidden" /> 加分</label>
-                                        <label className="flex-1 flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl cursor-pointer has-[:checked]:bg-ios-red/10 has-[:checked]:text-ios-red border border-transparent has-[:checked]:border-ios-red transition font-bold"><input type="radio" name="type" value="deduct" className="hidden" /> 扣分</label>
-                                    </div>
-                                    <input type="number" name="points" placeholder="點數" required className="bg-ios-bg p-3 rounded-xl outline-none focus:ring-2 focus:ring-ios-blue" />
-                                    <input name="reason" placeholder="原因" required className="bg-ios-bg p-3 rounded-xl outline-none focus:ring-2 focus:ring-ios-blue" />
-                                    <button className="bg-ios-indigo text-white p-3 rounded-xl font-bold mt-2 shadow-lg active:scale-95 transition">執行</button>
-                                </form>
-                            </Modal>
-                        )}
-
-                        {modalConfig.type === 'manage_categories' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={`管理${modalConfig.categoryType === 'task' ? '任務' : '獎勵'}分類`}>
-                                <CategoryManager 
-                                    categories={data.categories}
-                                    type={modalConfig.categoryType}
-                                    onEdit={payload => handleAction('EDIT_CATEGORY', payload)}
-                                    onDelete={id => {
-                                        setModalConfig({ 
-                                            open: true, 
-                                            type: 'confirm_delete', 
-                                            data: { 
-                                                title: '刪除分類', 
-                                                message: `確定要刪除此分類嗎？與此分類關聯的項目將變為「無分類」。`, 
-                                                onConfirm: () => handleAction('DELETE_CATEGORY', { id }) 
-                                            } 
-                                        });
-                                    }}
-                                    onAdd={payload => handleAction('ADD_CATEGORY', payload)}
-                                />
-                            </Modal>
-                        )}
-                        
-                        {/* Redeem Repeatable Modal */}
-                        {modalConfig.type === 'redeem_repeatable' && (
-                            <RedeemQuantityModal 
-                                isOpen={modalConfig.open}
-                                onClose={() => setModalConfig({ ...modalConfig, open: false })}
-                                data={modalConfig.data}
-                                userPoints={currentChild.points}
-                                onConfirm={(qty, totalPoints) => {
-                                    if (!processingItems.has(modalConfig.data.id)) {
-                                        handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: qty, totalPoints: totalPoints });
-                                        setModalConfig({ ...modalConfig, open: false });
-                                    }
-                                }}
-                                processing={processingItems.has(modalConfig.data.id)}
-                            />
-                        )}
-
-                        {/* Redeem Confirm Modal (Single) */}
-                        {modalConfig.type === 'redeem_confirm' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="確認兌換">
-                                <div className="flex flex-col items-center gap-4 text-center p-2">
-                                    <div className="text-5xl animate-bounce">🎁</div>
-                                    <p className="text-gray-600 text-lg">確定要兌換 <br/><span className="text-xl font-bold text-ios-indigo">{modalConfig.data.title}</span> 嗎？</p>
-                                    <div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points.toLocaleString()} 點</div>
-                                    <div className="flex gap-3 w-full mt-4">
-                                        <button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">再想想</button>
-                                        <button onClick={() => {
-                                            if (!isSubmitting) {
-                                                handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: 1, totalPoints: modalConfig.data.points });
-                                                setModalConfig({ ...modalConfig, open: false });
-                                            }
-                                        }} className="flex-1 py-3 rounded-xl bg-ios-pink text-white font-bold shadow-lg active:scale-95 transition" disabled={isSubmitting}>確定兌換</button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        )}
-                        
-                        {/* Generic Confirmation Modal */}
-                        {modalConfig.type === 'confirm_delete' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={modalConfig.data.title}>
-                                <div className="flex flex-col gap-4">
-                                    <p className="text-gray-600 text-lg">{modalConfig.data.message}</p>
-                                    <div className="flex gap-3">
-                                        <button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">取消</button>
-                                        <button onClick={() => {
-                                            modalConfig.data.onConfirm();
-                                            setModalConfig({ ...modalConfig, open: false });
-                                        }} className="flex-1 py-3 rounded-xl bg-ios-red text-white font-bold shadow-lg active:scale-95 transition">刪除</button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        )}
+                        {modalConfig.type.includes('task') || modalConfig.type.includes('reward') ? <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={modalConfig.type.includes('add') ? '新增' : '編輯'}><form onSubmit={(e) => { e.preventDefault(); const payload = { id: modalConfig.data?.id, title: e.target.title.value, points: parseInt(e.target.points.value), assignee: e.target.assignee.value, categoryId: e.target.categoryId.value, isRepeatable: e.target.isRepeatable?.checked }; handleAction(modalConfig.type.includes('add') ? (modalConfig.type.includes('task') ? 'ADD_TASK' : 'ADD_REWARD') : (modalConfig.type.includes('task') ? 'EDIT_TASK' : 'EDIT_REWARD'), payload); setModalConfig({ ...modalConfig, open: false }); }} className="flex flex-col gap-4"><input name="title" placeholder="名稱" defaultValue={modalConfig.data?.title} required className="bg-ios-bg p-3 rounded-xl outline-none focus:ring-2 focus:ring-ios-blue" /><div className="flex gap-2"><input type="number" name="points" placeholder="點數" defaultValue={modalConfig.data?.points} required className="bg-ios-bg p-3 rounded-xl flex-1 outline-none focus:ring-2 focus:ring-ios-blue" /><div className="relative flex-1"><select name="categoryId" defaultValue={modalConfig.data?.categoryId} className="w-full bg-ios-bg p-3 rounded-xl appearance-none custom-select outline-none focus:ring-2 focus:ring-ios-blue"><option value="">無分類</option>{data.categories.filter(c => c.type === (modalConfig.type.includes('task') ? 'task' : 'reward')).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div></div><div className="relative"><select name="assignee" defaultValue={modalConfig.data?.assignee || 'all'} className="w-full bg-ios-bg p-3 rounded-xl appearance-none custom-select outline-none focus:ring-2 focus:ring-ios-blue"><option value="all">所有人</option>{data.children.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div>{modalConfig.type.includes('reward') && <label className="flex items-center gap-3 p-3 bg-ios-bg rounded-xl cursor-pointer"><input type="checkbox" name="isRepeatable" defaultChecked={modalConfig.data?.isRepeatable} className="w-5 h-5 accent-ios-green rounded" /><span className="text-gray-600 font-bold text-sm">可累計兌換</span></label>}<button className="bg-ios-indigo text-white p-3 rounded-xl font-bold mt-2 shadow-lg active:scale-95 transition">儲存</button></form></Modal> : null}
+                        {modalConfig.type === 'manual_adjust' && <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="手動獎懲"><form onSubmit={(e) => { e.preventDefault(); const pts = parseInt(e.target.points.value); handleAction('MANUAL_ADJUST', { childId: e.target.childId.value, points: e.target.type.value === 'deduct' ? -pts : pts, reason: e.target.reason.value }); setModalConfig({ ...modalConfig, open: false }); }} className="flex flex-col gap-4"><select name="childId" className="bg-ios-bg p-3 rounded-xl custom-select outline-none focus:ring-2 focus:ring-ios-blue" required>{data.children.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select><div className="flex gap-4"><label className="flex-1 flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl cursor-pointer has-[:checked]:bg-ios-green/10 has-[:checked]:text-ios-green border border-transparent has-[:checked]:border-ios-green transition font-bold"><input type="radio" name="type" value="add" defaultChecked className="hidden" /> 加分</label><label className="flex-1 flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl cursor-pointer has-[:checked]:bg-ios-red/10 has-[:checked]:text-ios-red border border-transparent has-[:checked]:border-ios-red transition font-bold"><input type="radio" name="type" value="deduct" className="hidden" /> 扣分</label></div><input type="number" name="points" placeholder="點數" required className="bg-ios-bg p-3 rounded-xl outline-none focus:ring-2 focus:ring-ios-blue" /><input name="reason" placeholder="原因" required className="bg-ios-bg p-3 rounded-xl outline-none focus:ring-2 focus:ring-ios-blue" /><button className="bg-ios-indigo text-white p-3 rounded-xl font-bold mt-2 shadow-lg active:scale-95 transition">執行</button></form></Modal>}
+                        {modalConfig.type === 'manage_categories' && <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={`管理${modalConfig.categoryType === 'task' ? '任務' : '獎勵'}分類`}><CategoryManager categories={data.categories} type={modalConfig.categoryType} onEdit={payload => handleAction('EDIT_CATEGORY', payload)} onDelete={id => { setModalConfig({ open: true, type: 'confirm_delete', data: { title: '刪除分類', message: `確定要刪除此分類嗎？與此分類關聯的項目將變為「無分類」。`, onConfirm: () => handleAction('DELETE_CATEGORY', { id }) } }); }} onAdd={payload => handleAction('ADD_CATEGORY', payload)} /></Modal>}
+                        {modalConfig.type === 'redeem_repeatable' && <RedeemQuantityModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} data={modalConfig.data} userPoints={currentChild.points} onConfirm={(qty, totalPoints) => { if (!processingItems.has(modalConfig.data.id)) { handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: qty, totalPoints: totalPoints }); setModalConfig({ ...modalConfig, open: false }); } }} processing={processingItems.has(modalConfig.data.id)} />}
+                        {modalConfig.type === 'redeem_confirm' && <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="確認兌換"><div className="flex flex-col items-center gap-4 text-center p-2"><div className="text-5xl animate-bounce">🎁</div><p className="text-gray-600 text-lg">確定要兌換 <br/><span className="text-xl font-bold text-ios-indigo">{modalConfig.data.title}</span> 嗎？</p><div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points.toLocaleString()} 點</div><div className="flex gap-3 w-full mt-4"><button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">再想想</button><button onClick={() => { if (!isSubmitting) { handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: 1, totalPoints: modalConfig.data.points }); setModalConfig({ ...modalConfig, open: false }); } }} className="flex-1 py-3 rounded-xl bg-ios-pink text-white font-bold shadow-lg active:scale-95 transition" disabled={isSubmitting}>確定兌換</button></div></div></Modal>}
+                        {modalConfig.type === 'confirm_delete' && <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={modalConfig.data.title}><div className="flex flex-col gap-4"><p className="text-gray-600 text-lg">{modalConfig.data.message}</p><div className="flex gap-3"><button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">取消</button><button onClick={() => { modalConfig.data.onConfirm(); setModalConfig({ ...modalConfig, open: false }); }} className="flex-1 py-3 rounded-xl bg-ios-red text-white font-bold shadow-lg active:scale-95 transition">刪除</button></div></div></Modal>}
 
                         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
                     </div>

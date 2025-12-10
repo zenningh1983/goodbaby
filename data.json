@@ -49,6 +49,12 @@
       "name": "品格養成",
       "type": "task",
       "color": "blue"
+    },
+    {
+      "id": "cat_1765352689791",
+      "name": "家事打掃",
+      "type": "task",
+      "color": "blue"
     }
   ],
   "tasks": [

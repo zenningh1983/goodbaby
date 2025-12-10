@@ -15,7 +15,7 @@
     {
       "id": 1765356139382,
       "name": "test",
-      "points": 0,
+      "points": 50000,
       "avatar": "🦊"
     }
   ],
@@ -544,5 +544,15 @@
       "isRepeatable": false
     }
   ],
-  "history": []
+  "history": [
+    {
+      "id": 1765356170609,
+      "type": "manual",
+      "childId": 1765356139382,
+      "itemName": "111",
+      "points": 50000,
+      "timestamp": 1765356170609,
+      "status": "approved"
+    }
+  ]
 }

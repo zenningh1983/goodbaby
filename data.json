@@ -499,9 +499,9 @@
       "isRepeatable": true
     },
     {
-      "id": "r1764842804595",
-      "title": "同學家外宿一次",
-      "cost": 50000,
+      "id": "r1764843744900",
+      "title": "手搖飲一杯",
+      "cost": 30000,
       "assignedTo": [
         "k1",
         "k1764842571109"
@@ -512,14 +512,14 @@
       "isRepeatable": false
     },
     {
-      "id": "r1764843744900",
-      "title": "手搖飲一杯",
-      "cost": 30000,
+      "id": "r1764842804595",
+      "title": "同學家外宿一次",
+      "cost": 50000,
       "assignedTo": [
         "k1",
         "k1764842571109"
       ],
-      "points": 5000,
+      "points": 30000,
       "assignee": "all",
       "categoryId": "cat_1765348232783",
       "isRepeatable": false

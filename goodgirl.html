@@ -84,6 +84,13 @@
             .mobile-grid-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
             .mobile-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
+        
+        /* Sticky Header Background Blur fix for iOS */
+        .sticky-header {
+            background-color: rgba(255, 249, 242, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
@@ -764,23 +771,25 @@
                     <div className="min-h-screen bg-ios-bg pb-24">
                         <SyncIcon />
                         {/* Header */}
-                        <div className="bg-white px-6 pt-8 pb-6 rounded-b-[40px] shadow-ios sticky top-0 z-20">
+                        <div className="bg-white px-6 pt-8 pb-6 rounded-b-[40px] shadow-ios sticky top-0 z-20 sticky-header">
                             <div className="flex justify-between items-center mb-4">
                                 <button onClick={() => setMode('child_select')} className="w-10 h-10 bg-ios-bg rounded-full text-gray-500 hover:text-ios-blue transition"><i className={Icons.ChevronLeft}></i></button>
                                 <span className="font-bold text-lg text-gray-600">Hello~ {liveChild.name}</span>
-                                <button onClick={() => setModalConfig({open: true, type: 'edit_child', data: liveChild})} className="w-10 h-10 bg-ios-bg rounded-full text-ios-blue hover:bg-ios-blue hover:text-white transition"><i className={Icons.Edit}></i></button>
+                                <div onClick={() => setModalConfig({open: true, type: 'edit_child', data: liveChild})} className="cursor-pointer">
+                                    <Avatar avatar={liveChild.avatar} size="md" />
+                                </div>
                             </div>
                             <div className="flex flex-col items-center mb-6">
                                 <div className="flex items-center justify-center gap-4 mb-3">
-                                     <Avatar avatar={liveChild.avatar} size="xl" />
-                                     <div className="flex flex-col items-start">
-                                         <div className="text-2xl font-bold text-gray-600 flex items-center gap-2">
-                                            <i className={`${Icons.Coins} text-3xl text-yellow-400`}></i>
-                                            累積點數：<span className="text-3xl font-black text-ios-blue">{liveChild.points.toLocaleString()}</span>
+                                     <div className="flex flex-col items-center">
+                                         <div className="text-4xl xs:text-5xl md:text-6xl font-black text-ios-blue tracking-tighter flex items-center gap-1">
+                                            <i className={`${Icons.Coins} text-2xl xs:text-3xl text-yellow-400`}></i>
+                                            {liveChild.points.toLocaleString()}
                                          </div>
+                                         <div className="text-xs text-gray-400 font-bold mt-1">累積點數</div>
                                      </div>
                                 </div>
-                                <div className="bg-white/50 px-6 py-2 rounded-full text-ios-indigo font-bold text-sm shadow-sm animate-fade-in">
+                                <div className="bg-white/50 px-6 py-2 rounded-full text-ios-indigo font-bold text-xs xs:text-sm shadow-sm animate-fade-in text-center max-w-[90%]">
                                     {dailyQuote}
                                 </div>
                             </div>
@@ -798,97 +807,100 @@
                                     {hasUnreadHistory && !childTab.includes('history') && <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-ios-red rounded-full"></span>}
                                 </button>
                             </div>
-                        </div>
-
-                        <div className="p-6">
-                            {(childTab === 'tasks' || childTab === 'rewards') && (
-                                <>
-                                    <div className="flex gap-2 overflow-x-auto hide-scrollbar mb-4 pb-2">
-                                        <button onClick={() => setChildFilterCat('all')} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === 'all' ? 'bg-ios-indigo text-white' : 'bg-white text-gray-500 hover:bg-white/80'}`}>全部</button>
-                                        {availableCats.map(c => (
-                                            <button key={c.id} onClick={() => setChildFilterCat(c.id)} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === c.id ? `bg-${c.color}-500 text-white` : 'bg-white text-gray-500 hover:bg-white/80'}`}>
-                                                {c.name}
-                                            </button>
+                            
+                            {/* Sticky Filters (Inside Header) */}
+                            {['tasks', 'rewards'].includes(childTab) && (
+                                <div className="flex gap-2 overflow-x-auto hide-scrollbar mt-4 pb-2">
+                                    <button onClick={() => setChildFilterCat('all')} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === 'all' ? 'bg-ios-indigo text-white' : 'bg-white text-gray-500 hover:bg-white/80'}`}>全部</button>
+                                    {availableCats.map(c => (
+                                        <button key={c.id} onClick={() => setChildFilterCat(c.id)} className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${childFilterCat === c.id ? `bg-${c.color}-500 text-white` : 'bg-white text-gray-500 hover:bg-white/80'}`}>
+                                            {c.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                            {childTab.includes('history') && (
+                                <div className="flex justify-end mt-4 overflow-x-auto hide-scrollbar">
+                                    <div className="bg-white rounded-xl shadow-sm p-1.5 flex gap-1">
+                                        {[{id:'week', l:'本週'}, {id:'prev_week', l:'上週'}, {id:'month', l:'近30天'}, {id:'all', l:'全部'}].map(f => (
+                                            <button key={f.id} onClick={() => setHistoryFilter(f.id)} className={`px-3 py-1.5 text-xs rounded-lg whitespace-nowrap transition ${historyFilter === f.id ? 'bg-ios-bg font-bold text-ios-indigo' : 'text-gray-400 hover:text-gray-600'}`}>{f.l}</button>
                                         ))}
                                     </div>
+                                </div>
+                            )}
+                        </div>
 
-                                    <div className="grid mobile-grid-1 sm:mobile-grid-2 md:grid-cols-3 gap-4">
-                                        {filteredItems.map(item => {
-                                            const cat = data.categories.find(c => c.id === item.categoryId);
-                                            const canAfford = childTab === 'rewards' ? liveChild.points >= item.points : true;
-                                            const isProcessing = processingItems.has(item.id);
+                        <div className="p-4 md:p-6">
+                            {(childTab === 'tasks' || childTab === 'rewards') && (
+                                <div className="grid mobile-grid-1 sm:mobile-grid-2 md:grid-cols-3 gap-4">
+                                    {filteredItems.map(item => {
+                                        const cat = data.categories.find(c => c.id === item.categoryId);
+                                        const canAfford = childTab === 'rewards' ? liveChild.points >= item.points : true;
+                                        const isProcessing = processingItems.has(item.id);
 
-                                            return (
-                                                <div 
-                                                    key={item.id} 
-                                                    onClick={() => {
-                                                        if (isProcessing) return;
-                                                        if (childTab === 'tasks') {
-                                                            handleAction('REQUEST_TASK', item);
-                                                        } else {
-                                                            if (canAfford) {
-                                                                if (item.isRepeatable) {
-                                                                    setModalConfig({ open: true, type: 'redeem_repeatable', data: item });
-                                                                } else {
-                                                                    handleAction('REQUEST_REDEEM', { ...item, quantity: 1, totalPoints: item.points });
-                                                                }
+                                        return (
+                                            <div 
+                                                key={item.id} 
+                                                onClick={() => {
+                                                    if (isProcessing) return;
+                                                    if (childTab === 'tasks') {
+                                                        handleAction('REQUEST_TASK', item);
+                                                    } else {
+                                                        if (canAfford) {
+                                                            if (item.isRepeatable) {
+                                                                setModalConfig({ open: true, type: 'redeem_repeatable', data: item });
+                                                            } else {
+                                                                handleAction('REQUEST_REDEEM', { ...item, quantity: 1, totalPoints: item.points });
                                                             }
                                                         }
-                                                    }} 
-                                                    className={`bg-white p-4 rounded-3xl shadow-ios active:scale-95 transition cursor-pointer relative overflow-hidden ${childTab === 'tasks' ? 'flex justify-between items-center border-l-4 border-ios-blue' : 'flex flex-col items-center text-center gap-2 border-2 border-white hover:border-ios-blue/30'} ${!canAfford ? 'opacity-60 grayscale' : ''} ${isProcessing ? 'pointer-events-none' : ''}`}
-                                                >
-                                                    {childTab === 'rewards' && cat && <div className={`absolute top-0 right-0 w-4 h-4 rounded-bl-xl bg-${cat.color}-500 shadow-sm`}></div>}
-                                                    
-                                                    {/* Layout differences for Task vs Reward */}
-                                                    {childTab === 'tasks' ? (
-                                                        <>
-                                                            <div className="flex items-center gap-2">
-                                                                {cat && <div className={`w-2 h-2 rounded-full bg-${cat.color}-500`}></div>}
-                                                                <span className="font-bold text-gray-700 text-lg leading-tight">{item.title}</span>
-                                                            </div>
-                                                            <span className="bg-ios-blue/10 text-ios-blue px-4 py-1 rounded-full font-bold text-sm shadow-sm">
-                                                                +{item.points.toLocaleString()}
-                                                            </span>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <span className="font-bold text-gray-700 text-lg leading-tight mt-2">{item.title}</span>
-                                                            <span className="bg-ios-pink/10 text-ios-pink px-4 py-1 rounded-full font-bold text-sm shadow-sm">
-                                                                -{item.points.toLocaleString()}
-                                                            </span>
-                                                            {item.isRepeatable && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full absolute top-2 right-2 border border-gray-200">可累計</span>}
-                                                        </>
-                                                    )}
-                                                </div>
-                                            )
-                                        })}
-                                        {filteredItems.length === 0 && (
-                                            <div className="col-span-full text-center py-16 text-gray-400 flex flex-col items-center gap-2">
-                                                <i className="fa-regular fa-folder-open text-4xl opacity-50"></i>
-                                                <p>這裡空空的喔！</p>
+                                                    }
+                                                }} 
+                                                className={`bg-white p-4 rounded-3xl shadow-ios active:scale-95 transition cursor-pointer relative overflow-hidden ${childTab === 'tasks' ? 'flex justify-between items-center border-l-4 border-ios-blue' : 'flex flex-col items-center text-center gap-2 border-2 border-white hover:border-ios-blue/30'} ${!canAfford ? 'opacity-60 grayscale' : ''} ${isProcessing ? 'pointer-events-none' : ''}`}
+                                            >
+                                                {childTab === 'rewards' && cat && <div className={`absolute top-0 right-0 w-4 h-4 rounded-bl-xl bg-${cat.color}-500 shadow-sm`}></div>}
+                                                
+                                                {/* Layout differences for Task vs Reward */}
+                                                {childTab === 'tasks' ? (
+                                                    <>
+                                                        <div className="flex items-center gap-2">
+                                                            {cat && <div className={`w-2 h-2 rounded-full bg-${cat.color}-500`}></div>}
+                                                            <span className="font-bold text-gray-700 text-lg leading-tight">{item.title}</span>
+                                                        </div>
+                                                        <span className="bg-ios-blue/10 text-ios-blue px-4 py-1 rounded-full font-bold text-sm shadow-sm">
+                                                            +{item.points.toLocaleString()}
+                                                        </span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <span className="font-bold text-gray-700 text-lg leading-tight mt-2">{item.title}</span>
+                                                        <span className="bg-ios-pink/10 text-ios-pink px-4 py-1 rounded-full font-bold text-sm shadow-sm">
+                                                            -{item.points.toLocaleString()}
+                                                        </span>
+                                                        {item.isRepeatable && childTab === 'rewards' && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full absolute top-2 right-2 border border-gray-200">可累計</span>}
+                                                    </>
+                                                )}
                                             </div>
-                                        )}
-                                    </div>
-                                </>
+                                        )
+                                    })}
+                                    {filteredItems.length === 0 && (
+                                        <div className="col-span-full text-center py-16 text-gray-400 flex flex-col items-center gap-2">
+                                            <i className="fa-regular fa-folder-open text-4xl opacity-50"></i>
+                                            <p>這裡空空的喔！</p>
+                                        </div>
+                                    )}
+                                </div>
                             )}
 
                             {childTab.includes('history') && (
                                 <div>
                                     {/* History Sub Tabs */}
-                                    <div className="flex gap-2 mb-4 bg-white p-2 rounded-xl shadow-sm">
+                                    <div className="flex gap-2 mb-4 bg-white p-2 rounded-xl shadow-sm overflow-x-auto hide-scrollbar">
                                         {renderHistoryTab('history', '全部')}
                                         {renderHistoryTab('history_task', '任務')}
                                         {renderHistoryTab('history_reward', '兌換')}
                                         {renderHistoryTab('history_other', '其他')}
                                     </div>
 
-                                    <div className="flex justify-end mb-4 overflow-x-auto hide-scrollbar">
-                                        <div className="bg-white rounded-xl shadow-sm p-1.5 flex gap-1">
-                                            {[{id:'week', l:'本週'}, {id:'prev_week', l:'上週'}, {id:'month', l:'近30天'}, {id:'all', l:'全部'}].map(f => (
-                                                <button key={f.id} onClick={() => setHistoryFilter(f.id)} className={`px-3 py-1.5 text-xs rounded-lg whitespace-nowrap transition ${historyFilter === f.id ? 'bg-ios-bg font-bold text-ios-indigo' : 'text-gray-400 hover:text-gray-600'}`}>{f.l}</button>
-                                            ))}
-                                        </div>
-                                    </div>
                                     <div className="bg-white rounded-3xl shadow-ios overflow-hidden border border-white">
                                         {filteredHistory.map((h, i) => (
                                             <div key={i} className="p-4 border-b border-gray-50 last:border-0 flex justify-between items-center hover:bg-gray-50 transition">
@@ -1006,23 +1018,7 @@
                 return (
                     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row pb-20 md:pb-0">
                         <SyncIcon />
-                        
-                        {/* Mobile Bottom Tab Navigation */}
-                        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 flex justify-around p-2 pb-safe">
-                            {['approvals', 'tasks', 'rewards', 'children', 'settings'].map(tab => (
-                                <button key={tab} onClick={() => {setParentTab(tab); setParentFilterCat('all');}} className={`flex flex-col items-center gap-1 p-2 rounded-xl transition ${parentTab === tab ? 'text-ios-indigo' : 'text-gray-400'}`}>
-                                    <i className={`text-xl ${tab === 'approvals' ? Icons.Check : tab === 'tasks' ? Icons.Task : tab === 'rewards' ? Icons.Reward : tab === 'children' ? Icons.Child : Icons.Settings}`}></i>
-                                    <span className="text-[10px] font-bold">{tab === 'approvals' ? '待審核' : tab === 'tasks' ? '任務' : tab === 'rewards' ? '獎勵' : tab === 'children' ? '小孩' : '設定'}</span>
-                                    {tab === 'approvals' && pendingItems.length > 0 && <span className="absolute top-2 right-1/4 w-2 h-2 bg-ios-red rounded-full"></span>}
-                                </button>
-                            ))}
-                            <button onClick={() => setMode('landing')} className="flex flex-col items-center gap-1 p-2 rounded-xl text-gray-400">
-                                <i className={Icons.Exit}></i>
-                                <span className="text-[10px] font-bold">退出</span>
-                            </button>
-                        </div>
-
-                        {/* Desktop Sidebar */}
+                        {/* Sidebar */}
                         <div className={`hidden md:flex sidebar-transition fixed bottom-0 left-0 top-0 z-30 bg-white border-r border-gray-200 flex-col shadow-lg relative ${isSidebarCollapsed ? 'w-20' : 'w-48'}`}>
                             <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className={`w-8 h-8 flex items-center justify-center bg-white text-gray-400 hover:text-gray-600 border border-gray-200 rounded-full shadow-sm transition-all z-50 ${isSidebarCollapsed ? 'mx-auto mt-6 mb-2' : 'absolute top-1/2 -translate-y-1/2 -right-4'}`}><i className={`text-xs ${isSidebarCollapsed ? Icons.ChevronRight : Icons.ChevronLeft}`}></i></button>
                             <div className="flex-1 flex flex-col gap-2 p-3 overflow-y-auto mt-2">
@@ -1037,6 +1033,21 @@
                             <div className="p-3 border-t">
                                 <button onClick={() => setMode('landing')} className={`flex items-center text-gray-400 hover:text-ios-red p-3 rounded-xl transition ${isSidebarCollapsed ? 'justify-center' : 'justify-start gap-4'}`}><i className={`w-6 text-center ${Icons.Exit}`}></i>{!isSidebarCollapsed && <span className="font-medium">退出</span>}</button>
                             </div>
+                        </div>
+
+                         {/* Mobile Bottom Floating Nav */}
+                        <div className="md:hidden fixed bottom-6 left-4 right-4 bg-white/90 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl z-40 flex justify-around p-3">
+                            {['approvals', 'tasks', 'rewards', 'children', 'settings'].map(tab => (
+                                <button key={tab} onClick={() => {setParentTab(tab); setParentFilterCat('all');}} className={`flex flex-col items-center gap-1 p-2 rounded-xl transition relative ${parentTab === tab ? 'text-ios-indigo' : 'text-gray-400'}`}>
+                                    <i className={`text-xl ${tab === 'approvals' ? Icons.Check : tab === 'tasks' ? Icons.Task : tab === 'rewards' ? Icons.Reward : tab === 'children' ? Icons.Child : Icons.Settings}`}></i>
+                                    <span className="text-[10px] font-bold">{tab === 'approvals' ? '待審核' : tab === 'tasks' ? '任務' : tab === 'rewards' ? '獎勵' : tab === 'children' ? '小孩' : '設定'}</span>
+                                    {tab === 'approvals' && pendingItems.length > 0 && <span className="absolute top-2 right-1/4 w-2 h-2 bg-ios-red rounded-full"></span>}
+                                </button>
+                            ))}
+                            <button onClick={() => setMode('landing')} className="flex flex-col items-center gap-1 p-2 rounded-xl text-gray-400">
+                                <i className={`text-xl ${Icons.Exit}`}></i>
+                                <span className="text-[10px] font-bold">退出</span>
+                            </button>
                         </div>
 
                         {/* Content */}
@@ -1115,26 +1126,31 @@
                                             const assigneeName = item.assignee === 'all' ? '所有人' : (data.children.find(c => c.id == item.assignee)?.name || '未知');
                                             return (
                                                 <div key={item.id} className="bg-white p-4 md:p-5 rounded-3xl shadow-sm relative group border border-gray-100 hover:shadow-md transition">
-                                                    {cat && <span className={`absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full text-white font-bold bg-${cat.color}-500`}>{cat.name}</span>}
-                                                    <div className="font-bold text-gray-800 text-lg md:text-xl mb-1">{item.title}</div>
-                                                    <div className="text-sm text-gray-500 flex flex-wrap items-center gap-2 mt-2">
-                                                        <span className={`font-bold px-2 py-0.5 rounded-md ${parentTab === 'tasks' ? 'bg-ios-blue/10 text-ios-blue' : 'bg-ios-pink/10 text-ios-pink'}`}>{item.points.toLocaleString()} 點</span>
-                                                        <span className="text-[10px] text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-200 flex items-center gap-1"><i className="fa-solid fa-user-group text-xs"></i> {assigneeName}</span>
-                                                        {item.isRepeatable && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">可累計</span>}
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <div className="font-bold text-gray-800 text-lg md:text-xl">{item.title}</div>
+                                                        {cat && <span className={`text-[10px] px-2 py-0.5 rounded-full text-white font-bold bg-${cat.color}-500`}>{cat.name}</span>}
                                                     </div>
-                                                    <div className="mt-4 flex gap-2 justify-end opacity-100 md:opacity-0 md:group-hover:opacity-100 transition pt-2 border-t border-gray-50">
-                                                        <button onClick={() => setModalConfig({ open: true, type: parentTab === 'tasks' ? 'edit_task' : 'edit_reward', data: item })} className="text-gray-400 hover:text-ios-blue p-2 rounded-full hover:bg-gray-50 transition"><i className={Icons.Edit}></i></button>
-                                                        <button onClick={() => {
-                                                            setModalConfig({ 
-                                                                open: true, 
-                                                                type: 'confirm_delete', 
-                                                                data: { 
-                                                                    title: '刪除項目', 
-                                                                    message: `確定要刪除 "${item.title}" 嗎？`, 
-                                                                    onConfirm: () => handleAction('DELETE_ITEM', { collection: parentTab, id: item.id }) 
-                                                                } 
-                                                            });
-                                                        }} className="text-gray-400 hover:text-ios-red p-2 rounded-full hover:bg-gray-50 transition"><i className={Icons.Trash}></i></button>
+                                                    
+                                                    <div className="flex justify-between items-center">
+                                                        <div className="text-sm text-gray-500 flex flex-wrap items-center gap-2">
+                                                            <span className={`font-bold px-2 py-0.5 rounded-md ${parentTab === 'tasks' ? 'bg-ios-blue/10 text-ios-blue' : 'bg-ios-pink/10 text-ios-pink'}`}>{item.points.toLocaleString()} 點</span>
+                                                            <span className="text-[10px] text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-200 flex items-center gap-1"><i className="fa-solid fa-user-group text-xs"></i> {assigneeName}</span>
+                                                            {item.isRepeatable && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">可累計</span>}
+                                                        </div>
+                                                        <div className="flex gap-2">
+                                                            <button onClick={() => setModalConfig({ open: true, type: parentTab === 'tasks' ? 'edit_task' : 'edit_reward', data: item })} className="text-gray-400 hover:text-ios-blue p-2 rounded-full hover:bg-gray-50 transition"><i className={Icons.Edit}></i></button>
+                                                            <button onClick={() => {
+                                                                setModalConfig({ 
+                                                                    open: true, 
+                                                                    type: 'confirm_delete', 
+                                                                    data: { 
+                                                                        title: '刪除項目', 
+                                                                        message: `確定要刪除 "${item.title}" 嗎？`, 
+                                                                        onConfirm: () => handleAction('DELETE_ITEM', { collection: parentTab, id: item.id }) 
+                                                                    } 
+                                                                });
+                                                            }} className="text-gray-400 hover:text-ios-red p-2 rounded-full hover:bg-gray-50 transition"><i className={Icons.Trash}></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             )

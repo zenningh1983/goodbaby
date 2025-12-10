@@ -15,7 +15,7 @@
     {
       "id": 1765356139382,
       "name": "test",
-      "points": 90000,
+      "points": 85000,
       "avatar": "🦊"
     }
   ],
@@ -623,7 +623,7 @@
       "itemName": "手搖飲一杯",
       "points": 5000,
       "timestamp": 1765358800693,
-      "status": "pending"
+      "status": "approved"
     },
     {
       "id": 1765358795262,
@@ -633,7 +633,7 @@
       "itemName": "小時候彈珠 $100 x3",
       "points": 15000,
       "timestamp": 1765358795262,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765358577837,

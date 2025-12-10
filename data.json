@@ -366,60 +366,6 @@
       "categoryId": "cat_1765348453493"
     },
     {
-      "title": "打針吃藥",
-      "points": 1500,
-      "assignee": "1765301052959",
-      "categoryId": "cat_1765348430662"
-    },
-    {
-      "title": "倒垃圾",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "收衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "晾衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "折衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "洗便當水壺",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "洗自己碗筷",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "收書桌",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "折被子",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
       "id": "t1765235460517",
       "title": "澆花",
       "points": 1500,
@@ -429,30 +375,6 @@
         "k1764842571109"
       ],
       "assignee": "all"
-    },
-    {
-      "title": "洗全家碗筷",
-      "points": 3000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "拖全家地",
-      "points": 5000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "刷廁所",
-      "points": 5000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "打針吃藥",
-      "points": 3000,
-      "assignee": "1765301052959",
-      "categoryId": "cat_1765348430662"
     }
   ],
   "rewards": [

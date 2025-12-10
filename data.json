@@ -546,6 +546,16 @@
   ],
   "history": [
     {
+      "id": 1765360284791,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": "t1765191902174",
+      "itemName": "不挑食、不剩飯",
+      "points": 5000,
+      "timestamp": 1765360284791,
+      "status": "pending"
+    },
+    {
       "id": 1765359209003,
       "type": "task_pending",
       "childId": 1765356139382,

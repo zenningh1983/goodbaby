@@ -103,6 +103,16 @@
       "assignee": "all"
     },
     {
+      "id": "t3",
+      "title": "準時睡覺 (22:00)",
+      "points": 5000,
+      "assignedTo": [
+        "k1"
+      ],
+      "categoryId": "cat_1765348430662",
+      "assignee": "all"
+    },
+    {
       "id": "t1764842976525",
       "title": "主動拿出聯絡簿",
       "points": 1500,
@@ -447,16 +457,6 @@
         "k1765179459362",
         "k1764842571109"
       ],
-      "assignee": "all"
-    },
-    {
-      "id": "t3",
-      "title": "準時睡覺 (22:00)",
-      "points": 5000,
-      "assignedTo": [
-        "k1"
-      ],
-      "categoryId": "tc1765201986185",
       "assignee": "all"
     },
     {

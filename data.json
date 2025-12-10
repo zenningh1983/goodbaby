@@ -49,6 +49,12 @@
       "name": "生活作息",
       "type": "task",
       "color": "blue"
+    },
+    {
+      "id": "cat_1765348442376",
+      "name": "學校課業",
+      "type": "task",
+      "color": "blue"
     }
   ],
   "tasks": [

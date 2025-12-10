@@ -377,6 +377,17 @@
       "categoryId": "cat_1765352689791"
     },
     {
+      "id": "t1765235460517",
+      "title": "澆花",
+      "points": 1500,
+      "categoryId": "cat_1765352689791",
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
       "title": "洗全家碗筷",
       "points": 3000,
       "assignee": "all",
@@ -493,17 +504,6 @@
     {
       "id": "t1765235410600",
       "title": "收衣服",
-      "points": 1000,
-      "categoryId": "tc1765201995001",
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1765235460517",
-      "title": "澆花",
       "points": 1000,
       "categoryId": "tc1765201995001",
       "assignedTo": [

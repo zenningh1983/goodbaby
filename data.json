@@ -15,7 +15,7 @@
     {
       "id": 1765356139382,
       "name": "test",
-      "points": 130000,
+      "points": 185000,
       "avatar": "🦊"
     }
   ],
@@ -603,7 +603,7 @@
       "itemName": "小考 100 分",
       "points": 15000,
       "timestamp": 1765359162219,
-      "status": "pending"
+      "status": "approved"
     },
     {
       "id": 1765359159383,
@@ -663,7 +663,7 @@
       "itemName": "大考平均 90 分以上",
       "points": 30000,
       "timestamp": 1765358529229,
-      "status": "pending"
+      "status": "approved"
     },
     {
       "id": 1765358524009,
@@ -673,7 +673,7 @@
       "itemName": "小考 90 分以上",
       "points": 10000,
       "timestamp": 1765358524009,
-      "status": "pending"
+      "status": "approved"
     },
     {
       "id": 1765358519314,

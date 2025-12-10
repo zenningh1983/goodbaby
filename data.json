@@ -470,6 +470,14 @@
       "isRepeatable": false
     },
     {
+      "id": 1765376135195,
+      "title": "社團結束去同學家",
+      "points": 50000,
+      "assignee": "1765301591855",
+      "categoryId": "cat_1765348232783",
+      "isRepeatable": false
+    },
+    {
       "id": "r1764843641021",
       "title": "零用錢 $200",
       "cost": 40000,

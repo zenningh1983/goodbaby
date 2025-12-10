@@ -513,15 +513,6 @@
       "assignee": "all"
     },
     {
-      "id": "r1764843590291",
-      "title": "小時候彈珠 $100 （可累點兌換）",
-      "cost": 30000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ]
-    },
-    {
       "id": "r3",
       "title": "買 $100 的禮物",
       "cost": 30000,
@@ -541,6 +532,19 @@
       "points": 5000,
       "assignee": "all",
       "categoryId": "cat_1765348170564",
+      "isRepeatable": true
+    },
+    {
+      "id": "r1764843590291",
+      "title": "小時候彈珠 $100",
+      "cost": 30000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "points": 5999,
+      "assignee": "all",
+      "categoryId": "cat_1765348223694",
       "isRepeatable": true
     },
     {

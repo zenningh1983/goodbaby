@@ -546,6 +546,16 @@
   ],
   "history": [
     {
+      "id": 1765359159383,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": "t1764843524965",
+      "itemName": "大考 90 分以上",
+      "points": 30000,
+      "timestamp": 1765359159383,
+      "status": "pending"
+    },
+    {
       "id": 1765358800693,
       "type": "redeem_pending",
       "childId": 1765356139382,

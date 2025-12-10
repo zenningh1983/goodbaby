@@ -289,24 +289,6 @@
       "categoryId": "cat_1765348453493"
     },
     {
-      "title": "折衣服",
-      "points": 2000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "整天沒讓媽媽生氣",
-      "points": 10000,
-      "assignee": "all",
-      "categoryId": "cat_1765348453493"
-    },
-    {
-      "title": "整天自動自發不拖拉",
-      "points": 10000,
-      "assignee": "all",
-      "categoryId": "cat_1765348453493"
-    },
-    {
       "id": "t1765235460517",
       "title": "澆花",
       "points": 1500,
@@ -316,48 +298,6 @@
         "k1764842571109"
       ],
       "assignee": "all"
-    },
-    {
-      "title": "折衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "曬衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "收衣服",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "包垃圾",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "倒垃圾",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "洗便當水壺、自己碗筷",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
-    },
-    {
-      "title": "洗全家碗筷",
-      "points": 3000,
-      "assignee": "all",
-      "categoryId": "cat_1765352689791"
     }
   ],
   "rewards": [

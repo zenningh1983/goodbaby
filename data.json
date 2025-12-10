@@ -447,6 +447,12 @@
       "points": 5000,
       "assignee": "all",
       "categoryId": "cat_1765352689791"
+    },
+    {
+      "title": "打針吃藥",
+      "points": 3000,
+      "assignee": "1765301052959",
+      "categoryId": "cat_1765348430662"
     }
   ],
   "rewards": [

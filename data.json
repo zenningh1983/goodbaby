@@ -546,6 +546,26 @@
   ],
   "history": [
     {
+      "id": 1765360290163,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": "t1765191902174",
+      "itemName": "不挑食、不剩飯",
+      "points": 5000,
+      "timestamp": 1765360290163,
+      "status": "pending"
+    },
+    {
+      "id": 1765360289565,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": "t1765192308004",
+      "itemName": "洗澡+吹頭30分鐘內",
+      "points": 3000,
+      "timestamp": 1765360289565,
+      "status": "pending"
+    },
+    {
       "id": 1765360288916,
       "type": "task_pending",
       "childId": 1765356139382,

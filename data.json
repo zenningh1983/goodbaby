@@ -492,16 +492,6 @@
       "assignee": "all"
     },
     {
-      "id": "t2",
-      "title": "洗便當洗水壺",
-      "points": 1000,
-      "assignedTo": [
-        "k1"
-      ],
-      "categoryId": "tc1765201995001",
-      "assignee": "all"
-    },
-    {
       "id": "t1765235387233",
       "title": "倒垃圾",
       "points": 1000,
@@ -516,17 +506,6 @@
       "id": "t1765235410600",
       "title": "收衣服",
       "points": 1000,
-      "categoryId": "tc1765201995001",
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1765235450816",
-      "title": "洗全家碗",
-      "points": 2000,
       "categoryId": "tc1765201995001",
       "assignedTo": [
         "k1765179459362",

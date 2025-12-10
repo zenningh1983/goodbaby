@@ -553,7 +553,7 @@
       "itemName": "不挑食、不剩飯",
       "points": 5000,
       "timestamp": 1765360290163,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765360289565,
@@ -563,7 +563,7 @@
       "itemName": "洗澡+吹頭30分鐘內",
       "points": 3000,
       "timestamp": 1765360289565,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765360288916,
@@ -573,7 +573,7 @@
       "itemName": "拖全家地",
       "points": 5000,
       "timestamp": 1765360288916,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765360286351,
@@ -583,7 +583,7 @@
       "itemName": "看完一本 500 字文字書（有心得）",
       "points": 5000,
       "timestamp": 1765360286351,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765360285871,
@@ -593,7 +593,7 @@
       "itemName": "刷廁所",
       "points": 5000,
       "timestamp": 1765360285871,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765360285365,
@@ -603,7 +603,7 @@
       "itemName": "洗全家碗",
       "points": 3002,
       "timestamp": 1765360285365,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765360284791,
@@ -613,7 +613,7 @@
       "itemName": "不挑食、不剩飯",
       "points": 5000,
       "timestamp": 1765360284791,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765359209003,

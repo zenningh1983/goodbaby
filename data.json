@@ -43,72 +43,15 @@
       "name": "特殊要求",
       "type": "reward",
       "color": "blue"
+    },
+    {
+      "id": "cat_1765348430662",
+      "name": "生活作息",
+      "type": "task",
+      "color": "blue"
     }
   ],
   "tasks": [
-    {
-      "id": "t1764842844312",
-      "title": "準時起床 (06:30)",
-      "points": 5000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "categoryId": "tc1765201986185",
-      "assignee": "all"
-    },
-    {
-      "id": "t3",
-      "title": "準時睡覺 (22:00)",
-      "points": 5000,
-      "assignedTo": [
-        "k1"
-      ],
-      "categoryId": "tc1765201986185",
-      "assignee": "all"
-    },
-    {
-      "id": "t1",
-      "title": "整理書桌",
-      "points": 1000,
-      "assignedTo": [
-        "k1"
-      ],
-      "categoryId": "tc1765201995001",
-      "assignee": "all"
-    },
-    {
-      "id": "t1765179538096",
-      "title": "摺被子",
-      "points": 1000,
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "categoryId": "tc1765201986185",
-      "assignee": "all"
-    },
-    {
-      "id": "t1764842872007",
-      "title": "包垃圾",
-      "points": 1000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "categoryId": "tc1765201995001",
-      "assignee": "all"
-    },
-    {
-      "id": "t2",
-      "title": "洗便當洗水壺",
-      "points": 1000,
-      "assignedTo": [
-        "k1"
-      ],
-      "categoryId": "tc1765201995001",
-      "assignee": "all"
-    },
     {
       "id": "t1764842976525",
       "title": "主動拿出聯絡簿",
@@ -120,81 +63,9 @@
       "assignee": "all"
     },
     {
-      "id": "t1764842930203",
-      "title": "刷廁所",
-      "points": 5000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "categoryId": "tc1765201995001",
-      "assignee": "all"
-    },
-    {
-      "id": "t1765179577395",
-      "title": "07:00 前完成出門準備",
-      "points": 5000,
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "categoryId": "tc1765201986185",
-      "assignee": "all"
-    },
-    {
-      "id": "t1764843506878",
-      "title": "大考單科100分",
-      "points": 50000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1764843524965",
-      "title": "大考單科90分以上",
-      "points": 30000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1764843549090",
-      "title": "大考單科80分以上",
-      "points": 10000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1764843702178",
-      "title": "大考平均90分以上",
-      "points": 50000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1764843718325",
-      "title": "大考平均80分以上",
-      "points": 30000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1765200050768",
-      "title": "大考單科進步10分",
-      "points": 10000,
+      "id": "t1765193497307",
+      "title": "書包便當外套掛好",
+      "points": 2000,
       "assignedTo": [
         "k1765179459362",
         "k1764842571109"
@@ -202,34 +73,14 @@
       "assignee": "all"
     },
     {
-      "id": "t1764843871614",
-      "title": "看完一本文字書（有心得）",
-      "points": 8000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1765179681423",
-      "title": "小考100分",
-      "points": 10000,
+      "id": "t1765192818807",
+      "title": "把衣服翻到正面，裝洗衣袋",
+      "points": 3000,
       "assignedTo": [
         "k1765179459362",
         "k1764842571109"
       ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1765179704445",
-      "title": "小考90分",
-      "points": 8000,
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all"
+      "assignee": "1765301591855"
     },
     {
       "id": "t1765191902174",
@@ -252,19 +103,19 @@
       "assignee": "all"
     },
     {
-      "id": "t1765192818807",
-      "title": "把衣服翻到正面，裝洗衣袋",
-      "points": 3000,
+      "id": "t1764843871614",
+      "title": "看完一本文字書（有心得）",
+      "points": 8000,
       "assignedTo": [
-        "k1765179459362",
+        "k1",
         "k1764842571109"
       ],
-      "assignee": "1765301591855"
+      "assignee": "all"
     },
     {
-      "id": "t1765193497307",
-      "title": "書包便當外套掛好",
-      "points": 2000,
+      "id": "t1765179704445",
+      "title": "小考90分",
+      "points": 8000,
       "assignedTo": [
         "k1765179459362",
         "k1764842571109"
@@ -272,15 +123,159 @@
       "assignee": "all"
     },
     {
-      "id": "t1765202485010",
-      "title": "文成下課當天完成一項作業",
-      "points": 3000,
-      "categoryId": "tc1765202001028",
+      "id": "t1764843549090",
+      "title": "大考單科80分以上",
+      "points": 10000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
+      "id": "t1765200050768",
+      "title": "大考單科進步10分",
+      "points": 10000,
       "assignedTo": [
         "k1765179459362",
         "k1764842571109"
       ],
-      "assignee": "1765301052959"
+      "assignee": "all"
+    },
+    {
+      "id": "t1765179681423",
+      "title": "小考100分",
+      "points": 10000,
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
+      "id": "t1764843524965",
+      "title": "大考單科90分以上",
+      "points": 30000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
+      "id": "t1764843718325",
+      "title": "大考平均80分以上",
+      "points": 30000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
+      "id": "t1764843506878",
+      "title": "大考單科100分",
+      "points": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
+      "id": "t1764843702178",
+      "title": "大考平均90分以上",
+      "points": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
+      "id": "t1765179538096",
+      "title": "摺被子",
+      "points": 1000,
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "categoryId": "tc1765201986185",
+      "assignee": "all"
+    },
+    {
+      "id": "t1765235971402",
+      "title": "不挑食、不剩飯",
+      "points": 3000,
+      "categoryId": "tc1765201986185",
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
+      "id": "t1764842844312",
+      "title": "準時起床 (06:30)",
+      "points": 5000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "categoryId": "tc1765201986185",
+      "assignee": "all"
+    },
+    {
+      "id": "t3",
+      "title": "準時睡覺 (22:00)",
+      "points": 5000,
+      "assignedTo": [
+        "k1"
+      ],
+      "categoryId": "tc1765201986185",
+      "assignee": "all"
+    },
+    {
+      "id": "t1765179577395",
+      "title": "07:00 前完成出門準備",
+      "points": 5000,
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "categoryId": "tc1765201986185",
+      "assignee": "all"
+    },
+    {
+      "id": "t1",
+      "title": "整理書桌",
+      "points": 1000,
+      "assignedTo": [
+        "k1"
+      ],
+      "categoryId": "tc1765201995001",
+      "assignee": "all"
+    },
+    {
+      "id": "t1764842872007",
+      "title": "包垃圾",
+      "points": 1000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "categoryId": "tc1765201995001",
+      "assignee": "all"
+    },
+    {
+      "id": "t2",
+      "title": "洗便當洗水壺",
+      "points": 1000,
+      "assignedTo": [
+        "k1"
+      ],
+      "categoryId": "tc1765201995001",
+      "assignee": "all"
     },
     {
       "id": "t1765235387233",
@@ -316,6 +311,17 @@
       "assignee": "all"
     },
     {
+      "id": "t1765235460517",
+      "title": "澆花",
+      "points": 1000,
+      "categoryId": "tc1765201995001",
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "assignee": "all"
+    },
+    {
       "id": "t1765235450816",
       "title": "洗全家碗",
       "points": 2000,
@@ -327,14 +333,14 @@
       "assignee": "all"
     },
     {
-      "id": "t1765235460517",
-      "title": "澆花",
-      "points": 1000,
-      "categoryId": "tc1765201995001",
+      "id": "t1764842930203",
+      "title": "刷廁所",
+      "points": 5000,
       "assignedTo": [
-        "k1765179459362",
+        "k1",
         "k1764842571109"
       ],
+      "categoryId": "tc1765201995001",
       "assignee": "all"
     },
     {
@@ -358,6 +364,17 @@
         "k1764842571109"
       ],
       "assignee": "all"
+    },
+    {
+      "id": "t1765202485010",
+      "title": "文成下課當天完成一項作業",
+      "points": 3000,
+      "categoryId": "tc1765202001028",
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "assignee": "1765301052959"
     },
     {
       "id": "t1765235684494",
@@ -452,17 +469,6 @@
       "title": "大考單科100分",
       "points": 50000,
       "categoryId": "tc1765202001028",
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1765235971402",
-      "title": "不挑食、不剩飯",
-      "points": 3000,
-      "categoryId": "tc1765201986185",
       "assignedTo": [
         "k1765179459362",
         "k1764842571109"

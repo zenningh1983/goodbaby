@@ -15,7 +15,7 @@
     {
       "id": 1765356139382,
       "name": "test",
-      "points": 100000,
+      "points": 90000,
       "avatar": "🦊"
     }
   ],
@@ -553,7 +553,7 @@
       "itemName": "看電視 30 分鐘 x2",
       "points": 10000,
       "timestamp": 1765358577837,
-      "status": "pending"
+      "status": "approved"
     },
     {
       "id": 1765358561058,

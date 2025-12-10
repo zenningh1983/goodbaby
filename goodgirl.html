@@ -629,7 +629,8 @@
                 }
                 else if (actionType === 'ADD_TASK' || actionType === 'ADD_REWARD') {
                     const collection = actionType === 'ADD_TASK' ? 'tasks' : 'rewards';
-                    newData[collection].push({ id: timestamp, ...payload });
+                    const { id, ...itemData } = payload;
+                    newData[collection].push({ id: timestamp, ...itemData });
                     showToast("新增成功");
                 }
                 else if (actionType === 'EDIT_TASK' || actionType === 'EDIT_REWARD') {

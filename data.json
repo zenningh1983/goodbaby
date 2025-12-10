@@ -540,6 +540,16 @@
   ],
   "history": [
     {
+      "id": 1765363945302,
+      "type": "task_pending",
+      "childId": 1765301591855,
+      "itemId": 1765354951097,
+      "itemName": "洗便當水壺、自己碗筷",
+      "points": 1500,
+      "timestamp": 1765363945302,
+      "status": "pending"
+    },
+    {
       "id": 1765363935434,
       "type": "task_pending",
       "childId": 1765301591855,

@@ -179,6 +179,17 @@
       "assignee": "1765301052959"
     },
     {
+      "id": "t1764843549090",
+      "title": "大考單科 80 分以上",
+      "points": 8000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all",
+      "categoryId": "cat_1765348442376"
+    },
+    {
       "id": "t1765235798733",
       "title": "小考90分以上",
       "points": 10000,
@@ -188,6 +199,17 @@
         "k1764842571109"
       ],
       "assignee": "all"
+    },
+    {
+      "id": "t1764843718325",
+      "title": "大考平均 80 分以上",
+      "points": 10000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all",
+      "categoryId": "cat_1765348442376"
     },
     {
       "id": "t1765179681423",
@@ -206,28 +228,6 @@
       "points": 15000,
       "assignedTo": [
         "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all",
-      "categoryId": "cat_1765348442376"
-    },
-    {
-      "id": "t1764843549090",
-      "title": "大考單科 80 分以上",
-      "points": 8000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all",
-      "categoryId": "cat_1765348442376"
-    },
-    {
-      "id": "t1764843718325",
-      "title": "大考平均 80 分以上",
-      "points": 10000,
-      "assignedTo": [
-        "k1",
         "k1764842571109"
       ],
       "assignee": "all",
@@ -289,6 +289,24 @@
       "categoryId": "cat_1765348453493"
     },
     {
+      "title": "整天好好說話、不吵架",
+      "points": 5000,
+      "assignee": "all",
+      "categoryId": "cat_1765348453493"
+    },
+    {
+      "title": "整天沒讓媽媽生氣",
+      "points": 10000,
+      "assignee": "all",
+      "categoryId": "cat_1765348453493"
+    },
+    {
+      "title": "整天自動自發不拖拉",
+      "points": 10000,
+      "assignee": "all",
+      "categoryId": "cat_1765348453493"
+    },
+    {
       "id": "t1765235460517",
       "title": "澆花",
       "points": 1500,
@@ -300,22 +318,10 @@
       "assignee": "all"
     },
     {
-      "title": "整天沒讓媽媽生氣",
-      "points": 10000,
+      "title": "折衣服",
+      "points": 1500,
       "assignee": "all",
-      "categoryId": "cat_1765348453493"
-    },
-    {
-      "title": "整天好好說話、不吵架",
-      "points": 5000,
-      "assignee": "all",
-      "categoryId": "cat_1765348453493"
-    },
-    {
-      "title": "整天自動自發不拖拉",
-      "points": 10000,
-      "assignee": "all",
-      "categoryId": "cat_1765348453493"
+      "categoryId": "cat_1765352689791"
     }
   ],
   "rewards": [

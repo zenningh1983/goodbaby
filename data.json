@@ -546,6 +546,36 @@
   ],
   "history": [
     {
+      "id": 1765360286351,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": "t1764843871614",
+      "itemName": "看完一本 500 字文字書（有心得）",
+      "points": 5000,
+      "timestamp": 1765360286351,
+      "status": "pending"
+    },
+    {
+      "id": 1765360285871,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": 1765355052258,
+      "itemName": "刷廁所",
+      "points": 5000,
+      "timestamp": 1765360285871,
+      "status": "pending"
+    },
+    {
+      "id": 1765360285365,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": 1765355082948,
+      "itemName": "洗全家碗",
+      "points": 3002,
+      "timestamp": 1765360285365,
+      "status": "pending"
+    },
+    {
       "id": 1765360284791,
       "type": "task_pending",
       "childId": 1765356139382,

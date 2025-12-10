@@ -546,6 +546,16 @@
   ],
   "history": [
     {
+      "id": 1765358795262,
+      "type": "redeem_pending",
+      "childId": 1765356139382,
+      "itemId": "r1764843590291",
+      "itemName": "小時候彈珠 $100 x3",
+      "points": 15000,
+      "timestamp": 1765358795262,
+      "status": "pending"
+    },
+    {
       "id": 1765358577837,
       "type": "redeem_pending",
       "childId": 1765356139382,

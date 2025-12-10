@@ -37,6 +37,12 @@
       "name": "休閒娛樂",
       "type": "reward",
       "color": "blue"
+    },
+    {
+      "id": "cat_1765348232783",
+      "name": "特殊要求",
+      "type": "reward",
+      "color": "blue"
     }
   ],
   "tasks": [

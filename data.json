@@ -540,6 +540,16 @@
   ],
   "history": [
     {
+      "id": 1765363993073,
+      "type": "task_pending",
+      "childId": 1765301052959,
+      "itemId": "t1765192308004",
+      "itemName": "洗澡+吹頭30分鐘內",
+      "points": 3000,
+      "timestamp": 1765363993073,
+      "status": "pending"
+    },
+    {
       "id": 1765363987703,
       "type": "task_pending",
       "childId": 1765301052959,

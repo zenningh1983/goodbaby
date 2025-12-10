@@ -546,6 +546,16 @@
   ],
   "history": [
     {
+      "id": 1765358173104,
+      "type": "task_pending",
+      "childId": 1765356139382,
+      "itemId": 1765354673009,
+      "itemName": "整天好好講話不吵架",
+      "points": 10000,
+      "timestamp": 1765358173104,
+      "status": "pending"
+    },
+    {
       "id": 1765358168065,
       "type": "task_pending",
       "childId": 1765356139382,

@@ -21,12 +21,6 @@
       "color": "blue"
     },
     {
-      "id": "cat_default_reward",
-      "name": "點心",
-      "type": "reward",
-      "color": "pink"
-    },
-    {
       "id": "cat_1765348170564",
       "name": "購物血拼",
       "type": "reward",

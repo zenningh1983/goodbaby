@@ -25,6 +25,12 @@
       "name": "點心",
       "type": "reward",
       "color": "pink"
+    },
+    {
+      "id": "cat_1765348170564",
+      "name": "購物血拼",
+      "type": "reward",
+      "color": "blue"
     }
   ],
   "tasks": [
@@ -475,17 +481,6 @@
       ]
     },
     {
-      "id": "r1764842788062",
-      "title": "平日住婆婆家一次",
-      "cost": 50000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "points": 50000,
-      "assignee": "all"
-    },
-    {
       "id": "r1764842804595",
       "title": "同學家外宿一次",
       "cost": 50000,
@@ -494,6 +489,22 @@
         "k1764842571109"
       ],
       "points": 5000,
+      "assignee": "all"
+    },
+    {
+      "title": "課金",
+      "points": 5000,
+      "assignee": "all"
+    },
+    {
+      "id": "r1764842788062",
+      "title": "平日住婆婆家一次",
+      "cost": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "points": 50000,
       "assignee": "all"
     },
     {
@@ -522,11 +533,6 @@
         "k1",
         "k1764842571109"
       ]
-    },
-    {
-      "title": "課金",
-      "points": 5000,
-      "assignee": "all"
     }
   ],
   "history": []

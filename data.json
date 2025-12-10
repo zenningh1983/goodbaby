@@ -15,7 +15,7 @@
     {
       "id": 1765356139382,
       "name": "test",
-      "points": 50000,
+      "points": 100000,
       "avatar": "🦊"
     }
   ],
@@ -563,7 +563,7 @@
       "itemName": "大考 100 分",
       "points": 50000,
       "timestamp": 1765358168065,
-      "status": "pending"
+      "status": "approved"
     },
     {
       "id": 1765356170609,

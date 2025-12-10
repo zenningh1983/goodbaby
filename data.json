@@ -502,17 +502,6 @@
       "assignee": "all"
     },
     {
-      "id": "r1764842788062",
-      "title": "平日住婆婆家一次",
-      "cost": 50000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "points": 50000,
-      "assignee": "all"
-    },
-    {
       "id": "r3",
       "title": "買 $100 的禮物",
       "cost": 30000,
@@ -556,6 +545,19 @@
         "k1764842571109"
       ],
       "points": 5000,
+      "assignee": "all",
+      "categoryId": "cat_1765348232783",
+      "isRepeatable": false
+    },
+    {
+      "id": "r1764842788062",
+      "title": "平日住婆婆家一次",
+      "cost": 50000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "points": 50000,
       "assignee": "all",
       "categoryId": "cat_1765348232783",
       "isRepeatable": false

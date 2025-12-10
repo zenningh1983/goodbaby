@@ -62,7 +62,7 @@
             font-family: "Zen Maru Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overscroll-behavior: none;
             color: #555;
-            font-weight: 500; /* Slightly bolder for this font */
+            font-weight: 500;
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -234,6 +234,60 @@
             return <div className="relative w-64 h-64 bg-white rounded-full overflow-hidden touch-none mx-auto border-4 border-ios-blue" ref={containerRef}><div className="absolute inset-0 flex items-center justify-center cursor-move" onPointerDown={handlePointerDown} onWheel={handleWheel}><img src={imageSrc} style={{transform: `translate(${state.current.x}px, ${state.current.y}px) scale(${state.current.scale})`, maxWidth: 'none', maxHeight: 'none', pointerEvents: 'none', transformOrigin: 'center'}} /></div><div className="absolute inset-0 pointer-events-none rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]"></div><div className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-white/80 drop-shadow-md pointer-events-none font-bold">拖曳 • 縮放</div></div>;
         };
 
+        // NEW: Pin Login Component
+        const PinLoginView = ({ targetName, avatar, correctPassword, onSuccess }) => {
+            const [password, setPassword] = useState('');
+            const [error, setError] = useState('');
+            const inputRef = useRef(null);
+
+            useEffect(() => {
+                if(inputRef.current) inputRef.current.focus();
+            }, []);
+
+            const handleSubmit = () => {
+                if (password === correctPassword) {
+                    onSuccess();
+                } else {
+                    setError('密碼錯誤');
+                    setPassword('');
+                    if(inputRef.current) inputRef.current.focus();
+                }
+            };
+
+            return (
+                <div className="flex flex-col gap-6 items-center">
+                    {avatar && <Avatar avatar={avatar} size="lg" />}
+                    <div className="w-full">
+                        <p className="text-gray-500 text-sm font-bold mb-2 text-center">請輸入 4 位數密碼</p>
+                        <input 
+                            ref={inputRef}
+                            type="password" 
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError('');
+                            }}
+                            className={`w-full p-4 bg-ios-bg rounded-xl text-center text-2xl tracking-widest outline-none border transition ${error ? 'border-ios-red bg-ios-red/5' : 'border-white focus:ring-2 focus:ring-ios-indigo'}`}
+                            placeholder="●●●●" 
+                            maxLength="4" 
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSubmit();
+                            }}
+                        />
+                        <div className="h-6 mt-2 text-center">
+                            {error && <span className="text-ios-red text-sm font-bold animate-fade-in">{error}</span>}
+                        </div>
+                    </div>
+                    <button 
+                        onClick={handleSubmit}
+                        className="w-full bg-ios-indigo text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition"
+                    >
+                        進入
+                    </button>
+                </div>
+            );
+        };
+
         const CategoryManager = ({ categories, type, onEdit, onDelete, onAdd }) => {
             const [editId, setEditId] = useState(null);
             const [tempName, setTempName] = useState("");
@@ -258,11 +312,28 @@
             const isEdit = type === 'edit_child';
             const [currentAvatar, setCurrentAvatar] = useState(isEdit ? data.avatar : '👶');
             const [avatarType, setAvatarType] = useState(isEdit && data.avatar.startsWith('data:image') ? 'image' : 'emoji');
+            
+            // Default password is '0000' for new children, or existing password for edit
+            const initialPassword = isEdit && data.password ? data.password : '0000';
+            const [password, setPassword] = useState(initialPassword);
+
             const handleCropUpdate = useCallback((base64) => { setCurrentAvatar(base64); }, []);
             return (
                 <Modal isOpen={isOpen} onClose={onClose} title={isEdit ? "編輯小孩" : "新增小孩"}>
-                    <form onSubmit={(e) => { e.preventDefault(); onSave({ id: isEdit ? data.id : undefined, name: e.target.name.value, avatar: currentAvatar }); }} className="flex flex-col gap-4">
+                    <form onSubmit={(e) => { e.preventDefault(); onSave({ id: isEdit ? data.id : undefined, name: e.target.name.value, avatar: currentAvatar, password: password }); }} className="flex flex-col gap-4">
                         <input name="name" placeholder="名字" defaultValue={isEdit ? data.name : ''} required className="bg-ios-bg p-3 rounded-xl w-full text-gray-700 font-bold text-lg text-center focus:ring-2 focus:ring-ios-blue outline-none border border-white" />
+                        
+                        <div className="flex items-center gap-2 bg-ios-bg p-3 rounded-xl border border-white">
+                            <span className="text-gray-500 text-sm font-bold w-20">設定密碼</span>
+                            <input 
+                                type="text" 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
+                                maxLength="4"
+                                className="bg-transparent flex-1 outline-none text-gray-700 font-mono tracking-widest text-center" 
+                            />
+                        </div>
+
                         <div className="bg-ios-bg p-4 rounded-xl border border-white">
                             <div className="flex gap-2 mb-4"><button type="button" onClick={() => setAvatarType('emoji')} className={`flex-1 py-2 rounded-lg text-sm font-bold transition ${avatarType === 'emoji' ? 'bg-white shadow text-ios-blue' : 'text-gray-400'}`}>表情</button><button type="button" onClick={() => setAvatarType('image')} className={`flex-1 py-2 rounded-lg text-sm font-bold transition ${avatarType === 'image' ? 'bg-white shadow text-ios-blue' : 'text-gray-400'}`}>照片</button></div>
                             {avatarType === 'emoji' ? (<div className="grid grid-cols-5 gap-2">{['👦', '👧', '👶', '🧑‍🚀', '🦄', '🐱', '🐶', '🦊', '🦁', '🐸'].map(emoji => (<div key={emoji} onClick={() => setCurrentAvatar(emoji)} className={`text-2xl p-2 rounded-lg text-center cursor-pointer transition ${currentAvatar === emoji ? 'bg-white shadow-md scale-110' : 'hover:bg-white/50'}`}>{emoji}</div>))}</div>) : (<GestureCropper onImageReady={handleCropUpdate} />)}
@@ -284,7 +355,7 @@
                     <div className="flex flex-col gap-6 p-2">
                         <div className="text-center">
                             <div className="font-bold text-2xl text-gray-800">{data.title}</div>
-                            <div className="text-gray-400 font-medium">單價: {unitPoints} 點</div>
+                            <div className="text-gray-400 font-medium">單價: {unitPoints.toLocaleString()} 點</div>
                         </div>
                         
                         <div className="flex items-center justify-center gap-6 bg-ios-bg p-4 rounded-2xl">
@@ -294,8 +365,8 @@
                         </div>
 
                         <div className="text-center">
-                            <div className="text-ios-pink font-bold text-3xl">-{totalPoints} 點</div>
-                            <div className="text-sm text-gray-400 mt-1 font-bold">擁有: {userPoints} 點</div>
+                            <div className="text-ios-pink font-bold text-3xl">-{totalPoints.toLocaleString()} 點</div>
+                            <div className="text-sm text-gray-400 mt-1 font-bold">擁有: {userPoints.toLocaleString()} 點</div>
                         </div>
 
                         <button onClick={() => onConfirm(qty, totalPoints)} className="w-full py-4 rounded-xl bg-ios-pink text-white font-bold shadow-lg text-lg active:scale-95 transition disabled:opacity-50" disabled={processing}>
@@ -313,6 +384,7 @@
             const [sha, setSha] = useState(null);
             const [syncStatus, setSyncStatus] = useState('idle');
             const [toast, setToast] = useState(null);
+            // Default Token handling
             const [ghToken, setGhToken] = useState(() => { const stored = localStorage.getItem('gh_token'); if (stored) return stored; return DEFAULT_TOKEN_SUFFIX ? 'ghp_' + DEFAULT_TOKEN_SUFFIX : ''; });
             const [currentChild, setCurrentChild] = useState(null);
             
@@ -336,6 +408,7 @@
 
             const showToast = (msg, type = 'success') => setToast({ message: msg, type });
 
+            // Generate random quote when entering child dashboard
             const dailyQuote = useMemo(() => {
                 return QUOTES[Math.floor(Math.random() * QUOTES.length)];
             }, [mode]);
@@ -388,14 +461,27 @@
                 newData.categories = newData.categories || INITIAL_DATA.categories;
 
                 if (actionType === 'ADD_CHILD') {
-                    newData.children.push({ id: timestamp, name: payload.name, points: 0, avatar: payload.avatar });
+                    // Include password in new child data
+                    newData.children.push({ 
+                        id: timestamp, 
+                        name: payload.name, 
+                        points: 0, 
+                        avatar: payload.avatar,
+                        password: payload.password || '0000' 
+                    });
                     showToast("新增成功");
                 } 
                 else if (actionType === 'EDIT_CHILD') {
                     const idx = newData.children.findIndex(c => c.id === payload.id);
-                    if (idx !== -1) newData.children[idx] = { ...newData.children[idx], ...payload };
+                    if (idx !== -1) {
+                         newData.children[idx] = { 
+                             ...newData.children[idx], 
+                             ...payload 
+                         };
+                    }
                     showToast("修改成功");
                 }
+                // ... (rest of handleAction remains the same)
                 else if (actionType === 'ADD_CATEGORY') {
                     newData.categories.push({ id: `cat_${timestamp}`, ...payload });
                     showToast("分類新增成功");
@@ -468,10 +554,12 @@
                     const childIdx = newData.children.findIndex(c => c.id === item.childId);
                     
                     if (item.type === 'task_pending') {
+                        // Approve Task: Add Points
                         newData.children[childIdx].points += parseInt(item.points);
                         item.status = 'approved';
                         showToast("已核准 (加點)");
                     } else {
+                        // Approve Reward: Deduct Points
                         if (newData.children[childIdx].points >= parseInt(item.points)) {
                             newData.children[childIdx].points -= parseInt(item.points);
                             item.status = 'approved';
@@ -579,12 +667,17 @@
                             <button onClick={() => handleModeChange('child_select')} className="bg-ios-blue text-white py-4 px-6 rounded-2xl shadow-ios-lg text-lg font-bold flex items-center justify-center gap-3 active:scale-95 transition hover:shadow-xl"><i className={Icons.Child}></i> 小孩專區</button>
                             <button onClick={() => setModalConfig({ open: true, type: 'parent_login' })} className="bg-white text-ios-indigo py-4 px-6 rounded-2xl shadow-ios text-lg font-bold flex items-center justify-center gap-3 active:scale-95 transition hover:bg-ios-bg border border-white"><i className={Icons.Parent}></i> 家長專區</button>
                         </div>
-                        <Modal isOpen={modalConfig.open && modalConfig.type === 'parent_login'} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="家長登入">
-                            <div className="flex flex-col gap-4">
-                                <input type="password" id="p_pass" className="w-full p-4 bg-ios-bg rounded-xl text-center text-2xl tracking-widest outline-none border border-white focus:ring-2 focus:ring-ios-indigo" placeholder="●●●●" maxLength="8" onKeyDown={(e) => e.key === 'Enter' && document.getElementById('login_btn').click()} />
-                                <button id="login_btn" onClick={() => { if (document.getElementById('p_pass').value === parentPass) { setModalConfig({ ...modalConfig, open: false }); handleModeChange('parent'); } else showToast("密碼錯誤", 'error'); }} className="bg-ios-indigo text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition">登入</button>
-                            </div>
-                        </Modal>
+                        {modalConfig.type === 'parent_login' && (
+                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="家長登入">
+                                <PinLoginView 
+                                    correctPassword={parentPass}
+                                    onSuccess={() => {
+                                        setModalConfig({ ...modalConfig, open: false });
+                                        handleModeChange('parent');
+                                    }}
+                                />
+                            </Modal>
+                        )}
                         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
                     </div>
                 );
@@ -595,28 +688,33 @@
                 return (
                     <div className="min-h-screen p-6 flex flex-col items-center bg-ios-bg">
                         <button onClick={() => setMode('landing')} className="self-start mb-8 text-gray-500 hover:text-ios-blue transition"><i className={Icons.ChevronLeft}></i> 返回</button>
-                        <h2 className="text-3xl font-bold text-gray-700 mb-8">你是誰呢？</h2>
                         <div className="flex flex-wrap justify-center gap-6 w-full max-w-2xl px-4">
                             {data.children.map(child => (
-                                <button key={child.id} onClick={() => { setCurrentChild(child); setMode('child_dashboard'); }} className="bg-white p-6 rounded-3xl shadow-ios flex flex-col items-center gap-4 hover:-translate-y-2 transition w-40 border border-white">
+                                <button 
+                                    key={child.id} 
+                                    onClick={() => setModalConfig({ open: true, type: 'child_login', data: child })} 
+                                    className="bg-white p-6 rounded-3xl shadow-ios flex flex-col items-center gap-4 hover:-translate-y-2 transition w-40 border border-white"
+                                >
                                     <Avatar avatar={child.avatar} size="lg" />
                                     <span className="text-xl font-bold text-gray-700">{child.name}</span>
-                                    <span className="bg-ios-yellow/30 text-ios-orange px-4 py-1 rounded-full text-sm font-bold shadow-sm">{child.points} 點</span>
-                                    <button onClick={(e) => { 
-                                        e.stopPropagation(); 
-                                        setModalConfig({ 
-                                            open: true, 
-                                            type: 'confirm_delete', 
-                                            data: { 
-                                                title: '刪除小孩', 
-                                                message: `確定要刪除 ${child.name} 嗎？資料將無法復原。`, 
-                                                onConfirm: () => handleAction('DELETE_ITEM', { collection: 'children', id: child.id }) 
-                                            } 
-                                        });
-                                    }} className="text-gray-300 hover:text-ios-red mt-2"><i className={Icons.Trash}></i></button>
+                                    <span className="bg-ios-yellow/30 text-ios-orange px-4 py-1 rounded-full text-sm font-bold shadow-sm">{child.points.toLocaleString()} 點</span>
                                 </button>
                             ))}
                         </div>
+                        {/* Child Login Modal */}
+                        {modalConfig.type === 'child_login' && (
+                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={`哈囉 ${modalConfig.data.name}`}>
+                                <PinLoginView 
+                                    avatar={modalConfig.data.avatar}
+                                    correctPassword={modalConfig.data.password || '0000'}
+                                    onSuccess={() => {
+                                        setCurrentChild(modalConfig.data);
+                                        setMode('child_dashboard');
+                                        setModalConfig({ ...modalConfig, open: false });
+                                    }}
+                                />
+                            </Modal>
+                        )}
                     </div>
                 );
             }
@@ -645,6 +743,7 @@
 
                 const availableCats = data.categories.filter(c => c.type === typeFilter);
 
+                // Notifications
                 const canRedeemAny = data.rewards.some(r => (r.assignee === 'all' || parseInt(r.assignee) === liveChild.id) && liveChild.points >= r.points);
                 const hasUnreadHistory = data.history.some(h => h.childId === liveChild.id && h.status !== 'pending' && h.timestamp > childLastViewedHistory);
 
@@ -732,7 +831,7 @@
                                                     {cat && <div className={`absolute top-0 right-0 w-4 h-4 rounded-bl-xl bg-${cat.color}-500 shadow-sm`}></div>}
                                                     <span className="font-bold text-gray-700 text-lg leading-tight mt-2">{item.title}</span>
                                                     <span className={`px-4 py-1 rounded-full font-bold text-sm shadow-sm ${childTab === 'tasks' ? 'bg-ios-blue text-white' : 'bg-ios-pink text-white'}`}>
-                                                        {childTab === 'tasks' ? '+' : '-'}{item.points}
+                                                        {childTab === 'tasks' ? '+' : '-'}{item.points.toLocaleString()}
                                                     </span>
                                                     {item.isRepeatable && childTab === 'rewards' && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full absolute top-2 right-2 border border-gray-200">可累計</span>}
                                                 </div>
@@ -784,7 +883,7 @@
                                                     {/* Points - Hide if rejected */}
                                                     {h.status !== 'rejected' && (
                                                         <div className={`font-bold text-xl ${h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? 'text-ios-blue' : 'text-ios-pink'}`}>
-                                                            {h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? '+' : '-'}{Math.abs(h.points)}
+                                                            {h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? '+' : '-'}{Math.abs(h.points).toLocaleString()}
                                                         </div>
                                                     )}
                                                 </div>
@@ -801,7 +900,7 @@
                             )}
                         </div>
                         
-                        {(modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type="edit_child" data={modalConfig.data} onSave={payload => { handleAction('EDIT_CHILD', payload); setModalConfig({ ...modalConfig, open: false }); }} />}
+                        {(modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type="edit_child" data={modalConfig.data} onSave={payload => { handleAction('EDIT_CHILD', payload); setModalConfig({ ...modalConfig, open: false }); }} key={modalConfig.open ? 'open' : 'closed'} />}
                         
                         {/* Redeem Repeatable Modal */}
                         {modalConfig.type === 'redeem_repeatable' && (
@@ -826,7 +925,7 @@
                                 <div className="flex flex-col items-center gap-4 text-center p-2">
                                     <div className="text-5xl animate-bounce">🎁</div>
                                     <p className="text-gray-600 text-lg">確定要兌換 <br/><span className="text-xl font-bold text-ios-indigo">{modalConfig.data.title}</span> 嗎？</p>
-                                    <div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points} 點</div>
+                                    <div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points.toLocaleString()} 點</div>
                                     <div className="flex gap-3 w-full mt-4">
                                         <button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">再想想</button>
                                         <button onClick={() => {
@@ -932,7 +1031,7 @@
                                                     <Avatar avatar={child?.avatar} size="lg" />
                                                     <div>
                                                         <div className="font-bold text-gray-800 text-xl">{child?.name} <span className="text-gray-400 font-normal text-base">申請</span></div>
-                                                        <div className={`font-bold text-lg mt-1 ${item.type === 'task_pending' ? 'text-ios-blue' : 'text-ios-pink'}`}>{item.itemName} <span className="text-gray-500 text-base font-normal">({item.points} 點)</span></div>
+                                                        <div className={`font-bold text-lg mt-1 ${item.type === 'task_pending' ? 'text-ios-blue' : 'text-ios-pink'}`}>{item.itemName} <span className="text-gray-500 text-base font-normal">({item.points.toLocaleString()} 點)</span></div>
                                                     </div>
                                                 </div>
                                                 <div className="flex gap-3 w-full sm:w-auto">
@@ -978,7 +1077,7 @@
                                                     {cat && <span className={`absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full text-white font-bold bg-${cat.color}-500`}>{cat.name}</span>}
                                                     <div className="font-bold text-gray-800 text-xl mb-1">{item.title}</div>
                                                     <div className="text-sm text-gray-500 flex flex-wrap items-center gap-2 mt-2">
-                                                        <span className={`font-bold px-2 py-0.5 rounded-md ${parentTab === 'tasks' ? 'bg-ios-blue/10 text-ios-blue' : 'bg-ios-pink/10 text-ios-pink'}`}>{item.points} 點</span>
+                                                        <span className={`font-bold px-2 py-0.5 rounded-md ${parentTab === 'tasks' ? 'bg-ios-blue/10 text-ios-blue' : 'bg-ios-pink/10 text-ios-pink'}`}>{item.points.toLocaleString()} 點</span>
                                                         <span className="text-[10px] text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-200 flex items-center gap-1"><i className="fa-solid fa-user-group text-xs"></i> {assigneeName}</span>
                                                         {item.isRepeatable && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">可累計</span>}
                                                     </div>
@@ -1012,7 +1111,7 @@
                                                 <Avatar avatar={child.avatar} size="xl" />
                                                 <div>
                                                     <div className="font-bold text-2xl text-gray-800">{child.name}</div>
-                                                    <div className="text-ios-indigo font-bold text-lg mt-1">{child.points} 點</div>
+                                                    <div className="text-ios-indigo font-bold text-lg mt-1">{child.points.toLocaleString()} 點</div>
                                                 </div>
                                                 <div className="absolute top-4 right-4 flex gap-1">
                                                     <button onClick={() => setModalConfig({ open: true, type: 'edit_child', data: child })} className="text-gray-300 hover:text-ios-blue p-2 rounded-full hover:bg-gray-50 transition"><i className={Icons.Edit}></i></button>
@@ -1040,7 +1139,7 @@
                                     <div className="bg-white p-8 rounded-3xl shadow-ios border border-white">
                                         <h3 className="font-bold text-gray-800 mb-6 text-xl flex items-center gap-2"><i className="fa-solid fa-key text-ios-indigo"></i> 家長密碼</h3>
                                         <div className="relative">
-                                            <input type={showParentPass ? "text" : "password"} value={tempParentPass} onChange={(e) => setTempParentPass(e.target.value)} className="w-full bg-ios-bg p-4 rounded-xl outline-none border border-transparent focus:border-ios-indigo focus:bg-white transition font-mono text-lg tracking-widest" />
+                                            <input type={showParentPass ? "text" : "password"} value={tempParentPass} onChange={(e) => setTempParentPass(e.target.value)} className="w-full bg-ios-bg p-4 rounded-xl outline-none border border-transparent focus:border-ios-indigo focus:bg-white transition font-mono text-lg tracking-widest" maxLength="4" />
                                             <button onClick={() => setShowParentPass(!showParentPass)} className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"><i className={showParentPass ? Icons.EyeSlash : Icons.Eye}></i></button>
                                         </div>
                                         <button onClick={() => { localStorage.setItem('parent_pass', tempParentPass); showToast("密碼已更新"); }} className="w-full bg-ios-indigo text-white p-4 rounded-xl font-bold mt-4 shadow-lg hover:opacity-90 transition">儲存新密碼</button>
@@ -1059,7 +1158,7 @@
 
                         </div>
 
-                        {(modalConfig.type === 'add_child' || modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type={modalConfig.type} data={modalConfig.data} onSave={p => { handleAction(modalConfig.type === 'edit_child' ? 'EDIT_CHILD' : 'ADD_CHILD', p); setModalConfig({ ...modalConfig, open: false }); }} />}
+                        {(modalConfig.type === 'add_child' || modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type={modalConfig.type} data={modalConfig.data} onSave={p => { handleAction(modalConfig.type === 'edit_child' ? 'EDIT_CHILD' : 'ADD_CHILD', p); setModalConfig({ ...modalConfig, open: false }); }} key={modalConfig.open ? 'open' : 'closed'} />}
                         
                         {(modalConfig.type.includes('task') || modalConfig.type.includes('reward')) && (
                             <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={modalConfig.type.includes('add') ? '新增' : '編輯'}>
@@ -1172,7 +1271,7 @@
                                 <div className="flex flex-col items-center gap-4 text-center p-2">
                                     <div className="text-5xl animate-bounce">🎁</div>
                                     <p className="text-gray-600 text-lg">確定要兌換 <br/><span className="text-xl font-bold text-ios-indigo">{modalConfig.data.title}</span> 嗎？</p>
-                                    <div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points} 點</div>
+                                    <div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points.toLocaleString()} 點</div>
                                     <div className="flex gap-3 w-full mt-4">
                                         <button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">再想想</button>
                                         <button onClick={() => {

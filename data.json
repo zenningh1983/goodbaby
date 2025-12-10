@@ -31,6 +31,12 @@
       "name": "購物血拼",
       "type": "reward",
       "color": "blue"
+    },
+    {
+      "id": "cat_1765348223694",
+      "name": "休閒娛樂",
+      "type": "reward",
+      "color": "blue"
     }
   ],
   "tasks": [

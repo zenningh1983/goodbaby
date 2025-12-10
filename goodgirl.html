@@ -26,7 +26,7 @@
                             card: '#FFFFFF',
                             blue: '#89CFF0',    // 寶寶藍
                             green: '#98FB98',   // 薄荷綠
-                            indigo: '#B39EB5',  // 薰衣草紫 (取代原本的深靛色)
+                            indigo: '#B39EB5',  // 薰衣草紫
                             orange: '#FFD1A9',  // 奶油杏
                             pink: '#FFB7B2',    // 櫻花粉
                             purple: '#DDA0DD',  // 梅子粉紫
@@ -36,14 +36,11 @@
                             gray: '#A9A9A9',    // 柔和灰
                             gray2: '#D3D3D3',
                             gray3: '#E0E0E0',
-                            gray4: '#F5F5F5',
-                            gray5: '#FAFAFA',
-                            gray6: '#FFFFFF',
                         }
                     },
                     boxShadow: {
-                        'ios': '0 4px 12px rgba(137, 207, 240, 0.15)', // 藍色系陰影
-                        'ios-lg': '0 10px 25px rgba(179, 158, 181, 0.2)', // 紫色系陰影
+                        'ios': '0 4px 12px rgba(137, 207, 240, 0.15)', 
+                        'ios-lg': '0 10px 25px rgba(179, 158, 181, 0.2)',
                     },
                     fontFamily: {
                         sans: ['-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', "Helvetica Neue", 'Arial', "Noto Sans TC", 'sans-serif'],
@@ -58,71 +55,19 @@
             -webkit-tap-highlight-color: transparent;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overscroll-behavior: none;
-            color: #555; /* 預設文字顏色改為深灰，比較不刺眼 */
+            color: #555;
         }
-        
-        /* iOS Toggle Switch */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #98FB98;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #98FB98;
-        }
-        
-        /* Custom Scrollbar */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Animations */
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .animate-slide-up {
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.2s ease-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        
-        .sidebar-transition {
-            transition: width 0.3s ease-in-out;
-        }
-
-        /* Custom Select Arrow */
-        .custom-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B39EB5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1em;
-        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fade-in { animation: fadeIn 0.2s ease-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .sidebar-transition { transition: width 0.3s ease-in-out; }
+        .custom-select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B39EB5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
     </style>
 </head>
 <body>
@@ -131,59 +76,46 @@
     <script type="text/babel">
         const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
-        // --- Configuration ---
         const REPO_OWNER = "zenningh1983";
         const REPO_NAME = "goodbaby";
         const FILE_PATH = "data.json";
-
-        // [進階設定] 預設 Token (請填入 ghp_ 後面的字串)
-        // 注意：請勿直接將完整的 Token (包含 ghp_) 貼入，以免 GitHub 偵測到並阻擋 Deploy
-        // 若您的 Token 是 "ghp_Abc123..."，請在下方引號內填入 "Abc123..."
         const DEFAULT_TOKEN_SUFFIX = "hfFz2uYiriKFcVZlrD3YU79KRTdBvf0yd7PA";
 
-        // --- Icons ---
         const Icons = {
-            Sync: "fa-solid fa-rotate",
-            Check: "fa-solid fa-check",
-            Xmark: "fa-solid fa-xmark",
-            Child: "fa-solid fa-child-reaching",
-            Parent: "fa-solid fa-user-shield",
-            Task: "fa-solid fa-star",
-            Reward: "fa-solid fa-gift",
-            History: "fa-solid fa-clock-rotate-left",
-            Settings: "fa-solid fa-gear",
-            Plus: "fa-solid fa-plus",
-            Minus: "fa-solid fa-minus",
-            Trash: "fa-solid fa-trash-can",
-            Lock: "fa-solid fa-lock",
-            Edit: "fa-solid fa-pen",
-            Coins: "fa-solid fa-coins",
-            Eye: "fa-solid fa-eye",
-            EyeSlash: "fa-solid fa-eye-slash",
-            ChevronLeft: "fa-solid fa-chevron-left",
-            ChevronRight: "fa-solid fa-chevron-right",
-            Exit: "fa-solid fa-right-from-bracket",
-            Image: "fa-regular fa-image",
-            Face: "fa-regular fa-face-smile",
-            Filter: "fa-solid fa-filter",
-            Bars: "fa-solid fa-bars",
-            Repeat: "fa-solid fa-repeat",
+            Sync: "fa-solid fa-rotate", Check: "fa-solid fa-check", Xmark: "fa-solid fa-xmark",
+            Child: "fa-solid fa-child-reaching", Parent: "fa-solid fa-user-shield", Task: "fa-solid fa-star",
+            Reward: "fa-solid fa-gift", History: "fa-solid fa-clock-rotate-left", Settings: "fa-solid fa-gear",
+            Plus: "fa-solid fa-plus", Minus: "fa-solid fa-minus", Trash: "fa-solid fa-trash-can",
+            Lock: "fa-solid fa-lock", Edit: "fa-solid fa-pen", Coins: "fa-solid fa-coins",
+            Eye: "fa-solid fa-eye", EyeSlash: "fa-solid fa-eye-slash", ChevronLeft: "fa-solid fa-chevron-left",
+            ChevronRight: "fa-solid fa-chevron-right", Exit: "fa-solid fa-right-from-bracket", Image: "fa-regular fa-image",
+            Face: "fa-regular fa-face-smile", Filter: "fa-solid fa-filter", UserGroup: "fa-solid fa-user-group",
+            Repeat: "fa-solid fa-repeat", Bolt: "fa-solid fa-bolt", Spinner: "fa-solid fa-circle-notch",
         };
 
-        // --- Helper Functions ---
+        const QUOTES = [
+            "今天也是棒棒的一天！🌟",
+            "你是最棒的小幫手！💪",
+            "繼續加油，你可以的！✨",
+            "好習慣讓你更強大！🚀",
+            "每一個進步都值得慶祝！🎉",
+            "你的努力大家都看見了！👀",
+            "保持微笑，快樂出發！😊",
+            "今天的你比昨天更棒！🌈",
+            "太厲害了，繼續保持！👍",
+            "你的笑容是最好的禮物！🎁"
+        ];
+
         const toBase64 = (str) => btoa(unescape(encodeURIComponent(str)));
         const fromBase64 = (str) => decodeURIComponent(escape(atob(str)));
 
-        // Initial Data Structure
         const INITIAL_DATA = {
             children: [], 
             categories: [
                 { id: 'cat_default_task', name: '日常', type: 'task', color: 'blue' },
                 { id: 'cat_default_reward', name: '點心', type: 'reward', color: 'pink' }
             ],
-            tasks: [],    // { id, title, points, assignee, categoryId }
-            rewards: [],  // { id, title, points, assignee, categoryId, isRepeatable }
-            history: [],  
+            tasks: [], rewards: [], history: [],  
         };
 
         // --- Github API ---
@@ -192,81 +124,48 @@
                 if (!token) return null;
                 try {
                     const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-                        headers: { 
-                            'Authorization': `token ${token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        },
-                        cache: 'no-store'
+                        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }, cache: 'no-store'
                     });
                     if (res.status === 404) return { content: JSON.parse(JSON.stringify(INITIAL_DATA)), sha: null };
                     if (res.status === 401) throw new Error('Token 無效 (401)');
                     if (!res.ok) throw new Error('Fetch failed: ' + res.status);
-                    
                     const data = await res.json();
                     let content;
                     try {
                         const decoded = fromBase64(data.content);
-                        const parsed = JSON.parse(decoded);
-                        content = { ...INITIAL_DATA, ...parsed }; // Merge to ensure structure
-                        // Ensure categories exist
+                        content = { ...INITIAL_DATA, ...JSON.parse(decoded) };
                         if (!content.categories) content.categories = INITIAL_DATA.categories;
-                    } catch (err) {
-                        content = JSON.parse(JSON.stringify(INITIAL_DATA));
-                    }
+                    } catch (err) { content = JSON.parse(JSON.stringify(INITIAL_DATA)); }
                     return { content, sha: data.sha };
-                } catch (e) {
-                    console.error("Sync Error (Get):", e);
-                    throw e;
-                }
+                } catch (e) { console.error("Sync Error (Get):", e); throw e; }
             },
             async saveData(token, content, sha) {
                 if (!token) throw new Error("No Token");
                 try {
-                    const body = {
-                        message: "Update GoodBaby Data",
-                        content: toBase64(JSON.stringify(content, null, 2)),
-                        sha: sha || undefined
-                    };
+                    const body = { message: "Update", content: toBase64(JSON.stringify(content, null, 2)), sha: sha || undefined };
                     const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-                        method: 'PUT',
-                        headers: { 
-                            'Authorization': `token ${token}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(body)
+                        method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body)
                     });
                     if (res.status === 401) throw new Error('Token 無效 (401)');
                     if (!res.ok) throw new Error('Save failed: ' + res.status);
                     return await res.json();
-                } catch (e) {
-                    console.error("Sync Error (Save):", e);
-                    throw e;
-                }
+                } catch (e) { console.error("Sync Error (Save):", e); throw e; }
             }
         };
 
         // --- Components ---
-
-        // 1. Toast (Refined)
         const Toast = ({ message, type, onClose }) => {
-            useEffect(() => {
-                const timer = setTimeout(onClose, 1000); // 1s auto close
-                return () => clearTimeout(timer);
-            }, [onClose]);
-
+            useEffect(() => { const timer = setTimeout(onClose, 1000); return () => clearTimeout(timer); }, [onClose]);
             const bgClass = type === 'error' ? 'bg-ios-red/80' : (type === 'warning' ? 'bg-ios-orange/80' : 'bg-ios-green/80');
-
             return (
                 <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[60] animate-fade-in pointer-events-none">
                     <div className={`${bgClass} text-white px-6 py-3 rounded-2xl shadow-sm backdrop-blur-sm flex items-center gap-2 font-medium text-sm max-w-[80vw] truncate`}>
-                        <i className={type === 'error' ? Icons.Xmark : (type === 'warning' ? Icons.Sync : Icons.Check)}></i>
-                        {message}
+                        <i className={type === 'error' ? Icons.Xmark : (type === 'warning' ? Icons.Sync : Icons.Check)}></i>{message}
                     </div>
                 </div>
             );
         };
 
-        // 2. Modal (Click outside to close)
         const Modal = ({ isOpen, onClose, title, children }) => {
             if (!isOpen) return null;
             return (
@@ -275,52 +174,32 @@
                     <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm max-h-[90vh] overflow-y-auto animate-slide-up hide-scrollbar border-4 border-white" onClick={e => e.stopPropagation()}>
                         <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-ios-bg sticky top-0 z-10">
                             <h3 className="text-lg font-bold text-gray-700">{title}</h3>
-                            <button onClick={onClose} className="text-gray-400 hover:text-ios-red w-8 h-8 flex items-center justify-center rounded-full hover:bg-white transition">
-                                <i className={Icons.Xmark}></i>
-                            </button>
+                            <button onClick={onClose} className="text-gray-400 hover:text-ios-red w-8 h-8 flex items-center justify-center rounded-full hover:bg-white transition"><i className={Icons.Xmark}></i></button>
                         </div>
-                        <div className="p-6">
-                            {children}
-                        </div>
+                        <div className="p-6">{children}</div>
                     </div>
                 </div>
             );
         };
 
-        // 3. Avatar Component
         const Avatar = ({ avatar, size = "md", className = "" }) => {
             const isImage = avatar && avatar.startsWith('data:image');
-            const sizeClasses = {
-                sm: 'w-8 h-8 text-lg',
-                md: 'w-12 h-12 text-2xl',
-                lg: 'w-20 h-20 text-5xl',
-                xl: 'w-32 h-32 text-7xl'
-            };
+            const sizeClasses = { sm: 'w-8 h-8 text-lg', md: 'w-12 h-12 text-2xl', lg: 'w-20 h-20 text-5xl', xl: 'w-32 h-32 text-7xl' };
             const sizeClass = sizeClasses[size] || sizeClasses.md;
-            
-            if (isImage) {
-                return <img src={avatar} className={`rounded-full object-cover border-4 border-white shadow-sm ${sizeClass} ${className}`} alt="avatar" />;
-            }
-            return (
-                <div className={`rounded-full bg-white flex items-center justify-center border-4 border-ios-blue/20 shadow-sm ${sizeClass} ${className}`}>
-                    {avatar || '👶'}
-                </div>
-            );
+            if (isImage) return <img src={avatar} className={`rounded-full object-cover border-4 border-white shadow-sm ${sizeClass} ${className}`} alt="avatar" />;
+            return <div className={`rounded-full bg-white flex items-center justify-center border-4 border-ios-blue/20 shadow-sm ${sizeClass} ${className}`}>{avatar || '👶'}</div>;
         };
 
-        // 4. Gesture Image Cropper
         const GestureCropper = ({ onImageReady }) => {
             const [imageSrc, setImageSrc] = useState(null);
             const containerRef = useRef(null);
             const state = useRef({ x: 0, y: 0, scale: 1 });
             const [renderTrigger, setRenderTrigger] = useState(0); 
-
             const handleFileChange = (e) => {
                 if (e.target.files && e.target.files.length > 0) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        const img = new Image();
-                        img.src = e.target.result;
+                        const img = new Image(); img.src = e.target.result;
                         img.onload = () => {
                             const containerSize = 256; 
                             const scale = Math.max(containerSize / img.naturalWidth, containerSize / img.naturalHeight);
@@ -331,192 +210,98 @@
                     reader.readAsDataURL(e.target.files[0]);
                 }
             };
-
             useEffect(() => {
                 if (imageSrc) {
                     const capture = () => {
-                        const size = 256;
-                        const canvas = document.createElement('canvas');
-                        canvas.width = size;
-                        canvas.height = size;
-                        const ctx = canvas.getContext('2d');
-                        const img = new Image();
-                        img.src = imageSrc;
-                        
+                        const size = 256; const canvas = document.createElement('canvas'); canvas.width = size; canvas.height = size; const ctx = canvas.getContext('2d'); const img = new Image(); img.src = imageSrc;
                         img.onload = () => {
-                            ctx.fillStyle = '#FFFFFF';
-                            ctx.fillRect(0, 0, size, size);
-                            ctx.translate(size / 2, size / 2);
-                            ctx.translate(state.current.x, state.current.y);
-                            ctx.scale(state.current.scale, state.current.scale);
+                            ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, size, size); ctx.translate(size / 2, size / 2); ctx.translate(state.current.x, state.current.y); ctx.scale(state.current.scale, state.current.scale);
                             ctx.drawImage(img, -img.naturalWidth / 2, -img.naturalHeight / 2);
                             onImageReady(canvas.toDataURL('image/jpeg', 0.6)); 
                         };
                     };
-                    const t = setTimeout(capture, 100);
-                    return () => clearTimeout(t);
+                    const t = setTimeout(capture, 100); return () => clearTimeout(t);
                 }
             }, [imageSrc, renderTrigger, onImageReady]);
-
             const handlePointerDown = (e) => {
-                e.target.setPointerCapture(e.pointerId);
-                const startX = e.clientX;
-                const startY = e.clientY;
-                const initialX = state.current.x;
-                const initialY = state.current.y;
-
-                const onPointerMove = (moveEvent) => {
-                    state.current.x = initialX + (moveEvent.clientX - startX);
-                    state.current.y = initialY + (moveEvent.clientY - startY);
-                    setRenderTrigger(prev => prev + 1);
-                };
-
-                const onPointerUp = () => {
-                    e.target.removeEventListener('pointermove', onPointerMove);
-                    e.target.removeEventListener('pointerup', onPointerUp);
-                };
-
-                e.target.addEventListener('pointermove', onPointerMove);
-                e.target.addEventListener('pointerup', onPointerUp);
+                e.target.setPointerCapture(e.pointerId); const startX = e.clientX; const startY = e.clientY; const initialX = state.current.x; const initialY = state.current.y;
+                const onPointerMove = (moveEvent) => { state.current.x = initialX + (moveEvent.clientX - startX); state.current.y = initialY + (moveEvent.clientY - startY); setRenderTrigger(prev => prev + 1); };
+                const onPointerUp = () => { e.target.removeEventListener('pointermove', onPointerMove); e.target.removeEventListener('pointerup', onPointerUp); };
+                e.target.addEventListener('pointermove', onPointerMove); e.target.addEventListener('pointerup', onPointerUp);
             };
-
-            const handleWheel = (e) => {
-                e.preventDefault();
-                const scaleChange = e.deltaY * -0.001;
-                state.current.scale = Math.min(Math.max(0.1, state.current.scale + scaleChange), 10);
-                setRenderTrigger(prev => prev + 1);
-            };
-
-            if (!imageSrc) {
-                return (
-                    <label className="flex flex-col items-center justify-center w-64 h-64 border-4 border-dashed border-ios-blue/30 rounded-full cursor-pointer hover:bg-white hover:border-ios-blue transition mx-auto bg-ios-bg">
-                        <div className="flex flex-col items-center justify-center text-ios-blue/50">
-                            <i className={`${Icons.Image} text-3xl mb-2`}></i>
-                            <p className="text-sm font-bold">點擊上傳照片</p>
-                        </div>
-                        <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-                    </label>
-                );
-            }
-
-            return (
-                <div className="relative w-64 h-64 bg-white rounded-full overflow-hidden touch-none mx-auto border-4 border-ios-blue" ref={containerRef}>
-                    <div className="absolute inset-0 flex items-center justify-center cursor-move" onPointerDown={handlePointerDown} onWheel={handleWheel}>
-                        <img 
-                            src={imageSrc} 
-                            style={{
-                                transform: `translate(${state.current.x}px, ${state.current.y}px) scale(${state.current.scale})`, 
-                                maxWidth: 'none', 
-                                maxHeight: 'none', 
-                                pointerEvents: 'none',
-                                transformOrigin: 'center'
-                            }} 
-                        />
-                    </div>
-                    <div className="absolute inset-0 pointer-events-none rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]"></div>
-                    <div className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-white/80 drop-shadow-md pointer-events-none font-bold">拖曳 • 縮放</div>
-                </div>
-            );
+            const handleWheel = (e) => { e.preventDefault(); const scaleChange = e.deltaY * -0.001; state.current.scale = Math.min(Math.max(0.1, state.current.scale + scaleChange), 10); setRenderTrigger(prev => prev + 1); };
+            if (!imageSrc) return <label className="flex flex-col items-center justify-center w-64 h-64 border-4 border-dashed border-ios-blue/30 rounded-full cursor-pointer hover:bg-white hover:border-ios-blue transition mx-auto bg-ios-bg"><div className="flex flex-col items-center justify-center text-ios-blue/50"><i className={`${Icons.Image} text-3xl mb-2`}></i><p className="text-sm font-bold">點擊上傳照片</p></div><input type="file" className="hidden" accept="image/*" onChange={handleFileChange} /></label>;
+            return <div className="relative w-64 h-64 bg-white rounded-full overflow-hidden touch-none mx-auto border-4 border-ios-blue" ref={containerRef}><div className="absolute inset-0 flex items-center justify-center cursor-move" onPointerDown={handlePointerDown} onWheel={handleWheel}><img src={imageSrc} style={{transform: `translate(${state.current.x}px, ${state.current.y}px) scale(${state.current.scale})`, maxWidth: 'none', maxHeight: 'none', pointerEvents: 'none', transformOrigin: 'center'}} /></div><div className="absolute inset-0 pointer-events-none rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]"></div><div className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-white/80 drop-shadow-md pointer-events-none font-bold">拖曳 • 縮放</div></div>;
         };
 
-        // 5. Category Manager Component
         const CategoryManager = ({ categories, type, onEdit, onDelete, onAdd }) => {
             const [editId, setEditId] = useState(null);
             const [tempName, setTempName] = useState("");
-
             const filtered = categories.filter(c => c.type === type);
-
-            const startEdit = (c) => {
-                setEditId(c.id);
-                setTempName(c.name);
-            };
-
-            const saveEdit = () => {
-                if (tempName.trim()) {
-                    onEdit({ id: editId, name: tempName });
-                    setEditId(null);
-                }
-            };
-
+            const saveEdit = () => { if (tempName.trim()) { onEdit({ id: editId, name: tempName }); setEditId(null); } };
             return (
                 <div className="flex flex-col gap-4">
                     <div className="space-y-2 max-h-60 overflow-y-auto">
                         {filtered.map(c => (
                             <div key={c.id} className="flex items-center justify-between bg-ios-bg p-3 rounded-xl border border-white">
-                                {editId === c.id ? (
-                                    <div className="flex items-center gap-2 flex-1">
-                                        <input 
-                                            className="bg-white border border-ios-blue rounded px-2 py-1 flex-1 text-sm outline-none text-gray-700"
-                                            value={tempName}
-                                            onChange={e => setTempName(e.target.value)}
-                                            autoFocus
-                                        />
-                                        <button onClick={saveEdit} className="text-ios-green px-2"><i className={Icons.Check}></i></button>
-                                        <button onClick={() => setEditId(null)} className="text-gray-400 px-2"><i className={Icons.Xmark}></i></button>
-                                    </div>
-                                ) : (
-                                    <>
-                                        <div className="flex items-center gap-2">
-                                            <div className={`w-3 h-3 rounded-full bg-${c.color}-500 shadow-sm`}></div>
-                                            <span className="font-bold text-gray-700">{c.name}</span>
-                                        </div>
-                                        <div className="flex gap-1">
-                                            <button onClick={() => startEdit(c)} className="text-ios-blue w-8 h-8 rounded-full hover:bg-white transition"><i className={Icons.Edit}></i></button>
-                                            <button onClick={() => onDelete(c.id)} className="text-ios-red w-8 h-8 rounded-full hover:bg-white transition"><i className={Icons.Trash}></i></button>
-                                        </div>
-                                    </>
-                                )}
+                                {editId === c.id ? (<div className="flex items-center gap-2 flex-1"><input className="bg-white border border-ios-blue rounded px-2 py-1 flex-1 text-sm outline-none text-gray-700" value={tempName} onChange={e => setTempName(e.target.value)} autoFocus /><button onClick={saveEdit} className="text-ios-green px-2"><i className={Icons.Check}></i></button><button onClick={() => setEditId(null)} className="text-gray-400 px-2"><i className={Icons.Xmark}></i></button></div>) : (<><div className="flex items-center gap-2"><div className={`w-3 h-3 rounded-full bg-${c.color}-500 shadow-sm`}></div><span className="font-bold text-gray-700">{c.name}</span></div><div className="flex gap-1"><button onClick={() => {setEditId(c.id); setTempName(c.name);}} className="text-ios-blue w-8 h-8 rounded-full hover:bg-white transition"><i className={Icons.Edit}></i></button><button onClick={() => onDelete(c.id)} className="text-ios-red w-8 h-8 rounded-full hover:bg-white transition"><i className={Icons.Trash}></i></button></div></>)}
                             </div>
                         ))}
                         {filtered.length === 0 && <div className="text-center text-gray-400 text-sm py-4">尚無分類</div>}
                     </div>
-                    <div className="border-t pt-4">
-                        <h4 className="font-bold text-gray-600 mb-2 text-sm">新增分類</h4>
-                        <form onSubmit={(e) => {
-                            e.preventDefault();
-                            if (e.target.name.value.trim()) {
-                                onAdd({ name: e.target.name.value, type: type, color: 'blue' });
-                                e.target.reset();
-                            }
-                        }} className="flex gap-2">
-                            <input name="name" placeholder="名稱" required className="bg-ios-bg p-2 rounded-lg flex-1 text-sm outline-none focus:ring-2 focus:ring-ios-blue" />
-                            <button className="bg-ios-indigo text-white px-4 rounded-lg font-bold text-sm shadow-md active:scale-95 transition">新增</button>
-                        </form>
-                    </div>
+                    <div className="border-t pt-4"><h4 className="font-bold text-gray-600 mb-2 text-sm">新增分類</h4><form onSubmit={(e) => { e.preventDefault(); if (e.target.name.value.trim()) { onAdd({ name: e.target.name.value, type: type, color: 'blue' }); e.target.reset(); } }} className="flex gap-2"><input name="name" placeholder="名稱" required className="bg-ios-bg p-2 rounded-lg flex-1 text-sm outline-none focus:ring-2 focus:ring-ios-blue" /><button className="bg-ios-indigo text-white px-4 rounded-lg font-bold text-sm shadow-md active:scale-95 transition">新增</button></form></div>
                 </div>
             );
         };
 
-        // 6. Child Form Modal
         const ChildModal = ({ isOpen, onClose, type, data, onSave }) => {
             const isEdit = type === 'edit_child';
             const [currentAvatar, setCurrentAvatar] = useState(isEdit ? data.avatar : '👶');
             const [avatarType, setAvatarType] = useState(isEdit && data.avatar.startsWith('data:image') ? 'image' : 'emoji');
-            
             const handleCropUpdate = useCallback((base64) => { setCurrentAvatar(base64); }, []);
-
             return (
                 <Modal isOpen={isOpen} onClose={onClose} title={isEdit ? "編輯小孩" : "新增小孩"}>
-                    <form onSubmit={(e) => {
-                        e.preventDefault();
-                        onSave({ id: isEdit ? data.id : undefined, name: e.target.name.value, avatar: currentAvatar });
-                    }} className="flex flex-col gap-4">
+                    <form onSubmit={(e) => { e.preventDefault(); onSave({ id: isEdit ? data.id : undefined, name: e.target.name.value, avatar: currentAvatar }); }} className="flex flex-col gap-4">
                         <input name="name" placeholder="名字" defaultValue={isEdit ? data.name : ''} required className="bg-ios-bg p-3 rounded-xl w-full text-gray-700 font-bold text-lg text-center focus:ring-2 focus:ring-ios-blue outline-none border border-white" />
                         <div className="bg-ios-bg p-4 rounded-xl border border-white">
-                            <div className="flex gap-2 mb-4">
-                                <button type="button" onClick={() => setAvatarType('emoji')} className={`flex-1 py-2 rounded-lg text-sm font-bold transition ${avatarType === 'emoji' ? 'bg-white shadow text-ios-blue' : 'text-gray-400'}`}>表情</button>
-                                <button type="button" onClick={() => setAvatarType('image')} className={`flex-1 py-2 rounded-lg text-sm font-bold transition ${avatarType === 'image' ? 'bg-white shadow text-ios-blue' : 'text-gray-400'}`}>照片</button>
-                            </div>
-                            {avatarType === 'emoji' ? (
-                                <div className="grid grid-cols-5 gap-2">
-                                    {['👦', '👧', '👶', '🧑‍🚀', '🦄', '🐱', '🐶', '🦊', '🦁', '🐸'].map(emoji => (
-                                        <div key={emoji} onClick={() => setCurrentAvatar(emoji)} className={`text-2xl p-2 rounded-lg text-center cursor-pointer transition ${currentAvatar === emoji ? 'bg-white shadow-md scale-110' : 'hover:bg-white/50'}`}>{emoji}</div>
-                                    ))}
-                                </div>
-                            ) : (<GestureCropper onImageReady={handleCropUpdate} />)}
+                            <div className="flex gap-2 mb-4"><button type="button" onClick={() => setAvatarType('emoji')} className={`flex-1 py-2 rounded-lg text-sm font-bold transition ${avatarType === 'emoji' ? 'bg-white shadow text-ios-blue' : 'text-gray-400'}`}>表情</button><button type="button" onClick={() => setAvatarType('image')} className={`flex-1 py-2 rounded-lg text-sm font-bold transition ${avatarType === 'image' ? 'bg-white shadow text-ios-blue' : 'text-gray-400'}`}>照片</button></div>
+                            {avatarType === 'emoji' ? (<div className="grid grid-cols-5 gap-2">{['👦', '👧', '👶', '🧑‍🚀', '🦄', '🐱', '🐶', '🦊', '🦁', '🐸'].map(emoji => (<div key={emoji} onClick={() => setCurrentAvatar(emoji)} className={`text-2xl p-2 rounded-lg text-center cursor-pointer transition ${currentAvatar === emoji ? 'bg-white shadow-md scale-110' : 'hover:bg-white/50'}`}>{emoji}</div>))}</div>) : (<GestureCropper onImageReady={handleCropUpdate} />)}
                         </div>
                         <button className="bg-ios-indigo text-white p-3 rounded-xl font-bold mt-2 shadow-lg active:scale-95 transition">{isEdit ? '儲存修改' : '新增'}</button>
                     </form>
+                </Modal>
+            );
+        };
+
+        const RedeemQuantityModal = ({ isOpen, onClose, data, userPoints, onConfirm, processing }) => {
+            const [qty, setQty] = useState(1);
+            const unitPoints = data.points;
+            const totalPoints = qty * unitPoints;
+            const maxQty = Math.floor(userPoints / unitPoints);
+
+            return (
+                <Modal isOpen={isOpen} onClose={onClose} title="兌換數量">
+                    <div className="flex flex-col gap-6 p-2">
+                        <div className="text-center">
+                            <div className="font-bold text-2xl text-gray-800">{data.title}</div>
+                            <div className="text-gray-400 font-medium">單價: {unitPoints} 點</div>
+                        </div>
+                        
+                        <div className="flex items-center justify-center gap-6 bg-ios-bg p-4 rounded-2xl">
+                            <button onClick={() => setQty(Math.max(1, qty - 1))} className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold transition ${qty <= 1 ? 'bg-gray-200 text-gray-400' : 'bg-white text-gray-600 shadow-sm'}`} disabled={qty <= 1}><i className={Icons.Minus}></i></button>
+                            <div className="text-4xl font-black w-16 text-center text-ios-indigo">{qty}</div>
+                            <button onClick={() => setQty(Math.min(maxQty, qty + 1))} className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold transition ${qty >= maxQty ? 'bg-gray-200 text-gray-400' : 'bg-white text-gray-600 shadow-sm'}`} disabled={qty >= maxQty}><i className={Icons.Plus}></i></button>
+                        </div>
+
+                        <div className="text-center">
+                            <div className="text-ios-pink font-bold text-3xl">-{totalPoints} 點</div>
+                            <div className="text-sm text-gray-400 mt-1 font-bold">擁有: {userPoints} 點</div>
+                        </div>
+
+                        <button onClick={() => onConfirm(qty, totalPoints)} className="w-full py-4 rounded-xl bg-ios-pink text-white font-bold shadow-lg text-lg active:scale-95 transition disabled:opacity-50" disabled={processing}>
+                            {processing ? <i className={`${Icons.Spinner} animate-spin`}></i> : '確認兌換'}
+                        </button>
+                    </div>
                 </Modal>
             );
         };
@@ -528,32 +313,34 @@
             const [sha, setSha] = useState(null);
             const [syncStatus, setSyncStatus] = useState('idle');
             const [toast, setToast] = useState(null);
-            // Default Token handling
-            const [ghToken, setGhToken] = useState(() => {
-                const stored = localStorage.getItem('gh_token');
-                if (stored) return stored;
-                return DEFAULT_TOKEN_SUFFIX ? 'ghp_' + DEFAULT_TOKEN_SUFFIX : '';
-            });
+            const [ghToken, setGhToken] = useState(() => { const stored = localStorage.getItem('gh_token'); if (stored) return stored; return DEFAULT_TOKEN_SUFFIX ? 'ghp_' + DEFAULT_TOKEN_SUFFIX : ''; });
             const [currentChild, setCurrentChild] = useState(null);
             
-            // Parent State
             const [parentPass, setParentPass] = useState(localStorage.getItem('parent_pass') || '0000');
             const [tempParentPass, setTempParentPass] = useState(localStorage.getItem('parent_pass') || '0000');
             const [parentTab, setParentTab] = useState('approvals');
+            const [parentApprovalTab, setParentApprovalTab] = useState('tasks'); 
             const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-            const [parentFilterCat, setParentFilterCat] = useState('all'); // Category Filter
+            const [parentFilterCat, setParentFilterCat] = useState('all'); 
             
-            // Child State
             const [childTab, setChildTab] = useState('tasks');
             const [historyFilter, setHistoryFilter] = useState('week');
-            const [childFilterCat, setChildFilterCat] = useState('all'); // Category Filter
+            const [historyTypeFilter, setHistoryTypeFilter] = useState('all');
+            const [childFilterCat, setChildFilterCat] = useState('all'); 
+            const [childLastViewedHistory, setChildLastViewedHistory] = useState(parseInt(localStorage.getItem('child_last_viewed_history') || '0'));
 
-            // UI State
             const [showParentPass, setShowParentPass] = useState(false);
             const [showToken, setShowToken] = useState(false);
             const [modalConfig, setModalConfig] = useState({ open: false, type: '', data: null });
+            const [isSubmitting, setIsSubmitting] = useState(false); // For debounce
+            const [processingItems, setProcessingItems] = useState(new Set());
 
             const showToast = (msg, type = 'success') => setToast({ message: msg, type });
+
+            // Generate random quote when entering child dashboard
+            const dailyQuote = useMemo(() => {
+                return QUOTES[Math.floor(Math.random() * QUOTES.length)];
+            }, [mode]);
 
             useEffect(() => { if (ghToken) fetchData(ghToken); }, []);
 
@@ -562,42 +349,42 @@
                 setSyncStatus('syncing');
                 try {
                     const result = await githubApi.getData(token);
-                    if (result) {
-                        setData(result.content);
-                        setSha(result.sha);
-                        setSyncStatus('success');
-                    }
+                    if (result) { setData(result.content); setSha(result.sha); setSyncStatus('success'); }
                 } catch (e) {
                     setSyncStatus('error');
-                    if (mode !== 'landing') {
-                         e.message.includes('401') ? showToast("Token 無效", 'error') : showToast("離線模式", 'warning');
-                    }
+                    if (mode !== 'landing') e.message.includes('401') ? showToast("Token 無效", 'error') : showToast("離線模式", 'warning');
                 }
             };
 
             const saveData = async (newData) => {
-                setData(newData); // Optimistic
+                setData(newData); 
                 if (!ghToken) return;
                 setSyncStatus('syncing');
                 try {
                     const fresh = await githubApi.getData(ghToken);
                     const res = await githubApi.saveData(ghToken, newData, fresh ? fresh.sha : null);
-                    setSha(res.content.sha);
-                    setSyncStatus('success');
-                } catch (e) {
-                    setSyncStatus('error');
-                    showToast("同步失敗 (已存本機)", 'warning');
-                }
+                    setSha(res.content.sha); setSyncStatus('success');
+                } catch (e) { setSyncStatus('error'); showToast("同步失敗 (已存本機)", 'warning'); }
             };
 
             const handleModeChange = (newMode) => {
-                if ((newMode === 'parent' || newMode === 'child_select') && ghToken) {
-                    fetchData(ghToken);
-                }
+                if ((newMode === 'parent' || newMode === 'child_select') && ghToken) fetchData(ghToken);
                 setMode(newMode);
             };
 
+            const updateChildHistoryView = () => {
+                const now = Date.now();
+                setChildLastViewedHistory(now);
+                localStorage.setItem('child_last_viewed_history', now.toString());
+            };
+
             const handleAction = async (actionType, payload) => {
+                if (actionType.includes('REQUEST')) {
+                    const itemId = payload.id;
+                    if (processingItems.has(itemId)) return;
+                    setProcessingItems(prev => new Set(prev).add(itemId));
+                }
+
                 let newData = JSON.parse(JSON.stringify(data));
                 const timestamp = Date.now();
                 newData.categories = newData.categories || INITIAL_DATA.categories;
@@ -622,7 +409,6 @@
                 }
                 else if (actionType === 'DELETE_CATEGORY') {
                     newData.categories = newData.categories.filter(c => c.id !== payload.id);
-                    // Optional: Reset categoryId in tasks/rewards using this category
                     newData.tasks.forEach(t => { if(t.categoryId === payload.id) t.categoryId = ''; });
                     newData.rewards.forEach(r => { if(r.categoryId === payload.id) r.categoryId = ''; });
                     showToast("分類刪除成功");
@@ -657,12 +443,12 @@
                         status: 'pending'
                     });
                     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-                    showToast("任務提交！");
+                    showToast("申請已送出");
                 }
                 else if (actionType === 'REQUEST_REDEEM') {
-                    const totalPoints = payload.totalPoints;
-                    if (currentChild.points < totalPoints) {
+                    if (currentChild.points < payload.totalPoints) {
                         showToast("點數不夠喔", 'error');
+                        setProcessingItems(prev => { const n = new Set(prev); n.delete(payload.id); return n; });
                         return;
                     }
                     const itemName = payload.quantity > 1 ? `${payload.title} x${payload.quantity}` : payload.title;
@@ -672,7 +458,7 @@
                         childId: currentChild.id,
                         itemId: payload.id,
                         itemName: itemName,
-                        points: totalPoints,
+                        points: payload.totalPoints,
                         timestamp: timestamp,
                         status: 'pending'
                     });
@@ -686,21 +472,56 @@
                     if (item.type === 'task_pending') {
                         newData.children[childIdx].points += parseInt(item.points);
                         item.status = 'approved';
+                        showToast("已核准 (加點)");
                     } else {
                         if (newData.children[childIdx].points >= parseInt(item.points)) {
                             newData.children[childIdx].points -= parseInt(item.points);
                             item.status = 'approved';
+                            showToast("已核准 (扣點)");
                         } else {
-                            showToast("點數不足", 'error');
+                            showToast("點數不足，無法核准", 'error');
                             return;
                         }
                     }
-                    showToast("已核准");
+                }
+                else if (actionType === 'APPROVE_ALL') {
+                    const itemsToApprove = payload.items;
+                    let successCount = 0;
+                    
+                    itemsToApprove.forEach(item => {
+                        const historyIdx = newData.history.findIndex(h => h.id === item.id);
+                        if (historyIdx === -1 || newData.history[historyIdx].status !== 'pending') return;
+                        
+                        const historyItem = newData.history[historyIdx];
+                        const childIdx = newData.children.findIndex(c => c.id === historyItem.childId);
+                        if (childIdx === -1) return;
+                        
+                        if (historyItem.type === 'task_pending') {
+                             newData.children[childIdx].points += parseInt(historyItem.points);
+                             newData.history[historyIdx].status = 'approved';
+                             successCount++;
+                        } else if (historyItem.type === 'redeem_pending') {
+                             if (newData.children[childIdx].points >= parseInt(historyItem.points)) {
+                                 newData.children[childIdx].points -= parseInt(historyItem.points);
+                                 newData.history[historyIdx].status = 'approved';
+                                 successCount++;
+                             }
+                        }
+                    });
+                    showToast(`已批准 ${successCount} 項目`);
                 }
                 else if (actionType === 'REJECT') {
                     const idx = newData.history.findIndex(h => h.id === payload.id);
                     newData.history[idx].status = 'rejected';
                     showToast("已駁回");
+                }
+                else if (actionType === 'REJECT_ALL') {
+                    const itemsToReject = payload.items;
+                    itemsToReject.forEach(item => {
+                        const historyIdx = newData.history.findIndex(h => h.id === item.id);
+                        if (historyIdx !== -1) newData.history[historyIdx].status = 'rejected';
+                    });
+                    showToast(`已駁回 ${itemsToReject.length} 項目`);
                 }
                 else if (actionType === 'MANUAL_ADJUST') {
                     const childIdx = newData.children.findIndex(c => c.id === parseInt(payload.childId));
@@ -719,6 +540,24 @@
                 }
 
                 await saveData(newData);
+                
+                if (actionType.includes('REQUEST')) {
+                    setTimeout(() => {
+                        setProcessingItems(prev => {
+                            const n = new Set(prev);
+                            n.delete(payload.id);
+                            return n;
+                        });
+                    }, 1000); 
+                }
+            };
+
+            const sortItems = (items) => {
+                return items.sort((a, b) => {
+                    const diff = b.points - a.points;
+                    if (diff !== 0) return diff;
+                    return (a.categoryId || '').localeCompare(b.categoryId || '');
+                });
             };
 
             const SyncIcon = () => (
@@ -729,31 +568,15 @@
                 </div>
             );
 
-            const sortItems = (items) => {
-                return items.sort((a, b) => {
-                    if (a.categoryId !== b.categoryId) {
-                        return (a.categoryId || '').localeCompare(b.categoryId || '');
-                    }
-                    return a.points - b.points;
-                });
-            };
-
+            // -- Landing --
             if (mode === 'landing') {
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden bg-ios-bg">
-                        {/* Cute Background Elements */}
                         <div className="absolute top-20 right-10 text-6xl opacity-80 animate-float" style={{ animationDuration: '4s' }}>☁️</div>
                         <div className="absolute bottom-20 left-10 text-5xl opacity-60 animate-float" style={{ animationDuration: '6s', animationDelay: '1s' }}>🎈</div>
                         <div className="absolute top-40 left-20 text-4xl opacity-50 animate-bounce">✨</div>
-                        
                         <h1 className="text-4xl font-bold text-gray-700 mb-2 tracking-tight text-center">好寶寶點數存摺</h1>
-                        
-                        <div className="flex justify-center gap-4 mt-2 mb-12 text-3xl">
-                            <i className="fa-solid fa-star text-ios-yellow animate-spin-slow"></i>
-                            <span className="animate-bounce">🧸</span>
-                            <i className="fa-solid fa-heart text-ios-pink animate-pulse"></i>
-                        </div>
-
+                        <div className="flex justify-center gap-4 mt-2 mb-12 text-3xl"><i className="fa-solid fa-star text-ios-yellow animate-spin-slow"></i><span className="animate-bounce">🧸</span><i className="fa-solid fa-heart text-ios-pink animate-pulse"></i></div>
                         <div className="flex flex-col gap-4 w-full max-w-xs">
                             <button onClick={() => handleModeChange('child_select')} className="bg-ios-blue text-white py-4 px-6 rounded-2xl shadow-ios-lg text-lg font-bold flex items-center justify-center gap-3 active:scale-95 transition hover:shadow-xl"><i className={Icons.Child}></i> 小孩專區</button>
                             <button onClick={() => setModalConfig({ open: true, type: 'parent_login' })} className="bg-white text-ios-indigo py-4 px-6 rounded-2xl shadow-ios text-lg font-bold flex items-center justify-center gap-3 active:scale-95 transition hover:bg-ios-bg border border-white"><i className={Icons.Parent}></i> 家長專區</button>
@@ -761,12 +584,7 @@
                         <Modal isOpen={modalConfig.open && modalConfig.type === 'parent_login'} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="家長登入">
                             <div className="flex flex-col gap-4">
                                 <input type="password" id="p_pass" className="w-full p-4 bg-ios-bg rounded-xl text-center text-2xl tracking-widest outline-none border border-white focus:ring-2 focus:ring-ios-indigo" placeholder="●●●●" maxLength="8" onKeyDown={(e) => e.key === 'Enter' && document.getElementById('login_btn').click()} />
-                                <button id="login_btn" onClick={() => {
-                                    if (document.getElementById('p_pass').value === parentPass) {
-                                        setModalConfig({ ...modalConfig, open: false });
-                                        handleModeChange('parent');
-                                    } else showToast("密碼錯誤", 'error');
-                                }} className="bg-ios-indigo text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition">登入</button>
+                                <button id="login_btn" onClick={() => { if (document.getElementById('p_pass').value === parentPass) { setModalConfig({ ...modalConfig, open: false }); handleModeChange('parent'); } else showToast("密碼錯誤", 'error'); }} className="bg-ios-indigo text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition">登入</button>
                             </div>
                         </Modal>
                         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
@@ -774,6 +592,7 @@
                 );
             }
 
+            // -- Child Select --
             if (mode === 'child_select') {
                 return (
                     <div className="min-h-screen p-6 flex flex-col items-center bg-ios-bg">
@@ -792,32 +611,35 @@
                 );
             }
 
+            // -- Child Dashboard --
             if (mode === 'child_dashboard' && currentChild) {
                 const liveChild = data.children.find(c => c.id === currentChild.id) || currentChild;
                 const activeCollection = childTab === 'tasks' ? data.tasks : data.rewards;
                 const typeFilter = childTab === 'tasks' ? 'task' : 'reward';
                 
-                // Filter Items
                 let items = activeCollection.filter(i => i.assignee === 'all' || parseInt(i.assignee) === liveChild.id);
-                if (childFilterCat !== 'all') {
-                    items = items.filter(i => i.categoryId === childFilterCat);
-                }
+                if (childFilterCat !== 'all') items = items.filter(i => i.categoryId === childFilterCat);
                 const filteredItems = sortItems(items);
                 
-                // History Filter Logic
                 const now = new Date();
                 const oneDay = 24*60*60*1000;
                 let filteredHistory = data.history.filter(h => h.childId === liveChild.id);
                 
-                if (historyFilter === 'week') {
-                    filteredHistory = filteredHistory.filter(h => (now - h.timestamp) < 7 * oneDay);
-                } else if (historyFilter === 'prev_week') {
-                    filteredHistory = filteredHistory.filter(h => (now - h.timestamp) >= 7 * oneDay && (now - h.timestamp) < 14 * oneDay);
-                } else if (historyFilter === 'month') {
-                    filteredHistory = filteredHistory.filter(h => (now - h.timestamp) < 30 * oneDay);
-                }
+                if (childTab === 'history_task') filteredHistory = filteredHistory.filter(h => h.type === 'task_pending');
+                else if (childTab === 'history_reward') filteredHistory = filteredHistory.filter(h => h.type === 'redeem_pending');
+                else if (childTab === 'history_other') filteredHistory = filteredHistory.filter(h => h.type === 'manual');
+
+                if (historyFilter === 'week') filteredHistory = filteredHistory.filter(h => (now - h.timestamp) < 7 * oneDay);
+                else if (historyFilter === 'prev_week') filteredHistory = filteredHistory.filter(h => (now - h.timestamp) >= 7 * oneDay && (now - h.timestamp) < 14 * oneDay);
+                else if (historyFilter === 'month') filteredHistory = filteredHistory.filter(h => (now - h.timestamp) < 30 * oneDay);
 
                 const availableCats = data.categories.filter(c => c.type === typeFilter);
+                const canRedeemAny = data.rewards.some(r => (r.assignee === 'all' || parseInt(r.assignee) === liveChild.id) && liveChild.points >= r.points);
+                const hasUnreadHistory = data.history.some(h => h.childId === liveChild.id && h.status !== 'pending' && h.timestamp > childLastViewedHistory);
+
+                const renderHistoryTab = (subTab, label) => (
+                    <button key={subTab} onClick={() => setChildTab(subTab)} className={`flex-1 py-2 text-xs rounded-lg font-bold transition ${childTab === subTab ? 'bg-ios-indigo text-white' : 'bg-gray-100 text-gray-500'}`}>{label}</button>
+                );
 
                 return (
                     <div className="min-h-screen bg-ios-bg pb-24">
@@ -829,17 +651,34 @@
                                 <span className="font-bold text-lg text-gray-600">{liveChild.name}的點數存摺</span>
                                 <button onClick={() => setModalConfig({open: true, type: 'edit_child', data: liveChild})} className="w-10 h-10 bg-ios-bg rounded-full text-ios-blue hover:bg-ios-blue hover:text-white transition"><i className={Icons.Edit}></i></button>
                             </div>
-                            <div className="flex flex-col items-center">
-                                <Avatar avatar={liveChild.avatar} size="xl" className="mb-2" />
-                                <div className="text-6xl font-black text-ios-blue tracking-tighter flex items-center gap-3 drop-shadow-sm"><i className={`${Icons.Coins} text-4xl text-ios-yellow`}></i>{liveChild.points}</div>
+                            <div className="flex flex-col items-center mb-6">
+                                <div className="flex items-center justify-center gap-4 mb-3">
+                                     <Avatar avatar={liveChild.avatar} size="xl" />
+                                     <div className="flex flex-col items-start">
+                                         <div className="text-4xl font-black text-ios-blue tracking-tighter flex items-center gap-1">
+                                            <i className={`${Icons.Coins} text-2xl text-ios-yellow`}></i>
+                                            {liveChild.points}
+                                         </div>
+                                         <div className="text-xs text-gray-400 font-bold">目前點數</div>
+                                     </div>
+                                </div>
+                                <div className="bg-white/50 px-6 py-2 rounded-full text-ios-indigo font-bold text-sm shadow-sm animate-fade-in">
+                                    "{dailyQuote}"
+                                </div>
                             </div>
-                            {/* Tabs */}
-                            <div className="flex mt-6 bg-ios-bg p-1.5 rounded-2xl shadow-inner">
-                                {[{id:'tasks', label:'賺點數', icon:Icons.Task}, {id:'rewards', label:'換獎品', icon:Icons.Reward}, {id:'history', label:'紀錄', icon:Icons.History}].map(t => (
-                                    <button key={t.id} onClick={() => {setChildTab(t.id); setChildFilterCat('all');}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition ${childTab === t.id ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}>
-                                        <i className={t.icon}></i> {t.label}
-                                    </button>
-                                ))}
+                            {/* Main Tabs */}
+                            <div className="flex mt-6 bg-ios-bg p-1.5 rounded-2xl shadow-inner relative">
+                                <button onClick={() => {setChildTab('tasks'); setChildFilterCat('all');}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition ${childTab === 'tasks' ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}>
+                                    <i className={Icons.Task}></i> 賺點數
+                                </button>
+                                <button onClick={() => {setChildTab('rewards'); setChildFilterCat('all');}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition relative ${childTab === 'rewards' ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}>
+                                    <i className={Icons.Reward}></i> 換獎品
+                                    {canRedeemAny && <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-ios-red rounded-full animate-pulse"></span>}
+                                </button>
+                                <button onClick={() => {setChildTab('history'); updateChildHistoryView();}} className={`flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition relative ${childTab.includes('history') ? 'bg-white shadow text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}>
+                                    <i className={Icons.History}></i> 紀錄
+                                    {hasUnreadHistory && !childTab.includes('history') && <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-ios-red rounded-full"></span>}
+                                </button>
                             </div>
                         </div>
 
@@ -859,24 +698,26 @@
                                         {filteredItems.map(item => {
                                             const cat = data.categories.find(c => c.id === item.categoryId);
                                             const canAfford = childTab === 'rewards' ? liveChild.points >= item.points : true;
-                                            
+                                            const isProcessing = processingItems.has(item.id);
+
                                             return (
                                                 <div 
                                                     key={item.id} 
                                                     onClick={() => {
+                                                        if (isProcessing) return;
                                                         if (childTab === 'tasks') {
-                                                            if(confirm(`完成 "${item.title}"?`)) handleAction('REQUEST_TASK', item);
+                                                            handleAction('REQUEST_TASK', item);
                                                         } else {
                                                             if (canAfford) {
                                                                 if (item.isRepeatable) {
                                                                     setModalConfig({ open: true, type: 'redeem_repeatable', data: item });
                                                                 } else {
-                                                                    setModalConfig({ open: true, type: 'redeem_confirm', data: item });
+                                                                    handleAction('REQUEST_REDEEM', { ...item, quantity: 1, totalPoints: item.points });
                                                                 }
                                                             }
                                                         }
                                                     }} 
-                                                    className={`bg-white p-4 rounded-3xl shadow-ios active:scale-95 transition cursor-pointer relative overflow-hidden flex flex-col items-center text-center gap-3 border-2 border-white hover:border-ios-blue/30 ${!canAfford ? 'opacity-60 grayscale' : ''}`}
+                                                    className={`bg-white p-4 rounded-3xl shadow-ios active:scale-95 transition cursor-pointer relative overflow-hidden flex flex-col items-center text-center gap-2 border-2 border-white hover:border-ios-blue/30 ${!canAfford ? 'opacity-60 grayscale' : ''} ${isProcessing ? 'pointer-events-none' : ''}`}
                                                 >
                                                     {cat && <div className={`absolute top-0 right-0 w-4 h-4 rounded-bl-xl bg-${cat.color}-500 shadow-sm`}></div>}
                                                     <span className="font-bold text-gray-700 text-lg leading-tight mt-2">{item.title}</span>
@@ -897,8 +738,16 @@
                                 </>
                             )}
 
-                            {childTab === 'history' && (
+                            {childTab.includes('history') && (
                                 <div>
+                                    {/* History Sub Tabs */}
+                                    <div className="flex gap-2 mb-4 bg-white p-2 rounded-xl shadow-sm">
+                                        {renderHistoryTab('history', '全部')}
+                                        {renderHistoryTab('history_task', '任務')}
+                                        {renderHistoryTab('history_reward', '兌換')}
+                                        {renderHistoryTab('history_other', '其他')}
+                                    </div>
+
                                     <div className="flex justify-end mb-4 overflow-x-auto hide-scrollbar">
                                         <div className="bg-white rounded-xl shadow-sm p-1.5 flex gap-1">
                                             {[{id:'week', l:'本週'}, {id:'prev_week', l:'上週'}, {id:'month', l:'近30天'}, {id:'all', l:'全部'}].map(f => (
@@ -918,7 +767,13 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div className={`font-bold text-xl ${h.points > 0 ? 'text-ios-blue' : 'text-ios-pink'}`}>{h.points > 0 ? '+' : '-'}{Math.abs(h.points)}</div>
+                                                {h.status === 'rejected' ? (
+                                                    <span className="text-gray-400 font-bold text-lg">無效</span>
+                                                ) : (
+                                                    <div className={`font-bold text-xl ${h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? 'text-ios-blue' : 'text-ios-pink'}`}>
+                                                        {h.type.includes('task') || (h.type === 'manual' && h.points > 0) ? '+' : '-'}{Math.abs(h.points)}
+                                                    </div>
+                                                )}
                                             </div>
                                         ))}
                                         {filteredHistory.length === 0 && (
@@ -934,59 +789,21 @@
                         
                         {(modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type="edit_child" data={modalConfig.data} onSave={payload => { handleAction('EDIT_CHILD', payload); setModalConfig({ ...modalConfig, open: false }); }} />}
                         
-                        {/* Redeem Confirm Modal (Single) */}
-                        {modalConfig.type === 'redeem_confirm' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="確認兌換">
-                                <div className="flex flex-col items-center gap-4 text-center p-2">
-                                    <div className="text-5xl animate-bounce">🎁</div>
-                                    <p className="text-gray-600 text-lg">確定要兌換 <br/><span className="text-xl font-bold text-ios-indigo">{modalConfig.data.title}</span> 嗎？</p>
-                                    <div className="bg-ios-pink/10 text-ios-pink px-4 py-2 rounded-xl font-bold text-2xl">-{modalConfig.data.points} 點</div>
-                                    <div className="flex gap-3 w-full mt-4">
-                                        <button onClick={() => setModalConfig({ ...modalConfig, open: false })} className="flex-1 py-3 rounded-xl border-2 border-gray-100 font-bold text-gray-500 hover:bg-gray-50">再想想</button>
-                                        <button onClick={() => {
-                                            handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: 1, totalPoints: modalConfig.data.points });
-                                            setModalConfig({ ...modalConfig, open: false });
-                                        }} className="flex-1 py-3 rounded-xl bg-ios-pink text-white font-bold shadow-lg active:scale-95 transition">確定兌換</button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        )}
-
                         {/* Redeem Repeatable Modal */}
                         {modalConfig.type === 'redeem_repeatable' && (
-                            <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title="兌換數量">
-                                {(() => {
-                                    const [qty, setQty] = useState(1);
-                                    const unitPoints = modalConfig.data.points;
-                                    const totalPoints = qty * unitPoints;
-                                    const maxQty = Math.floor(currentChild.points / unitPoints);
-
-                                    return (
-                                        <div className="flex flex-col gap-6 p-2">
-                                            <div className="text-center">
-                                                <div className="font-bold text-2xl text-gray-800">{modalConfig.data.title}</div>
-                                                <div className="text-gray-400 font-medium">單價: {unitPoints} 點</div>
-                                            </div>
-                                            
-                                            <div className="flex items-center justify-center gap-6 bg-ios-bg p-4 rounded-2xl">
-                                                <button onClick={() => setQty(Math.max(1, qty - 1))} className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold transition ${qty <= 1 ? 'bg-gray-200 text-gray-400' : 'bg-white text-gray-600 shadow-sm'}`} disabled={qty <= 1}><i className={Icons.Minus}></i></button>
-                                                <div className="text-4xl font-black w-16 text-center text-ios-indigo">{qty}</div>
-                                                <button onClick={() => setQty(Math.min(maxQty, qty + 1))} className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold transition ${qty >= maxQty ? 'bg-gray-200 text-gray-400' : 'bg-white text-gray-600 shadow-sm'}`} disabled={qty >= maxQty}><i className={Icons.Plus}></i></button>
-                                            </div>
-
-                                            <div className="text-center">
-                                                <div className="text-ios-pink font-bold text-3xl">-{totalPoints} 點</div>
-                                                <div className="text-sm text-gray-400 mt-1 font-bold">擁有: {currentChild.points} 點</div>
-                                            </div>
-
-                                            <button onClick={() => {
-                                                handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: qty, totalPoints: totalPoints });
-                                                setModalConfig({ ...modalConfig, open: false });
-                                            }} className="w-full py-4 rounded-xl bg-ios-pink text-white font-bold shadow-lg text-lg active:scale-95 transition">確認兌換</button>
-                                        </div>
-                                    );
-                                })()}
-                            </Modal>
+                            <RedeemQuantityModal 
+                                isOpen={modalConfig.open}
+                                onClose={() => setModalConfig({ ...modalConfig, open: false })}
+                                data={modalConfig.data}
+                                userPoints={currentChild.points}
+                                onConfirm={(qty, totalPoints) => {
+                                    if (!processingItems.has(modalConfig.data.id)) {
+                                        handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: qty, totalPoints: totalPoints });
+                                        setModalConfig({ ...modalConfig, open: false });
+                                    }
+                                }}
+                                processing={processingItems.has(modalConfig.data.id)}
+                            />
                         )}
 
                         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
@@ -997,6 +814,10 @@
             // Parent Dashboard
             if (mode === 'parent') {
                 const pendingItems = data.history.filter(h => h.status === 'pending');
+                const pendingTasks = pendingItems.filter(h => h.type === 'task_pending');
+                const pendingRewards = pendingItems.filter(h => h.type === 'redeem_pending');
+                
+                const activePendingList = parentApprovalTab === 'tasks' ? pendingTasks : pendingRewards;
                 const categories = data.categories || [];
                 
                 const activeCollection = parentTab === 'tasks' ? data.tasks : (parentTab === 'rewards' ? data.rewards : []);
@@ -1019,7 +840,7 @@
                                     <button key={tab} onClick={() => {setParentTab(tab); setParentFilterCat('all');}} className={`p-3 rounded-xl flex items-center transition relative ${parentTab === tab ? 'text-ios-indigo bg-ios-indigo/10 font-bold' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'} ${isSidebarCollapsed ? 'justify-center' : 'justify-start gap-3'}`}>
                                         <i className={`text-xl w-6 text-center ${tab === 'approvals' ? Icons.Check : tab === 'tasks' ? Icons.Task : tab === 'rewards' ? Icons.Reward : tab === 'children' ? Icons.Child : Icons.Settings}`}></i>
                                         {!isSidebarCollapsed && <span className="text-base font-medium capitalize">{tab === 'approvals' ? '待審核' : tab === 'tasks' ? '任務' : tab === 'rewards' ? '獎勵' : tab === 'children' ? '小孩' : '設定'}</span>}
-                                        {tab === 'approvals' && pendingItems.length > 0 && <span className="bg-ios-red text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center absolute top-2 right-2 shadow-sm font-bold">{pendingItems.length}</span>}
+                                        {tab === 'approvals' && pendingItems.length > 0 && <span className={`bg-ios-red text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center absolute shadow-sm font-bold ${isSidebarCollapsed ? 'top-1 right-1' : 'top-1/2 -translate-y-1/2 right-4'}`}>{pendingItems.length}</span>}
                                     </button>
                                 ))}
                             </div>
@@ -1034,7 +855,26 @@
                             
                             {parentTab === 'approvals' && (
                                 <div className="space-y-4">
-                                    {pendingItems.map(item => {
+                                    <div className="flex gap-4 mb-4">
+                                        <button onClick={() => setParentApprovalTab('tasks')} className={`flex-1 py-3 rounded-xl font-bold relative ${parentApprovalTab === 'tasks' ? 'bg-white shadow text-ios-blue' : 'text-gray-400 hover:bg-white/50'}`}>
+                                            任務 ({pendingTasks.length})
+                                            {pendingTasks.length > 0 && <span className="absolute top-2 right-4 w-2 h-2 bg-ios-red rounded-full"></span>}
+                                        </button>
+                                        <button onClick={() => setParentApprovalTab('rewards')} className={`flex-1 py-3 rounded-xl font-bold relative ${parentApprovalTab === 'rewards' ? 'bg-white shadow text-ios-pink' : 'text-gray-400 hover:bg-white/50'}`}>
+                                            兌換 ({pendingRewards.length})
+                                            {pendingRewards.length > 0 && <span className="absolute top-2 right-4 w-2 h-2 bg-ios-red rounded-full"></span>}
+                                        </button>
+                                    </div>
+                                    
+                                    {/* Bulk Actions */}
+                                    {activePendingList.length > 0 && (
+                                        <div className="flex gap-3 mb-4">
+                                            <button onClick={() => handleAction('REJECT_ALL', { items: activePendingList })} className="flex-1 py-2 rounded-xl border-2 border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">全部駁回</button>
+                                            <button onClick={() => handleAction('APPROVE_ALL', { items: activePendingList })} className="flex-1 py-2 rounded-xl bg-ios-indigo text-white font-bold shadow-md hover:opacity-90 transition">全部批准</button>
+                                        </div>
+                                    )}
+
+                                    {activePendingList.map(item => {
                                         const child = data.children.find(c => c.id === item.childId);
                                         return (
                                             <div key={item.id} className="bg-white p-6 rounded-3xl shadow-ios flex flex-col sm:flex-row justify-between items-center gap-6 border border-white">
@@ -1042,17 +882,17 @@
                                                     <Avatar avatar={child?.avatar} size="lg" />
                                                     <div>
                                                         <div className="font-bold text-gray-800 text-xl">{child?.name} <span className="text-gray-400 font-normal text-base">申請</span></div>
-                                                        <div className="text-ios-indigo font-bold text-lg mt-1">{item.itemName} <span className="text-gray-500 text-base font-normal">({item.points} 點)</span></div>
+                                                        <div className={`font-bold text-lg mt-1 ${item.type === 'task_pending' ? 'text-ios-blue' : 'text-ios-pink'}`}>{item.itemName} <span className="text-gray-500 text-base font-normal">({item.points} 點)</span></div>
                                                     </div>
                                                 </div>
                                                 <div className="flex gap-3 w-full sm:w-auto">
                                                     <button onClick={() => handleAction('REJECT', item)} className="flex-1 py-3 px-8 rounded-xl border-2 border-gray-100 text-gray-500 font-bold hover:bg-gray-50">駁回</button>
-                                                    <button onClick={() => handleAction('APPROVE', item)} className="flex-1 py-3 px-8 rounded-xl bg-ios-indigo text-white font-bold shadow-lg hover:opacity-90">批准</button>
+                                                    <button onClick={() => handleAction('APPROVE', item)} className={`flex-1 py-3 px-8 rounded-xl text-white font-bold shadow-lg hover:opacity-90 ${item.type === 'task_pending' ? 'bg-ios-blue' : 'bg-ios-pink'}`}>批准</button>
                                                 </div>
                                             </div>
                                         )
                                     })}
-                                    {pendingItems.length === 0 && (
+                                    {activePendingList.length === 0 && (
                                         <div className="text-center py-32 text-gray-400 flex flex-col items-center gap-4">
                                             <i className="fa-regular fa-face-smile text-6xl opacity-30"></i>
                                             <p className="text-lg">目前沒有待審核項目，太棒了！</p>
@@ -1064,14 +904,13 @@
                                 </div>
                             )}
 
+                            {/* ... (Existing Task/Reward/Children/Settings Sections) ... */}
                             {(parentTab === 'tasks' || parentTab === 'rewards') && (
                                 <div>
                                     <div className="flex flex-wrap gap-3 mb-6">
                                         <button onClick={() => setModalConfig({ open: true, type: parentTab === 'tasks' ? 'add_task' : 'add_reward' })} className="flex-1 bg-ios-indigo text-white p-4 rounded-2xl shadow-ios font-bold flex items-center justify-center gap-2 min-w-[150px] hover:opacity-90 transition"><i className={Icons.Plus}></i> 新增{parentTab === 'tasks' ? '任務' : '獎勵'}</button>
                                         <button onClick={() => setModalConfig({ open: true, type: 'manage_categories', categoryType: typeFilter })} className="px-6 bg-white text-gray-600 rounded-2xl shadow-sm border border-gray-200 font-bold hover:bg-gray-50"><i className={Icons.Filter}></i> 管理分類</button>
                                     </div>
-                                    
-                                    {/* Parent Category Filter */}
                                     <div className="flex gap-2 overflow-x-auto hide-scrollbar mb-6 pb-2">
                                         <button onClick={() => setParentFilterCat('all')} className={`px-5 py-2 rounded-full text-sm font-bold whitespace-nowrap transition shadow-sm ${parentFilterCat === 'all' ? 'bg-gray-800 text-white' : 'bg-white text-gray-500 hover:bg-white/80'}`}>全部</button>
                                         {availableCats.map(c => (
@@ -1080,16 +919,17 @@
                                             </button>
                                         ))}
                                     </div>
-
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {sortItems(filteredParentItems).map(item => {
                                             const cat = categories.find(c => c.id === item.categoryId);
+                                            const assigneeName = item.assignee === 'all' ? '所有人' : (data.children.find(c => c.id == item.assignee)?.name || '未知');
                                             return (
                                                 <div key={item.id} className="bg-white p-5 rounded-3xl shadow-sm relative group border border-gray-100 hover:shadow-md transition">
                                                     {cat && <span className={`absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full text-white font-bold bg-${cat.color}-500`}>{cat.name}</span>}
                                                     <div className="font-bold text-gray-800 text-xl mb-1">{item.title}</div>
-                                                    <div className="text-sm text-gray-500 flex items-center gap-2">
+                                                    <div className="text-sm text-gray-500 flex flex-wrap items-center gap-2 mt-2">
                                                         <span className={`font-bold px-2 py-0.5 rounded-md ${parentTab === 'tasks' ? 'bg-ios-blue/10 text-ios-blue' : 'bg-ios-pink/10 text-ios-pink'}`}>{item.points} 點</span>
+                                                        <span className="text-[10px] text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-200 flex items-center gap-1"><i className="fa-solid fa-user-group text-xs"></i> {assigneeName}</span>
                                                         {item.isRepeatable && <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">可累計</span>}
                                                     </div>
                                                     <div className="mt-4 flex gap-2 justify-end opacity-0 group-hover:opacity-100 transition pt-2 border-t border-gray-50">
@@ -1099,12 +939,7 @@
                                                 </div>
                                             )
                                         })}
-                                        {filteredParentItems.length === 0 && (
-                                            <div className="col-span-full text-center py-20 text-gray-400 flex flex-col items-center gap-2">
-                                                <i className="fa-regular fa-folder-open text-4xl opacity-50"></i>
-                                                <p>此分類沒有項目</p>
-                                            </div>
-                                        )}
+                                        {filteredParentItems.length === 0 && <div className="col-span-full text-center py-20 text-gray-400 flex flex-col items-center gap-2"><i className="fa-regular fa-folder-open text-4xl opacity-50"></i><p>此分類沒有項目</p></div>}
                                     </div>
                                 </div>
                             )}
@@ -1147,17 +982,13 @@
                                             <input type={showToken ? "text" : "password"} value={ghToken} onChange={(e) => setGhToken(e.target.value)} className="w-full bg-ios-bg p-4 rounded-xl outline-none border border-transparent focus:border-gray-800 focus:bg-white transition font-mono text-sm" placeholder="ghp_..." />
                                             <button onClick={() => setShowToken(!showToken)} className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"><i className={showToken ? Icons.EyeSlash : Icons.Eye}></i></button>
                                         </div>
-                                        <button onClick={() => {
-                                            let t = ghToken.trim();
-                                            if (t && !t.startsWith('ghp_') && !t.startsWith('github_pat_')) t = 'ghp_' + t;
-                                            setGhToken(t); localStorage.setItem('gh_token', t); fetchData(t);
-                                        }} className="w-full bg-gray-800 text-white p-4 rounded-xl font-bold mt-4 shadow-lg hover:opacity-90 transition">儲存並測試連線</button>
+                                        <button onClick={() => { let t = ghToken.trim(); if (t && !t.startsWith('ghp_') && !t.startsWith('github_pat_')) t = 'ghp_' + t; setGhToken(t); localStorage.setItem('gh_token', t); fetchData(t); }} className="w-full bg-gray-800 text-white p-4 rounded-xl font-bold mt-4 shadow-lg hover:opacity-90 transition">儲存並測試連線</button>
                                     </div>
                                 </div>
                             )}
+
                         </div>
 
-                        {/* Modals */}
                         {(modalConfig.type === 'add_child' || modalConfig.type === 'edit_child') && <ChildModal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} type={modalConfig.type} data={modalConfig.data} onSave={p => { handleAction(modalConfig.type === 'edit_child' ? 'EDIT_CHILD' : 'ADD_CHILD', p); setModalConfig({ ...modalConfig, open: false }); }} />}
                         
                         {(modalConfig.type.includes('task') || modalConfig.type.includes('reward')) && (
@@ -1238,6 +1069,23 @@
                             </Modal>
                         )}
                         
+                        {/* Redeem Repeatable Modal */}
+                        {modalConfig.type === 'redeem_repeatable' && (
+                            <RedeemQuantityModal 
+                                isOpen={modalConfig.open}
+                                onClose={() => setModalConfig({ ...modalConfig, open: false })}
+                                data={modalConfig.data}
+                                userPoints={currentChild.points}
+                                onConfirm={(qty, totalPoints) => {
+                                    if (!processingItems.has(modalConfig.data.id)) {
+                                        handleAction('REQUEST_REDEEM', { ...modalConfig.data, quantity: qty, totalPoints: totalPoints });
+                                        setModalConfig({ ...modalConfig, open: false });
+                                    }
+                                }}
+                                processing={processingItems.has(modalConfig.data.id)}
+                            />
+                        )}
+
                         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
                     </div>
                 );

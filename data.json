@@ -55,6 +55,12 @@
       "name": "學校課業",
       "type": "task",
       "color": "blue"
+    },
+    {
+      "id": "cat_1765348453493",
+      "name": "品格養成",
+      "type": "task",
+      "color": "blue"
     }
   ],
   "tasks": [

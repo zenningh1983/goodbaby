@@ -552,11 +552,9 @@
 
             const sortItems = (items) => { return items.sort((a, b) => { const diff = b.points - a.points; if (diff !== 0) return diff; return (a.categoryId || '').localeCompare(b.categoryId || ''); }); };
 
-            const SyncIcon = () => (
-                <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
-                    <div className={`w-8 h-8 rounded-full glass flex items-center justify-center shadow-sm transition-all ${syncStatus === 'syncing' ? 'animate-spin text-ios-blue' : syncStatus === 'success' ? 'text-ios-green' : syncStatus === 'error' ? 'text-ios-red' : 'text-gray-400'}`}>
-                        <i className={Icons.Sync}></i>
-                    </div>
+            const SyncIcon = ({ className = "" }) => (
+                <div className={`w-8 h-8 rounded-full glass flex items-center justify-center shadow-sm transition-all ${className} text-ios-blue`}>
+                    <i className={Icons.Sync}></i>
                 </div>
             );
 
@@ -592,16 +590,29 @@
                         <button onClick={() => setMode('landing')} className="self-start mb-8 text-gray-500 hover:text-ios-blue transition"><i className={Icons.ChevronLeft}></i> 返回</button>
                         <div className="flex flex-wrap justify-center gap-6 w-full max-w-2xl px-4">
                             {data.children.map(child => (
-                                <button key={child.id} onClick={() => setModalConfig({ open: true, type: 'child_login', data: child })} className="bg-white p-6 rounded-3xl shadow-ios flex flex-col items-center gap-4 hover:-translate-y-2 transition w-full sm:w-40 border border-white">
+                                <button 
+                                    key={child.id} 
+                                    onClick={() => setModalConfig({ open: true, type: 'child_login', data: child })} 
+                                    className="bg-white p-6 rounded-3xl shadow-ios flex flex-col items-center gap-4 hover:-translate-y-2 transition w-full sm:w-40 border border-white"
+                                >
                                     <Avatar avatar={child.avatar} size="lg" />
                                     <span className="text-xl font-bold text-gray-700">{child.name}</span>
                                     <span className="bg-ios-yellow/30 text-ios-orange px-4 py-1 rounded-full text-sm font-bold shadow-sm">{child.points.toLocaleString()} 點</span>
                                 </button>
                             ))}
                         </div>
+                        {/* Child Login Modal */}
                         {modalConfig.type === 'child_login' && (
                             <Modal isOpen={modalConfig.open} onClose={() => setModalConfig({ ...modalConfig, open: false })} title={`哈囉 ${modalConfig.data.name}`}>
-                                <PinLoginView avatar={modalConfig.data.avatar} correctPassword={modalConfig.data.password || '0000'} onSuccess={() => { setCurrentChild(modalConfig.data); setMode('child_dashboard'); setModalConfig({ ...modalConfig, open: false }); }} />
+                                <PinLoginView 
+                                    avatar={modalConfig.data.avatar}
+                                    correctPassword={modalConfig.data.password || '0000'}
+                                    onSuccess={() => {
+                                        setCurrentChild(modalConfig.data);
+                                        setMode('child_dashboard');
+                                        setModalConfig({ ...modalConfig, open: false });
+                                    }}
+                                />
                             </Modal>
                         )}
                     </div>
@@ -640,8 +651,8 @@
                                 <button onClick={() => setMode('child_select')} className="w-10 h-10 bg-ios-bg rounded-full text-gray-500 hover:text-ios-blue transition"><i className={Icons.ChevronLeft}></i></button>
                                 <span className="font-bold text-lg text-gray-600">Hello~ {liveChild.name}</span>
                                 <div className="flex items-center gap-2">
-                                    <SyncIcon className="w-8 h-8" />
                                     <div onClick={() => setModalConfig({open: true, type: 'edit_child', data: liveChild})} className="cursor-pointer"><Avatar avatar={liveChild.avatar} size="md" /></div>
+                                    <SyncIcon className="w-8 h-8" />
                                 </div>
                             </div>
                             <div className="flex flex-col items-center mb-6">
@@ -696,9 +707,11 @@
                                             <div key={item.id} onClick={() => { if (isProcessing) return; if (childTab === 'tasks') { handleAction('REQUEST_TASK', item); } else { if (canAfford) { if (item.isRepeatable) { setModalConfig({ open: true, type: 'redeem_repeatable', data: item }); } else { handleAction('REQUEST_REDEEM', { ...item, quantity: 1, totalPoints: item.points }); } } } }} className={`bg-white p-4 rounded-3xl shadow-ios active:scale-95 transition cursor-pointer relative overflow-hidden flex justify-between items-center border-l-4 ${borderColor} ${!canAfford ? 'opacity-60 grayscale' : ''} ${isProcessing ? 'pointer-events-none' : ''}`}>
                                                 <div className="flex items-center gap-3 overflow-hidden">
                                                     {cat && <div className={`w-2 h-2 rounded-full bg-${cat.color}-500 flex-shrink-0`}></div>}
-                                                    <div className="flex flex-wrap items-baseline gap-2">
-                                                        <span className="font-bold text-gray-700 text-lg leading-tight truncate">{item.title}</span>
-                                                        {!isTask && item.isRepeatable && (<span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-0.5 rounded-md border border-gray-100 flex-shrink-0">可累計</span>)}
+                                                    <div className="flex flex-col">
+                                                        <div className="flex flex-wrap items-baseline gap-2">
+                                                            <span className="font-bold text-gray-700 text-lg leading-tight truncate">{item.title}</span>
+                                                            {!isTask && item.isRepeatable && (<span className="text-[10px] text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-200 flex-shrink-0">可累計</span>)}
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <span className={`${pointColor} px-4 py-1 rounded-full font-bold text-sm shadow-sm whitespace-nowrap ml-2`}>{sign}{item.points.toLocaleString()}</span>

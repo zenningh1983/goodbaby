@@ -61,6 +61,12 @@
       "name": "品格養成",
       "type": "task",
       "color": "blue"
+    },
+    {
+      "id": "cat_1765350439646",
+      "name": "抱抱",
+      "type": "reward",
+      "color": "blue"
     }
   ],
   "tasks": [

@@ -396,6 +396,13 @@
       "points": 1500,
       "assignee": "all",
       "categoryId": "cat_1765348430662"
+    },
+    {
+      "id": 1765355041892,
+      "title": "拖全家地",
+      "points": 5000,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
     }
   ],
   "rewards": [

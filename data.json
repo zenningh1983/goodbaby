@@ -460,13 +460,6 @@
   ],
   "rewards": [
     {
-      "id": "r3",
-      "title": "買 $100 的禮物（可累點兌換）",
-      "cost": 30000,
-      "points": 500,
-      "assignee": "all"
-    },
-    {
       "id": "r1",
       "title": "看電視 30 分鐘（可累點兌換）",
       "cost": 30000
@@ -533,6 +526,15 @@
         "k1",
         "k1764842571109"
       ]
+    },
+    {
+      "id": "r3",
+      "title": "買 $100 的禮物",
+      "cost": 30000,
+      "points": 500,
+      "assignee": "all",
+      "categoryId": "cat_1765348170564",
+      "isRepeatable": true
     }
   ],
   "history": []

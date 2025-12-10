@@ -92,6 +92,17 @@
       "categoryId": "cat_1765348430662"
     },
     {
+      "id": "t1764842844312",
+      "title": "準時起床 (06:30)",
+      "points": 5000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "categoryId": "cat_1765348430662",
+      "assignee": "all"
+    },
+    {
       "id": "t1764842976525",
       "title": "主動拿出聯絡簿",
       "points": 1500,
@@ -439,17 +450,6 @@
       "assignee": "all"
     },
     {
-      "id": "t1764842844312",
-      "title": "準時起床 (06:30)",
-      "points": 5000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "categoryId": "tc1765201986185",
-      "assignee": "all"
-    },
-    {
       "id": "t3",
       "title": "準時睡覺 (22:00)",
       "points": 5000,
@@ -468,17 +468,6 @@
         "k1764842571109"
       ],
       "categoryId": "tc1765201986185",
-      "assignee": "all"
-    },
-    {
-      "id": "t1764842872007",
-      "title": "包垃圾",
-      "points": 1000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "categoryId": "tc1765201995001",
       "assignee": "all"
     }
   ],

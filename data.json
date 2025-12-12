@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542898611,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354926887,
+      "itemName": "曬衣服",
+      "points": 1500,
+      "timestamp": 1765542898611,
+      "status": "pending"
+    },
+    {
+      "id": 1765542895310,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354960803,
+      "itemName": "收書桌",
+      "points": 1500,
+      "timestamp": 1765542895310,
+      "status": "pending"
+    },
+    {
       "id": 1765542894613,
       "type": "task_pending",
       "childId": 1765376170232,

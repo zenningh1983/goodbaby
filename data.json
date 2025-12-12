@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542892948,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354901196,
+      "itemName": "倒垃圾",
+      "points": 1500,
+      "timestamp": 1765542892948,
+      "status": "pending"
+    },
+    {
+      "id": 1765542892396,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354926887,
+      "itemName": "曬衣服",
+      "points": 1500,
+      "timestamp": 1765542892396,
+      "status": "pending"
+    },
+    {
       "id": 1765542891982,
       "type": "task_pending",
       "childId": 1765376170232,

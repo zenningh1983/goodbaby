@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542912459,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765202485010",
+      "itemName": "文城下課當天完成一項作業",
+      "points": 3000,
+      "timestamp": 1765542912459,
+      "status": "pending"
+    },
+    {
+      "id": 1765542910765,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355064397,
+      "itemName": "洗球鞋",
+      "points": 3000,
+      "timestamp": 1765542910765,
+      "status": "pending"
+    },
+    {
       "id": 1765542910098,
       "type": "task_pending",
       "childId": 1765376170232,

@@ -550,6 +550,16 @@
   ],
   "history": [
     {
+      "id": 1765542875491,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354654258,
+      "itemName": "整天不讓媽媽生氣",
+      "points": 10000,
+      "timestamp": 1765542875491,
+      "status": "pending"
+    },
+    {
       "id": 1765540114783,
       "type": "task_pending",
       "childId": 1765376170232,

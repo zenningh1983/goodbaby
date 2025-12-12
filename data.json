@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765543134898,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": "t1765191902174",
+      "itemName": "不挑食、不剩飯",
+      "points": 5000,
+      "timestamp": 1765543134898,
+      "status": "pending"
+    },
+    {
+      "id": 1765542927703,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354673009,
+      "itemName": "整天好好講話不吵架",
+      "points": 10000,
+      "timestamp": 1765542927703,
+      "status": "pending"
+    },
+    {
       "id": 1765542927448,
       "type": "task_pending",
       "childId": 1765376170232,

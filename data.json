@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542920528,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354999008,
+      "itemName": "折被子",
+      "points": 1500,
+      "timestamp": 1765542920528,
+      "status": "pending"
+    },
+    {
+      "id": 1765542919132,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354951097,
+      "itemName": "洗便當水壺、自己碗筷",
+      "points": 1500,
+      "timestamp": 1765542919132,
+      "status": "pending"
+    },
+    {
       "id": 1765542918380,
       "type": "task_pending",
       "childId": 1765376170232,

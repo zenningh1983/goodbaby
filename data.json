@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542885504,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355041892,
+      "itemName": "拖全家地",
+      "points": 5000,
+      "timestamp": 1765542885504,
+      "status": "pending"
+    },
+    {
+      "id": 1765542884208,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765191902174",
+      "itemName": "不挑食、不剩飯",
+      "points": 5000,
+      "timestamp": 1765542884208,
+      "status": "pending"
+    },
+    {
       "id": 1765542883909,
       "type": "task_pending",
       "childId": 1765376170232,

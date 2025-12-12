@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542925483,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765191902174",
+      "itemName": "不挑食、不剩飯",
+      "points": 5000,
+      "timestamp": 1765542925483,
+      "status": "pending"
+    },
+    {
+      "id": 1765542925165,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1764843871614",
+      "itemName": "看完一本 500 字文字書（有心得）",
+      "points": 5000,
+      "timestamp": 1765542925165,
+      "status": "pending"
+    },
+    {
       "id": 1765542924083,
       "type": "task_pending",
       "childId": 1765376170232,

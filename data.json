@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542908223,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354999008,
+      "itemName": "折被子",
+      "points": 1500,
+      "timestamp": 1765542908223,
+      "status": "pending"
+    },
+    {
+      "id": 1765542906682,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355021791,
+      "itemName": "保持書桌整齊",
+      "points": 1500,
+      "timestamp": 1765542906682,
+      "status": "pending"
+    },
+    {
       "id": 1765542905510,
       "type": "task_pending",
       "childId": 1765376170232,

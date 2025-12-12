@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542890014,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765235650386",
+      "itemName": "拿出聯絡本",
+      "points": 1500,
+      "timestamp": 1765542890014,
+      "status": "pending"
+    },
+    {
+      "id": 1765542887355,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765192308004",
+      "itemName": "洗澡+吹頭30分鐘內",
+      "points": 3000,
+      "timestamp": 1765542887355,
+      "status": "pending"
+    },
+    {
       "id": 1765542887073,
       "type": "task_pending",
       "childId": 1765376170232,

@@ -550,6 +550,26 @@
   ],
   "history": [
     {
+      "id": 1765542924083,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355162001,
+      "itemName": "大考總分進步 10 分",
+      "points": 10000,
+      "timestamp": 1765542924083,
+      "status": "pending"
+    },
+    {
+      "id": 1765542923564,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765200050768",
+      "itemName": "大考單科進步 10 分",
+      "points": 10000,
+      "timestamp": 1765542923564,
+      "status": "pending"
+    },
+    {
       "id": 1765542923049,
       "type": "task_pending",
       "childId": 1765376170232,

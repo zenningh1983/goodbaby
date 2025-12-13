@@ -714,7 +714,7 @@
       "itemName": "洗便當水壺、自己碗筷",
       "points": 1500,
       "timestamp": 1765542919132,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542918380,
@@ -734,7 +734,7 @@
       "itemName": "洗球鞋",
       "points": 3000,
       "timestamp": 1765542916112,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542912459,

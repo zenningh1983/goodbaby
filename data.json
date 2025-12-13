@@ -684,7 +684,7 @@
       "itemName": "大考平均 80 分以上",
       "points": 10000,
       "timestamp": 1765542923049,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542921000,
@@ -694,7 +694,7 @@
       "itemName": "保持書桌整齊",
       "points": 1500,
       "timestamp": 1765542921000,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542920528,

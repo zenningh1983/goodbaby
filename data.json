@@ -585,6 +585,36 @@
   ],
   "history": [
     {
+      "id": 1765634647221,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1764842844312",
+      "itemName": "準時起床 (06:30)",
+      "points": 5000,
+      "timestamp": 1765634647221,
+      "status": "pending"
+    },
+    {
+      "id": 1765634645783,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765355162001,
+      "itemName": "大考總分進步 10 分",
+      "points": 10000,
+      "timestamp": 1765634645783,
+      "status": "pending"
+    },
+    {
+      "id": 1765634644835,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1764843718325",
+      "itemName": "大考平均 80 分以上",
+      "points": 10000,
+      "timestamp": 1765634644835,
+      "status": "pending"
+    },
+    {
       "id": 1765634644535,
       "type": "task_pending",
       "childId": 1765606414306,

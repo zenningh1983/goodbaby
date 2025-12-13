@@ -447,6 +447,13 @@
       "points": 500,
       "assignee": "all",
       "categoryId": "cat_1765348442376"
+    },
+    {
+      "id": 1765617755014,
+      "title": "06:21起床",
+      "points": 5000,
+      "assignee": "1765606414306",
+      "categoryId": ""
     }
   ],
   "rewards": [

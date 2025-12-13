@@ -564,6 +564,16 @@
   ],
   "history": [
     {
+      "id": 1765617696115,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765193497307",
+      "itemName": "書包便當外套掛好",
+      "points": 1500,
+      "timestamp": 1765617696115,
+      "status": "pending"
+    },
+    {
       "id": 1765617685308,
       "type": "task_pending",
       "childId": 1765606414306,

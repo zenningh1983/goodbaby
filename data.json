@@ -654,7 +654,7 @@
       "itemName": "看完一本 500 字文字書（有心得）",
       "points": 5000,
       "timestamp": 1765542925165,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542924083,
@@ -794,7 +794,7 @@
       "itemName": "拿出聯絡本",
       "points": 1500,
       "timestamp": 1765542905510,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542904175,
@@ -804,7 +804,7 @@
       "itemName": "澆花",
       "points": 1500,
       "timestamp": 1765542904175,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542902845,
@@ -844,7 +844,7 @@
       "itemName": "曬衣服",
       "points": 1500,
       "timestamp": 1765542898611,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542895310,
@@ -864,7 +864,7 @@
       "itemName": "洗便當水壺、自己碗筷",
       "points": 1500,
       "timestamp": 1765542894613,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542892948,
@@ -874,7 +874,7 @@
       "itemName": "倒垃圾",
       "points": 1500,
       "timestamp": 1765542892948,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542892396,
@@ -884,7 +884,7 @@
       "itemName": "曬衣服",
       "points": 1500,
       "timestamp": 1765542892396,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542891982,
@@ -894,7 +894,7 @@
       "itemName": "收衣服",
       "points": 1500,
       "timestamp": 1765542891982,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542890679,
@@ -904,7 +904,7 @@
       "itemName": "保持書桌整齊",
       "points": 1500,
       "timestamp": 1765542890679,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542890014,
@@ -914,7 +914,7 @@
       "itemName": "拿出聯絡本",
       "points": 1500,
       "timestamp": 1765542890014,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542887355,
@@ -924,7 +924,7 @@
       "itemName": "洗澡+吹頭30分鐘內",
       "points": 3000,
       "timestamp": 1765542887355,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542887073,
@@ -934,7 +934,7 @@
       "itemName": "洗全家碗",
       "points": 3002,
       "timestamp": 1765542887073,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542885866,
@@ -944,7 +944,7 @@
       "itemName": "刷廁所",
       "points": 5000,
       "timestamp": 1765542885866,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542885504,
@@ -954,7 +954,7 @@
       "itemName": "拖全家地",
       "points": 5000,
       "timestamp": 1765542885504,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542884208,
@@ -964,7 +964,7 @@
       "itemName": "不挑食、不剩飯",
       "points": 5000,
       "timestamp": 1765542884208,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542883909,
@@ -974,7 +974,7 @@
       "itemName": "看完一本 500 字文字書（有心得）",
       "points": 5000,
       "timestamp": 1765542883909,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542882681,
@@ -984,7 +984,7 @@
       "itemName": "07:00 前完成出門準備",
       "points": 5000,
       "timestamp": 1765542882681,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542882267,
@@ -994,7 +994,7 @@
       "itemName": "準時睡覺 (22:00)",
       "points": 5000,
       "timestamp": 1765542882267,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542880700,
@@ -1004,7 +1004,7 @@
       "itemName": "準時起床 (06:30)",
       "points": 5000,
       "timestamp": 1765542880700,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542879658,
@@ -1014,7 +1014,7 @@
       "itemName": "大考 80 分以上",
       "points": 8000,
       "timestamp": 1765542879658,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542878657,
@@ -1024,7 +1024,7 @@
       "itemName": "整天自動自發不拖拉",
       "points": 10000,
       "timestamp": 1765542878657,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542878119,
@@ -1034,7 +1034,7 @@
       "itemName": "整天好好講話不吵架",
       "points": 10000,
       "timestamp": 1765542878119,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542875491,
@@ -1044,7 +1044,7 @@
       "itemName": "整天不讓媽媽生氣",
       "points": 10000,
       "timestamp": 1765542875491,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765540114783,
@@ -1054,7 +1054,7 @@
       "itemName": "小考 100 分",
       "points": 15000,
       "timestamp": 1765540114783,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765465087592,
@@ -1064,7 +1064,7 @@
       "itemName": "不挑食、不剩飯",
       "points": 5000,
       "timestamp": 1765465087592,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765465057374,
@@ -1074,7 +1074,7 @@
       "itemName": "書包便當外套掛好",
       "points": 1500,
       "timestamp": 1765465057374,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765459412882,
@@ -1084,7 +1084,7 @@
       "itemName": "文城下課當天完成一項作業",
       "points": 3000,
       "timestamp": 1765459412882,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765459317429,
@@ -1094,7 +1094,7 @@
       "itemName": "小考 90 分以上",
       "points": 10000,
       "timestamp": 1765459317429,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765376382852,

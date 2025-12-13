@@ -744,7 +744,7 @@
       "itemName": "文城下課當天完成一項作業",
       "points": 3000,
       "timestamp": 1765542912459,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542910765,
@@ -764,7 +764,7 @@
       "itemName": "書包便當外套掛好",
       "points": 1500,
       "timestamp": 1765542910098,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1765542908223,

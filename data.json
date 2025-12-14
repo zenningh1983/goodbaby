@@ -592,6 +592,16 @@
   ],
   "history": [
     {
+      "id": 1765681534784,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354593389,
+      "itemName": "聯絡本文字工整",
+      "points": 500,
+      "timestamp": 1765681534784,
+      "status": "pending"
+    },
+    {
       "id": 1765681532171,
       "type": "task_pending",
       "childId": 1765376170232,

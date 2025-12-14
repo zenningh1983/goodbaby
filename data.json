@@ -592,6 +592,26 @@
   ],
   "history": [
     {
+      "id": 1765681565046,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t3",
+      "itemName": "準時睡覺 (22:00)",
+      "points": 5000,
+      "timestamp": 1765681565046,
+      "status": "pending"
+    },
+    {
+      "id": 1765681561986,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235798733",
+      "itemName": "小考 90 分以上",
+      "points": 10000,
+      "timestamp": 1765681561986,
+      "status": "pending"
+    },
+    {
       "id": 1765681561343,
       "type": "task_pending",
       "childId": 1765606414306,

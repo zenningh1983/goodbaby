@@ -592,6 +592,26 @@
   ],
   "history": [
     {
+      "id": 1765681532171,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354999008,
+      "itemName": "折被子",
+      "points": 1500,
+      "timestamp": 1765681532171,
+      "status": "pending"
+    },
+    {
+      "id": 1765681530417,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765235766935",
+      "itemName": "複習單科",
+      "points": 3000,
+      "timestamp": 1765681530417,
+      "status": "pending"
+    },
+    {
       "id": 1765681529438,
       "type": "task_pending",
       "childId": 1765376170232,

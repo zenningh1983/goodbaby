@@ -592,6 +592,26 @@
   ],
   "history": [
     {
+      "id": 1765681541199,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354935331,
+      "itemName": "折衣服",
+      "points": 1500,
+      "timestamp": 1765681541199,
+      "status": "pending"
+    },
+    {
+      "id": 1765681538974,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354935331,
+      "itemName": "折衣服",
+      "points": 1500,
+      "timestamp": 1765681538974,
+      "status": "pending"
+    },
+    {
       "id": 1765681537842,
       "type": "task_pending",
       "childId": 1765376170232,

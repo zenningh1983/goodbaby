@@ -592,6 +592,26 @@
   ],
   "history": [
     {
+      "id": 1765681528060,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354484037,
+      "itemName": "刷數學題 20 題",
+      "points": 5000,
+      "timestamp": 1765681528060,
+      "status": "pending"
+    },
+    {
+      "id": 1765681524528,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354689959,
+      "itemName": "整天自動自發不拖拉",
+      "points": 10000,
+      "timestamp": 1765681524528,
+      "status": "pending"
+    },
+    {
       "id": 1765681524006,
       "type": "task_pending",
       "childId": 1765376170232,

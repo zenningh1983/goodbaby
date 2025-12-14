@@ -470,13 +470,6 @@
       "categoryId": "cat_1765352689791"
     },
     {
-      "id": 1765677962974,
-      "title": "投籃進10顆",
-      "points": 1000,
-      "assignee": "1765606414306",
-      "categoryId": ""
-    },
-    {
       "id": 1765354593389,
       "title": "聯絡本文字工整",
       "points": 500,
@@ -598,6 +591,16 @@
     }
   ],
   "history": [
+    {
+      "id": 1765679252760,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235766935",
+      "itemName": "複習單科",
+      "points": 3000,
+      "timestamp": 1765679252760,
+      "status": "pending"
+    },
     {
       "id": 1765676515576,
       "type": "task_pending",

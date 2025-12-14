@@ -470,13 +470,6 @@
       "categoryId": "cat_1765352689791"
     },
     {
-      "id": 1765717005534,
-      "title": "自己吃保健食品",
-      "points": 1000,
-      "assignee": "1765606414306",
-      "categoryId": ""
-    },
-    {
       "id": 1765354593389,
       "title": "聯絡本文字工整",
       "points": 500,
@@ -598,6 +591,16 @@
     }
   ],
   "history": [
+    {
+      "id": 1765751631763,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617080249,
+      "itemName": "準時起床（06:21）",
+      "points": 5000,
+      "timestamp": 1765751631763,
+      "status": "pending"
+    },
     {
       "id": 1765713922717,
       "type": "task_pending",

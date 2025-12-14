@@ -592,6 +592,16 @@
   ],
   "history": [
     {
+      "id": 1765681529438,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355041892,
+      "itemName": "拖全家地",
+      "points": 5000,
+      "timestamp": 1765681529438,
+      "status": "pending"
+    },
+    {
       "id": 1765681528060,
       "type": "task_pending",
       "childId": 1765376170232,

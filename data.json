@@ -592,6 +592,26 @@
   ],
   "history": [
     {
+      "id": 1765681537842,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354951097,
+      "itemName": "洗便當水壺、自己碗筷",
+      "points": 1500,
+      "timestamp": 1765681537842,
+      "status": "pending"
+    },
+    {
+      "id": 1765681536267,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354960803,
+      "itemName": "收書桌",
+      "points": 1500,
+      "timestamp": 1765681536267,
+      "status": "pending"
+    },
+    {
       "id": 1765681534784,
       "type": "task_pending",
       "childId": 1765376170232,

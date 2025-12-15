@@ -592,6 +592,16 @@
   ],
   "history": [
     {
+      "id": 1765804772580,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617789979,
+      "itemName": "自己吹乾頭髮",
+      "points": 3000,
+      "timestamp": 1765804772580,
+      "status": "pending"
+    },
+    {
       "id": 1765802004240,
       "type": "task_pending",
       "childId": 1765606414306,

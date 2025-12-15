@@ -475,6 +475,13 @@
       "points": 500,
       "assignee": "all",
       "categoryId": "cat_1765348442376"
+    },
+    {
+      "id": 1765759752407,
+      "title": "自己吃保健食品",
+      "points": 1000,
+      "assignee": "all",
+      "categoryId": "cat_1765348453493"
     }
   ],
   "rewards": [

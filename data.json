@@ -592,6 +592,26 @@
   ],
   "history": [
     {
+      "id": 1765892355244,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765202485010",
+      "itemName": "文城下課當天完成一項作業",
+      "points": 3000,
+      "timestamp": 1765892355244,
+      "status": "pending"
+    },
+    {
+      "id": 1765892354240,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765235650386",
+      "itemName": "拿出聯絡本",
+      "points": 1500,
+      "timestamp": 1765892354240,
+      "status": "pending"
+    },
+    {
       "id": 1765892353542,
       "type": "task_pending",
       "childId": 1765376170232,

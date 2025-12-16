@@ -592,33 +592,13 @@
   ],
   "history": [
     {
-      "id": 1765892567646,
+      "id": 1765892675813,
       "type": "task_pending",
-      "childId": 1765376186944,
-      "itemId": 1765354593389,
-      "itemName": "聯絡本文字工整",
-      "points": 500,
-      "timestamp": 1765892567646,
-      "status": "pending"
-    },
-    {
-      "id": 1765892563328,
-      "type": "task_pending",
-      "childId": 1765376186944,
-      "itemId": "t1765235650386",
-      "itemName": "拿出聯絡本",
+      "childId": 1765376170232,
+      "itemId": 1765354918652,
+      "itemName": "收衣服",
       "points": 1500,
-      "timestamp": 1765892563328,
-      "status": "pending"
-    },
-    {
-      "id": 1765892552329,
-      "type": "task_pending",
-      "childId": 1765376186944,
-      "itemId": "t1765193497307",
-      "itemName": "書包便當外套掛好",
-      "points": 1500,
-      "timestamp": 1765892552329,
+      "timestamp": 1765892675813,
       "status": "pending"
     },
     {

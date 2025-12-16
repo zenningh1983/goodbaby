@@ -592,33 +592,53 @@
   ],
   "history": [
     {
-      "id": 1765892786082,
+      "id": 1765892995689,
       "type": "task_pending",
-      "childId": 1765376170232,
-      "itemId": 1765354951097,
-      "itemName": "洗便當水壺、自己碗筷",
-      "points": 1500,
-      "timestamp": 1765892786082,
-      "status": "pending"
-    },
-    {
-      "id": 1765892732696,
-      "type": "task_pending",
-      "childId": 1765376170232,
+      "childId": 1765376186944,
       "itemId": "t1765193497307",
       "itemName": "書包便當外套掛好",
       "points": 1500,
-      "timestamp": 1765892732696,
+      "timestamp": 1765892995689,
       "status": "pending"
     },
     {
-      "id": 1765892675813,
+      "id": 1765892778304,
       "type": "task_pending",
-      "childId": 1765376170232,
-      "itemId": 1765354918652,
-      "itemName": "收衣服",
+      "childId": 1765376186944,
+      "itemId": "t1765179681423",
+      "itemName": "小考 100 分",
+      "points": 15000,
+      "timestamp": 1765892778304,
+      "status": "pending"
+    },
+    {
+      "id": 1765892567646,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": 1765354593389,
+      "itemName": "聯絡本文字工整",
+      "points": 500,
+      "timestamp": 1765892567646,
+      "status": "pending"
+    },
+    {
+      "id": 1765892563328,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": "t1765235650386",
+      "itemName": "拿出聯絡本",
       "points": 1500,
-      "timestamp": 1765892675813,
+      "timestamp": 1765892563328,
+      "status": "pending"
+    },
+    {
+      "id": 1765892552329,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": "t1765193497307",
+      "itemName": "書包便當外套掛好",
+      "points": 1500,
+      "timestamp": 1765892552329,
       "status": "pending"
     },
     {

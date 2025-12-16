@@ -592,6 +592,16 @@
   ],
   "history": [
     {
+      "id": 1765895904745,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": 1765355021791,
+      "itemName": "保持書桌整齊",
+      "points": 1500,
+      "timestamp": 1765895904745,
+      "status": "pending"
+    },
+    {
       "id": 1765895901835,
       "type": "task_pending",
       "childId": 1765376186944,

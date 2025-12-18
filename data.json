@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766100996822,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765179681423",
+      "itemName": "小考 100 分",
+      "points": 15000,
+      "timestamp": 1766100996822,
+      "status": "pending"
+    },
+    {
+      "id": 1766100945526,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355021791,
+      "itemName": "保持書桌整齊",
+      "points": 1500,
+      "timestamp": 1766100945526,
+      "status": "pending"
+    },
+    {
       "id": 1766100943823,
       "type": "task_pending",
       "childId": 1765376170232,

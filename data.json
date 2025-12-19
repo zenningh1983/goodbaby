@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766150531568,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235731807",
+      "itemName": "一週完成線上 + Reading 各兩篇",
+      "points": 3000,
+      "timestamp": 1766150531568,
+      "status": "pending"
+    },
+    {
+      "id": 1766150520361,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631769020,
+      "itemName": "一天喝2瓶奶",
+      "points": 1500,
+      "timestamp": 1766150520361,
+      "status": "pending"
+    },
+    {
       "id": 1766150520036,
       "type": "task_pending",
       "childId": 1765606414306,

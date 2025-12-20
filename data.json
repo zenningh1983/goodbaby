@@ -585,6 +585,15 @@
   ],
   "history": [
     {
+      "id": 1766222115015,
+      "type": "redeem_pending",
+      "childId": 1765376170232,
+      "itemName": "遊戲課金",
+      "points": 50000,
+      "timestamp": 1766222115015,
+      "status": "pending"
+    },
+    {
       "id": 1766222025880,
       "type": "redeem_pending",
       "childId": 1765376170232,

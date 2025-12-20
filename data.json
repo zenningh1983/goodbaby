@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1766192566547,
+      "type": "redeem_pending",
+      "childId": 1765376170232,
+      "itemId": "r1764843744900",
+      "itemName": "手搖飲一杯",
+      "points": 5000,
+      "timestamp": 1766192566547,
+      "status": "pending"
+    },
+    {
       "id": 1766190280540,
       "type": "task_pending",
       "childId": 1765606414306,

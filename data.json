@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1766205841438,
+      "type": "redeem_pending",
+      "childId": 1765376170232,
+      "itemId": "r3",
+      "itemName": "買 $100 的禮物 x3",
+      "points": 15000,
+      "timestamp": 1766205841438,
+      "status": "pending"
+    },
+    {
       "id": 1766202759464,
       "type": "redeem_pending",
       "childId": 1765376170232,

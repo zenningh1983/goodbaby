@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1766222025880,
+      "type": "redeem_pending",
+      "childId": 1765376170232,
+      "itemId": "r1764842755781",
+      "itemName": "玩 3C 15 分鐘",
+      "points": 5000,
+      "timestamp": 1766222025880,
+      "status": "pending"
+    },
+    {
       "id": 1766219136568,
       "type": "redeem_pending",
       "childId": 1765376170232,

@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766306015111,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765235766935",
+      "itemName": "複習單科",
+      "points": 3000,
+      "timestamp": 1766306015111,
+      "status": "pending"
+    },
+    {
+      "id": 1766306003253,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765193497307",
+      "itemName": "書包便當外套掛好",
+      "points": 1500,
+      "timestamp": 1766306003253,
+      "status": "pending"
+    },
+    {
       "id": 1766306001030,
       "type": "task_pending",
       "childId": 1765376170232,

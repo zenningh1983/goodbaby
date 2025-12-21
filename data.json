@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1766312342442,
+      "type": "redeem_pending",
+      "childId": 1765376186944,
+      "itemId": "r1",
+      "itemName": "看電視 30 分鐘",
+      "points": 5000,
+      "timestamp": 1766312342442,
+      "status": "pending"
+    },
+    {
       "id": 1766311489412,
       "type": "manual",
       "childId": 1765376186944,

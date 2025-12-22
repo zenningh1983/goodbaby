@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766407443138,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354593389,
+      "itemName": "聯絡本文字工整",
+      "points": 500,
+      "timestamp": 1766407443138,
+      "status": "pending"
+    },
+    {
+      "id": 1766407432059,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631769020,
+      "itemName": "一天喝2瓶奶",
+      "points": 1500,
+      "timestamp": 1766407432059,
+      "status": "pending"
+    },
+    {
       "id": 1766407430000,
       "type": "task_pending",
       "childId": 1765606414306,

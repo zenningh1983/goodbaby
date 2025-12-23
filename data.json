@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766495670933,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617789979,
+      "itemName": "自己吹乾頭髮",
+      "points": 3000,
+      "timestamp": 1766495670933,
+      "status": "pending"
+    },
+    {
+      "id": 1766495667670,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631769020,
+      "itemName": "一天喝2瓶奶",
+      "points": 1500,
+      "timestamp": 1766495667670,
+      "status": "pending"
+    },
+    {
       "id": 1766495667367,
       "type": "task_pending",
       "childId": 1765606414306,

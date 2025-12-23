@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766499873227,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": 1765354951097,
+      "itemName": "洗便當水壺、自己碗筷",
+      "points": 1500,
+      "timestamp": 1766499873227,
+      "status": "pending"
+    },
+    {
+      "id": 1766499866537,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": "t1765235650386",
+      "itemName": "拿出聯絡本",
+      "points": 1500,
+      "timestamp": 1766499866537,
+      "status": "pending"
+    },
+    {
       "id": 1766499865607,
       "type": "task_pending",
       "childId": 1765376186944,

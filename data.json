@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766642807074,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": "t1765235731807",
+      "itemName": "一週完成線上 + Reading 各兩篇",
+      "points": 3000,
+      "timestamp": 1766642807074,
+      "status": "pending"
+    },
+    {
+      "id": 1766642766380,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": "t1765179681423",
+      "itemName": "小考 100 分",
+      "points": 15000,
+      "timestamp": 1766642766380,
+      "status": "pending"
+    },
+    {
       "id": 1766642762701,
       "type": "task_pending",
       "childId": 1765376186944,

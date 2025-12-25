@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1766625164545,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354926887,
+      "itemName": "曬衣服",
+      "points": 1500,
+      "timestamp": 1766625164545,
+      "status": "pending"
+    },
+    {
       "id": 1766625158493,
       "type": "task_pending",
       "childId": 1765606414306,

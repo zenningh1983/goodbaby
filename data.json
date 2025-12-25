@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1766625631974,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235460517",
+      "itemName": "澆花",
+      "points": 1500,
+      "timestamp": 1766625631974,
+      "status": "pending"
+    },
+    {
       "id": 1766625164545,
       "type": "task_pending",
       "childId": 1765606414306,

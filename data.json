@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766751775683,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631769020,
+      "itemName": "一天喝2瓶奶",
+      "points": 1500,
+      "timestamp": 1766751775683,
+      "status": "pending"
+    },
+    {
+      "id": 1766701675941,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t3",
+      "itemName": "準時睡覺 (22:00)",
+      "points": 5000,
+      "timestamp": 1766701675941,
+      "status": "pending"
+    },
+    {
       "id": 1766701672317,
       "type": "task_pending",
       "childId": 1765606414306,

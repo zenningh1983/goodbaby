@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1766751786685,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354593389,
+      "itemName": "聯絡本文字工整",
+      "points": 500,
+      "timestamp": 1766751786685,
+      "status": "pending"
+    },
+    {
+      "id": 1766751776462,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631821922,
+      "itemName": "跳繩100下",
+      "points": 1500,
+      "timestamp": 1766751776462,
+      "status": "pending"
+    },
+    {
       "id": 1766751775683,
       "type": "task_pending",
       "childId": 1765606414306,

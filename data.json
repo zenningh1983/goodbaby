@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1767134007090,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354593389,
+      "itemName": "聯絡本文字工整",
+      "points": 500,
+      "timestamp": 1767134007090,
+      "status": "pending"
+    },
+    {
+      "id": 1767133944876,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t3",
+      "itemName": "準時睡覺 (22:00)",
+      "points": 5000,
+      "timestamp": 1767133944876,
+      "status": "pending"
+    },
+    {
       "id": 1767133943511,
       "type": "task_pending",
       "childId": 1765606414306,

@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767273743218,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354689959,
+      "itemName": "整天自動自發不拖拉",
+      "points": 10000,
+      "timestamp": 1767273743218,
+      "status": "pending"
+    },
+    {
       "id": 1767273717909,
       "type": "redeem_pending",
       "childId": 1765376186944,

@@ -585,6 +585,36 @@
   ],
   "history": [
     {
+      "id": 1767273752216,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354951097,
+      "itemName": "洗便當水壺、自己碗筷",
+      "points": 1500,
+      "timestamp": 1767273752216,
+      "status": "pending"
+    },
+    {
+      "id": 1767273751107,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354886431,
+      "itemName": "包垃圾",
+      "points": 1500,
+      "timestamp": 1767273751107,
+      "status": "pending"
+    },
+    {
+      "id": 1767273750878,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235460517",
+      "itemName": "澆花",
+      "points": 1500,
+      "timestamp": 1767273750878,
+      "status": "pending"
+    },
+    {
       "id": 1767273750046,
       "type": "task_pending",
       "childId": 1765606414306,

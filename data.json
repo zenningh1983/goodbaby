@@ -585,6 +585,36 @@
   ],
   "history": [
     {
+      "id": 1767273747447,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235766935",
+      "itemName": "複習單科",
+      "points": 3000,
+      "timestamp": 1767273747447,
+      "status": "pending"
+    },
+    {
+      "id": 1767273746605,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617789979,
+      "itemName": "自己吹乾頭髮",
+      "points": 3000,
+      "timestamp": 1767273746605,
+      "status": "pending"
+    },
+    {
+      "id": 1767273745929,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765355041892,
+      "itemName": "拖全家地",
+      "points": 5000,
+      "timestamp": 1767273745929,
+      "status": "pending"
+    },
+    {
       "id": 1767273745147,
       "type": "task_pending",
       "childId": 1765606414306,

@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1767273745147,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1764843871614",
+      "itemName": "看完一本 500 字文字書（有心得）",
+      "points": 5000,
+      "timestamp": 1767273745147,
+      "status": "pending"
+    },
+    {
+      "id": 1767273743586,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1764843549090",
+      "itemName": "大考 80 分以上",
+      "points": 8000,
+      "timestamp": 1767273743586,
+      "status": "pending"
+    },
+    {
       "id": 1767273743218,
       "type": "task_pending",
       "childId": 1765606414306,

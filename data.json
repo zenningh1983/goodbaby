@@ -682,7 +682,7 @@
       "itemName": "澆花",
       "points": 1500,
       "timestamp": 1767273750878,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273750046,
@@ -692,7 +692,7 @@
       "itemName": "折被子",
       "points": 1500,
       "timestamp": 1767273750046,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273749695,
@@ -702,7 +702,7 @@
       "itemName": "書包便當外套掛好",
       "points": 1500,
       "timestamp": 1767273749695,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273748845,

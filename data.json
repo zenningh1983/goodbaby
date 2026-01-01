@@ -732,7 +732,7 @@
       "itemName": "複習單科",
       "points": 3000,
       "timestamp": 1767273747447,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273746605,
@@ -742,7 +742,7 @@
       "itemName": "自己吹乾頭髮",
       "points": 3000,
       "timestamp": 1767273746605,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273745929,

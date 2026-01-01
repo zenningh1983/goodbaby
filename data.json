@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767239456606,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235766935",
+      "itemName": "複習單科",
+      "points": 3000,
+      "timestamp": 1767239456606,
+      "status": "pending"
+    },
+    {
       "id": 1767190398497,
       "type": "task_pending",
       "childId": 1765606414306,

@@ -752,7 +752,7 @@
       "itemName": "拖全家地",
       "points": 5000,
       "timestamp": 1767273745929,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273745147,
@@ -762,7 +762,7 @@
       "itemName": "看完一本 500 字文字書（有心得）",
       "points": 5000,
       "timestamp": 1767273745147,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273743586,
@@ -772,7 +772,7 @@
       "itemName": "大考 80 分以上",
       "points": 8000,
       "timestamp": 1767273743586,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273743218,
@@ -782,7 +782,7 @@
       "itemName": "整天自動自發不拖拉",
       "points": 10000,
       "timestamp": 1767273743218,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273717909,

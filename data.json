@@ -632,7 +632,7 @@
       "itemName": "曬衣服",
       "points": 1500,
       "timestamp": 1767273757124,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273755973,
@@ -642,7 +642,7 @@
       "itemName": "洗便當水壺、自己碗筷",
       "points": 1500,
       "timestamp": 1767273755973,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273753998,
@@ -652,7 +652,7 @@
       "itemName": "聯絡本文字工整",
       "points": 500,
       "timestamp": 1767273753998,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767273752216,

@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767491315921,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765202485010",
+      "itemName": "文城下課當天完成一項作業",
+      "points": 3000,
+      "timestamp": 1767491315921,
+      "status": "pending"
+    },
+    {
       "id": 1767491289677,
       "type": "task_pending",
       "childId": 1765376170232,

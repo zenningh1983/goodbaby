@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767706057220,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631821922,
+      "itemName": "跳繩100下",
+      "points": 1500,
+      "timestamp": 1767706057220,
+      "status": "pending"
+    },
+    {
       "id": 1767705826875,
       "type": "task_pending",
       "childId": 1765606414306,
@@ -602,7 +612,7 @@
       "itemName": "拿出聯絡本",
       "points": 1500,
       "timestamp": 1767705815079,
-      "status": "rejected"
+      "status": "pending"
     },
     {
       "id": 1767652377311,

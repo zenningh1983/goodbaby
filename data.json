@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767705815079,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235650386",
+      "itemName": "拿出聯絡本",
+      "points": 1500,
+      "timestamp": 1767705815079,
+      "status": "pending"
+    },
+    {
       "id": 1767652377311,
       "type": "task_pending",
       "childId": 1765606414306,

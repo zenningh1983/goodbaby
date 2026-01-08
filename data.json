@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767877978602,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631769020,
+      "itemName": "一天喝2瓶奶",
+      "points": 1500,
+      "timestamp": 1767877978602,
+      "status": "pending"
+    },
+    {
       "id": 1767877976357,
       "type": "task_pending",
       "childId": 1765606414306,

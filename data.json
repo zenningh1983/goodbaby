@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767881298191,
+      "type": "task_pending",
+      "childId": 1765376186944,
+      "itemId": 1765354901196,
+      "itemName": "倒垃圾",
+      "points": 1500,
+      "timestamp": 1767881298191,
+      "status": "pending"
+    },
+    {
       "id": 1767881285371,
       "type": "task_pending",
       "childId": 1765376186944,

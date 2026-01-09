@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1767966047518,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765179577395",
+      "itemName": "07:00 前完成出門準備",
+      "points": 5000,
+      "timestamp": 1767966047518,
+      "status": "pending"
+    },
+    {
       "id": 1767911631381,
       "type": "redeem_pending",
       "childId": 1765606414306,

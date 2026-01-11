@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1768172958805,
+      "type": "redeem_pending",
+      "childId": 1765376170232,
+      "itemId": "r1764843641021",
+      "itemName": "零用錢 $200",
+      "points": 10000,
+      "timestamp": 1768172958805,
+      "status": "pending"
+    },
+    {
       "id": 1768172283959,
       "type": "task_pending",
       "childId": 1765606414306,

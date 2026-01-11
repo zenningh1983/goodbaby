@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1768173615621,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355021791,
+      "itemName": "保持書桌整齊",
+      "points": 1500,
+      "timestamp": 1768173615621,
+      "status": "pending"
+    },
+    {
       "id": 1768172958805,
       "type": "redeem_pending",
       "childId": 1765376170232,
@@ -1529,7 +1539,7 @@
       "itemName": "手搖飲一杯",
       "points": 5000,
       "timestamp": 1767273717909,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767239462009,

@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1768137980953,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235766935",
+      "itemName": "複習單科",
+      "points": 3000,
+      "timestamp": 1768137980953,
+      "status": "pending"
+    },
+    {
+      "id": 1768137978176,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235731807",
+      "itemName": "一週完成線上 + Reading 各兩篇",
+      "points": 3000,
+      "timestamp": 1768137978176,
+      "status": "pending"
+    },
+    {
       "id": 1768137976009,
       "type": "task_pending",
       "childId": 1765606414306,

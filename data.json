@@ -585,6 +585,35 @@
   ],
   "history": [
     {
+      "id": 1768394238492,
+      "type": "redeem_pending",
+      "childId": 1765606414306,
+      "itemName": "遊戲課金",
+      "points": 50000,
+      "timestamp": 1768394238492,
+      "status": "pending"
+    },
+    {
+      "id": 1768394233550,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631821922,
+      "itemName": "跳繩100下",
+      "points": 1500,
+      "timestamp": 1768394233550,
+      "status": "pending"
+    },
+    {
+      "id": 1768394232869,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631769020,
+      "itemName": "一天喝2瓶奶",
+      "points": 1500,
+      "timestamp": 1768394232869,
+      "status": "pending"
+    },
+    {
       "id": 1768394226495,
       "type": "task_pending",
       "childId": 1765606414306,

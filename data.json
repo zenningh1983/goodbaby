@@ -585,6 +585,16 @@
   ],
   "history": [
     {
+      "id": 1768481127703,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765200050768",
+      "itemName": "大考單科進步 10 分",
+      "points": 10000,
+      "timestamp": 1768481127703,
+      "status": "pending"
+    },
+    {
       "id": 1768477247322,
       "type": "task_pending",
       "childId": 1765606414306,

@@ -585,6 +585,26 @@
   ],
   "history": [
     {
+      "id": 1768948457906,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354960803,
+      "itemName": "收書桌",
+      "points": 1500,
+      "timestamp": 1768948457906,
+      "status": "pending"
+    },
+    {
+      "id": 1768916140370,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354593389,
+      "itemName": "聯絡本文字工整",
+      "points": 500,
+      "timestamp": 1768916140370,
+      "status": "pending"
+    },
+    {
       "id": 1768916137890,
       "type": "task_pending",
       "childId": 1765606414306,

@@ -141,6 +141,17 @@
       "categoryId": "cat_1765348442376"
     },
     {
+      "id": "t1764843549090",
+      "title": "大考 80 分以上",
+      "points": 10000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "assignee": "all",
+      "categoryId": "cat_1765348442376"
+    },
+    {
       "id": 1765354654258,
       "title": "整天不讓媽媽生氣",
       "points": 10000,
@@ -171,17 +182,6 @@
         "k1764842571109"
       ],
       "assignee": "all"
-    },
-    {
-      "id": "t1764843549090",
-      "title": "大考 80 分以上",
-      "points": 10000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "assignee": "all",
-      "categoryId": "cat_1765348442376"
     },
     {
       "id": 1765617080249,
@@ -266,30 +266,8 @@
       "categoryId": "cat_1765352689791"
     },
     {
-      "id": "t1765192308004",
-      "title": "洗澡+吹頭30分鐘內",
-      "points": 2000,
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all",
-      "categoryId": "cat_1765348430662"
-    },
-    {
       "id": "t1765235731807",
       "title": "一週完成線上 + Reading 各兩篇",
-      "points": 3000,
-      "categoryId": "cat_1765348442376",
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all"
-    },
-    {
-      "id": "t1765235766935",
-      "title": "複習單科",
       "points": 3000,
       "categoryId": "cat_1765348442376",
       "assignedTo": [
@@ -333,6 +311,17 @@
       "points": 3000,
       "assignee": "all",
       "categoryId": "cat_1765352689791"
+    },
+    {
+      "id": "t1765192308004",
+      "title": "洗澡+吹頭30分鐘內",
+      "points": 2000,
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "assignee": "all",
+      "categoryId": "cat_1765348430662"
     },
     {
       "id": 1765617789979,

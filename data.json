@@ -574,6 +574,16 @@
   ],
   "history": [
     {
+      "id": 1770247145321,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765355082948,
+      "itemName": "洗全家碗",
+      "points": 1500,
+      "timestamp": 1770247145321,
+      "status": "pending"
+    },
+    {
       "id": 1770247125176,
       "type": "task_pending",
       "childId": 1765606414306,

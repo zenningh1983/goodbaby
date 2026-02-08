@@ -574,6 +574,16 @@
   ],
   "history": [
     {
+      "id": 1770560497623,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765192818807",
+      "itemName": "把衣服翻到正面，裝洗衣袋",
+      "points": 1500,
+      "timestamp": 1770560497623,
+      "status": "pending"
+    },
+    {
       "id": 1770557419909,
       "type": "task_pending",
       "childId": 1765606414306,

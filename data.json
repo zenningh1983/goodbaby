@@ -574,6 +574,26 @@
   ],
   "history": [
     {
+      "id": 1771887598261,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765179577395",
+      "itemName": "07:00 前完成出門準備",
+      "points": 5000,
+      "timestamp": 1771887598261,
+      "status": "pending"
+    },
+    {
+      "id": 1771887579777,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765179577395",
+      "itemName": "07:00 前完成出門準備",
+      "points": 5000,
+      "timestamp": 1771887579777,
+      "status": "pending"
+    },
+    {
       "id": 1771887579373,
       "type": "task_pending",
       "childId": 1765606414306,

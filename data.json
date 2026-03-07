@@ -461,6 +461,14 @@
   ],
   "rewards": [
     {
+      "id": 1772852669868,
+      "title": "3C遊戲10分鐘",
+      "points": 50000,
+      "assignee": "1765606414306",
+      "categoryId": "",
+      "isRepeatable": true
+    },
+    {
       "title": "遊戲課金",
       "points": 50000,
       "assignee": "all",

@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1772926703733,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354999008,
+      "itemName": "折被子",
+      "points": 1500,
+      "timestamp": 1772926703733,
+      "status": "pending"
+    },
+    {
       "id": 1772926699678,
       "type": "task_pending",
       "childId": 1765606414306,

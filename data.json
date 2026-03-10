@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1773185912478,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354484037,
+      "itemName": "刷數學題 20 題",
+      "points": 5000,
+      "timestamp": 1773185912478,
+      "status": "pending"
+    },
+    {
       "id": 1773185909260,
       "type": "task_pending",
       "childId": 1765376170232,

@@ -590,6 +590,16 @@
   ],
   "history": [
     {
+      "id": 1773220408849,
+      "type": "redeem_pending",
+      "childId": 1765376170232,
+      "itemId": 1773220303473,
+      "itemName": "遊戲課金100R x2",
+      "points": 10000,
+      "timestamp": 1773220408849,
+      "status": "pending"
+    },
+    {
       "id": 1773219506182,
       "type": "redeem_pending",
       "childId": 1765376170232,

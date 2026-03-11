@@ -582,6 +582,15 @@
   ],
   "history": [
     {
+      "id": 1773219506182,
+      "type": "redeem_pending",
+      "childId": 1765376170232,
+      "itemName": "遊戲課金400R x2",
+      "points": 100000,
+      "timestamp": 1773219506182,
+      "status": "pending"
+    },
+    {
       "id": 1773185918515,
       "type": "task_pending",
       "childId": 1765376170232,

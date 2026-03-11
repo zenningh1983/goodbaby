@@ -582,6 +582,26 @@
   ],
   "history": [
     {
+      "id": 1773241610212,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765355021791,
+      "itemName": "保持書桌整齊",
+      "points": 1500,
+      "timestamp": 1773241610212,
+      "status": "pending"
+    },
+    {
+      "id": 1773241608573,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": "t1765193497307",
+      "itemName": "書包便當外套掛好",
+      "points": 1500,
+      "timestamp": 1773241608573,
+      "status": "pending"
+    },
+    {
       "id": 1773241607717,
       "type": "task_pending",
       "childId": 1765376170232,

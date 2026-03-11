@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1773241623969,
+      "type": "task_pending",
+      "childId": 1765376170232,
+      "itemId": 1765354960803,
+      "itemName": "收書桌",
+      "points": 1500,
+      "timestamp": 1773241623969,
+      "status": "pending"
+    },
+    {
       "id": 1773241610212,
       "type": "task_pending",
       "childId": 1765376170232,

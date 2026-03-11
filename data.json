@@ -1306,7 +1306,7 @@
       "itemName": "折被子",
       "points": 1500,
       "timestamp": 1770549633212,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1770549590192,
@@ -1316,7 +1316,7 @@
       "itemName": "收衣服",
       "points": 1500,
       "timestamp": 1770549590192,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1770549543390,
@@ -2695,7 +2695,7 @@
       "itemName": "收書桌",
       "points": 1500,
       "timestamp": 1768039809301,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1768039784772,
@@ -2705,7 +2705,7 @@
       "itemName": "包垃圾",
       "points": 1500,
       "timestamp": 1768039784772,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1768016408693,
@@ -2814,7 +2814,7 @@
       "itemName": "書包便當外套掛好",
       "points": 1500,
       "timestamp": 1767881311995,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767881308677,
@@ -2824,7 +2824,7 @@
       "itemName": "拿出聯絡本",
       "points": 1500,
       "timestamp": 1767881308677,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767881304052,
@@ -2834,7 +2834,7 @@
       "itemName": "洗便當水壺、自己碗筷",
       "points": 1500,
       "timestamp": 1767881304052,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767881300868,
@@ -2844,7 +2844,7 @@
       "itemName": "聯絡本文字工整",
       "points": 500,
       "timestamp": 1767881300868,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767881298191,
@@ -2854,7 +2854,7 @@
       "itemName": "倒垃圾",
       "points": 1500,
       "timestamp": 1767881298191,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767881285371,
@@ -2864,7 +2864,7 @@
       "itemName": "不挑食、不剩飯",
       "points": 5000,
       "timestamp": 1767881285371,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1767877980077,

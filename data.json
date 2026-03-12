@@ -469,13 +469,6 @@
       "isRepeatable": true
     },
     {
-      "title": "遊戲課金",
-      "points": 50000,
-      "assignee": "all",
-      "categoryId": "cat_1765348223694",
-      "isRepeatable": true
-    },
-    {
       "id": "r1764842804595",
       "title": "同學家外宿一次",
       "cost": 50000,
@@ -529,6 +522,13 @@
       "points": 5000,
       "assignee": "all",
       "categoryId": "cat_1765348170564",
+      "isRepeatable": true
+    },
+    {
+      "title": "遊戲課金",
+      "points": 5000,
+      "assignee": "all",
+      "categoryId": "cat_1765348223694",
       "isRepeatable": true
     },
     {

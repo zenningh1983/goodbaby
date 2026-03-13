@@ -582,6 +582,26 @@
   ],
   "history": [
     {
+      "id": 1773409779427,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631821922,
+      "itemName": "跳繩150下",
+      "points": 1500,
+      "timestamp": 1773409779427,
+      "status": "pending"
+    },
+    {
+      "id": 1773409753690,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765179577395",
+      "itemName": "07:00 前完成出門準備",
+      "points": 5000,
+      "timestamp": 1773409753690,
+      "status": "pending"
+    },
+    {
       "id": 1773409750959,
       "type": "task_pending",
       "childId": 1765606414306,

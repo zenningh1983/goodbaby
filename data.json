@@ -582,6 +582,26 @@
   ],
   "history": [
     {
+      "id": 1773839430913,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631821922,
+      "itemName": "跳繩150下",
+      "points": 1500,
+      "timestamp": 1773839430913,
+      "status": "pending"
+    },
+    {
+      "id": 1773839429332,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617789979,
+      "itemName": "先洗澡+吹頭",
+      "points": 2000,
+      "timestamp": 1773839429332,
+      "status": "pending"
+    },
+    {
       "id": 1773834434533,
       "type": "task_pending",
       "childId": 1765606414306,

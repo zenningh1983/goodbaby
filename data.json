@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1774444657126,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631821922,
+      "itemName": "跳繩150下",
+      "points": 1500,
+      "timestamp": 1774444657126,
+      "status": "pending"
+    },
+    {
       "id": 1774444646667,
       "type": "task_pending",
       "childId": 1765606414306,

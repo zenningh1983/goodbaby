@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1774704653140,
+      "type": "redeem_pending",
+      "childId": 1765606414306,
+      "itemId": 1772852669868,
+      "itemName": "假日3C遊戲+10分鐘",
+      "points": 50000,
+      "timestamp": 1774704653140,
+      "status": "pending"
+    },
+    {
       "id": 1774704578595,
       "type": "task_pending",
       "childId": 1765606414306,

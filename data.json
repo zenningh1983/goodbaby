@@ -582,6 +582,26 @@
   ],
   "history": [
     {
+      "id": 1775393721771,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617789979,
+      "itemName": "先洗澡+吹頭",
+      "points": 2000,
+      "timestamp": 1775393721771,
+      "status": "pending"
+    },
+    {
+      "id": 1775393712020,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354999008,
+      "itemName": "折被子",
+      "points": 1500,
+      "timestamp": 1775393712020,
+      "status": "pending"
+    },
+    {
       "id": 1775279914850,
       "type": "task_pending",
       "childId": 1765606414306,

@@ -465,7 +465,14 @@
       "title": "假日3C遊戲+10分鐘",
       "points": 50000,
       "assignee": "1765606414306",
-      "categoryId": "",
+      "categoryId": "cat_1765348223694",
+      "isRepeatable": true
+    },
+    {
+      "title": "遊戲課金",
+      "points": 50000,
+      "assignee": "all",
+      "categoryId": "cat_1765348223694",
       "isRepeatable": true
     },
     {
@@ -522,13 +529,6 @@
       "points": 5000,
       "assignee": "all",
       "categoryId": "cat_1765348170564",
-      "isRepeatable": true
-    },
-    {
-      "title": "遊戲課金",
-      "points": 50000,
-      "assignee": "all",
-      "categoryId": "cat_1765348223694",
       "isRepeatable": true
     },
     {

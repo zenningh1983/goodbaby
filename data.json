@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1776258827853,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617080249,
+      "itemName": "準時起床（06:21）",
+      "points": 5000,
+      "timestamp": 1776258827853,
+      "status": "pending"
+    },
+    {
       "id": 1776171376691,
       "type": "task_pending",
       "childId": 1765606414306,

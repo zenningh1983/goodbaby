@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1776380486821,
+      "type": "redeem_pending",
+      "childId": 1765606414306,
+      "itemId": "r1764842804595",
+      "itemName": "同學家外宿一次",
+      "points": 50000,
+      "timestamp": 1776380486821,
+      "status": "pending"
+    },
+    {
       "id": 1776380373112,
       "type": "task_pending",
       "childId": 1765606414306,

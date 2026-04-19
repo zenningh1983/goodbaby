@@ -582,6 +582,16 @@
   ],
   "history": [
     {
+      "id": 1776600728771,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1764843871614",
+      "itemName": "看完一本 500 字文字書（有心得）",
+      "points": 5000,
+      "timestamp": 1776600728771,
+      "status": "pending"
+    },
+    {
       "id": 1776600605897,
       "type": "task_pending",
       "childId": 1765606414306,

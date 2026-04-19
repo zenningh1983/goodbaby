@@ -582,6 +582,26 @@
   ],
   "history": [
     {
+      "id": 1776600167544,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t3",
+      "itemName": "準時睡覺 (22:00)",
+      "points": 5000,
+      "timestamp": 1776600167544,
+      "status": "pending"
+    },
+    {
+      "id": 1776600108612,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765354886431,
+      "itemName": "包垃圾",
+      "points": 1500,
+      "timestamp": 1776600108612,
+      "status": "pending"
+    },
+    {
       "id": 1776600105900,
       "type": "task_pending",
       "childId": 1765606414306,

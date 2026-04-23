@@ -184,45 +184,6 @@
       "categoryId": "cat_1765348453493"
     },
     {
-      "id": 1765617080249,
-      "title": "準時起床（06:21）",
-      "points": 4000,
-      "assignee": "1765606414306",
-      "categoryId": "cat_1765348430662"
-    },
-    {
-      "id": "t1764842844312",
-      "title": "準時起床 (06:30)",
-      "points": 4000,
-      "assignedTo": [
-        "k1",
-        "k1764842571109"
-      ],
-      "categoryId": "cat_1765348430662",
-      "assignee": "all"
-    },
-    {
-      "id": "t3",
-      "title": "準時睡覺 (22:00)",
-      "points": 4000,
-      "assignedTo": [
-        "k1"
-      ],
-      "categoryId": "cat_1765348430662",
-      "assignee": "all"
-    },
-    {
-      "id": "t1765179577395",
-      "title": "07:00 前完成出門準備",
-      "points": 4000,
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "categoryId": "cat_1765348430662",
-      "assignee": "all"
-    },
-    {
       "id": 1765354484037,
       "title": "刷數學題 20 題",
       "points": 5000,
@@ -264,6 +225,45 @@
       "points": 5000,
       "assignee": "all",
       "categoryId": "cat_1765352689791"
+    },
+    {
+      "id": 1765617080249,
+      "title": "準時起床（06:21）",
+      "points": 4000,
+      "assignee": "1765606414306",
+      "categoryId": "cat_1765348430662"
+    },
+    {
+      "id": "t1764842844312",
+      "title": "準時起床 (06:30)",
+      "points": 4000,
+      "assignedTo": [
+        "k1",
+        "k1764842571109"
+      ],
+      "categoryId": "cat_1765348430662",
+      "assignee": "all"
+    },
+    {
+      "id": "t3",
+      "title": "準時睡覺 (22:00)",
+      "points": 4000,
+      "assignedTo": [
+        "k1"
+      ],
+      "categoryId": "cat_1765348430662",
+      "assignee": "all"
+    },
+    {
+      "id": "t1765179577395",
+      "title": "07:00 前完成出門準備",
+      "points": 4000,
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
+      "categoryId": "cat_1765348430662",
+      "assignee": "all"
     },
     {
       "id": "t1765235731807",
@@ -324,6 +324,13 @@
       "categoryId": "cat_1765348430662"
     },
     {
+      "id": 1765355082948,
+      "title": "洗全家碗",
+      "points": 2000,
+      "assignee": "all",
+      "categoryId": "cat_1765352689791"
+    },
+    {
       "id": 1765631821922,
       "title": "跳繩200下",
       "points": 1500,
@@ -349,29 +356,11 @@
       "categoryId": "cat_1765348430662"
     },
     {
-      "id": "t1765193497307",
-      "title": "書包便當外套掛好",
-      "points": 1000,
-      "assignedTo": [
-        "k1765179459362",
-        "k1764842571109"
-      ],
-      "assignee": "all",
-      "categoryId": "cat_1765348430662"
-    },
-    {
       "id": 1765354999008,
       "title": "折被子",
-      "points": 1500,
-      "assignee": "all",
-      "categoryId": "cat_1765348430662"
-    },
-    {
-      "id": 1765355021791,
-      "title": "保持書桌整齊",
       "points": 1000,
       "assignee": "all",
-      "categoryId": "cat_1765348430662"
+      "categoryId": "cat_1765352689791"
     },
     {
       "id": "t1765235650386",
@@ -385,11 +374,22 @@
       "assignee": "all"
     },
     {
-      "id": 1765355082948,
-      "title": "洗全家碗",
-      "points": 2000,
+      "id": "t1765193497307",
+      "title": "書包便當外套掛好",
+      "points": 1000,
+      "assignedTo": [
+        "k1765179459362",
+        "k1764842571109"
+      ],
       "assignee": "all",
-      "categoryId": "cat_1765352689791"
+      "categoryId": "cat_1765348430662"
+    },
+    {
+      "id": 1765355021791,
+      "title": "保持書桌整齊",
+      "points": 1000,
+      "assignee": "all",
+      "categoryId": "cat_1765348430662"
     },
     {
       "id": 1765354886431,

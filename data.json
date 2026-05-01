@@ -564,6 +564,16 @@
   ],
   "history": [
     {
+      "id": 1777642633774,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1776904916049,
+      "itemName": "洗襪子",
+      "points": 1000,
+      "timestamp": 1777642633774,
+      "status": "pending"
+    },
+    {
       "id": 1777501612976,
       "type": "task_pending",
       "childId": 1765606414306,

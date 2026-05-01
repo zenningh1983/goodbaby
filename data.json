@@ -564,6 +564,16 @@
   ],
   "history": [
     {
+      "id": 1777642648173,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235731807",
+      "itemName": "一週完成線上 + Reading 各兩篇",
+      "points": 3000,
+      "timestamp": 1777642648173,
+      "status": "pending"
+    },
+    {
       "id": 1777642633774,
       "type": "task_pending",
       "childId": 1765606414306,

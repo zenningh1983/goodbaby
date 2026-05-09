@@ -603,7 +603,7 @@
       "itemName": "準時睡覺 (22:00)",
       "points": 4000,
       "timestamp": 1778158686082,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1778158685584,
@@ -613,7 +613,7 @@
       "itemName": "準時起床（06:21）",
       "points": 4000,
       "timestamp": 1778158685584,
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": 1777986151600,

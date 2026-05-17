@@ -546,6 +546,16 @@
   ],
   "history": [
     {
+      "id": 1779022881470,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765617789979,
+      "itemName": "先洗澡+吹頭",
+      "points": 2000,
+      "timestamp": 1779022881470,
+      "status": "pending"
+    },
+    {
       "id": 1779022872339,
       "type": "task_pending",
       "childId": 1765606414306,

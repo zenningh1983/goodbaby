@@ -546,6 +546,36 @@
   ],
   "history": [
     {
+      "id": 1779284986249,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": 1765631769020,
+      "itemName": "一天喝2瓶奶",
+      "points": 2000,
+      "timestamp": 1779284986249,
+      "status": "pending"
+    },
+    {
+      "id": 1779284982887,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765179577395",
+      "itemName": "07:00 前完成出門準備",
+      "points": 4000,
+      "timestamp": 1779284982887,
+      "status": "pending"
+    },
+    {
+      "id": 1779284981718,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t3",
+      "itemName": "準時睡覺 (22:00)",
+      "points": 4000,
+      "timestamp": 1779284981718,
+      "status": "pending"
+    },
+    {
       "id": 1779284980366,
       "type": "task_pending",
       "childId": 1765606414306,

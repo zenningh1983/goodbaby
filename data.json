@@ -546,6 +546,16 @@
   ],
   "history": [
     {
+      "id": 1788661237256,
+      "type": "task_pending",
+      "childId": 1765606414306,
+      "itemId": "t1765235684494",
+      "itemName": "佳音下課當天完成作業",
+      "points": 3000,
+      "timestamp": 1788661237256,
+      "status": "pending"
+    },
+    {
       "id": 1788661229357,
       "type": "task_pending",
       "childId": 1765606414306,
